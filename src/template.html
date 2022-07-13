@@ -8,10 +8,61 @@
 </head>
 <body>
     <div class="container">
-        <h3>Don't Laugh Challenge</h3>
-        <div id="joke" class="joke"></div>
-        <button id="jokeBtn" class="btn">Get Another Joke</button>
-    </div>
+        <div class="task-container">
+            <div class="task-wrapper">
+                <input type="text" name="title" id="title" placeholder="Enter a task or project name">
+                <textarea name="description" id="description" cols="30" rows="10" placeholder="Your description"></textarea>
+                <div class="element-wrapper">
+                    <form>
+                        <div class="select-items">
+                           <div><label for="date">Due date:</label>
+                            <input type="datetime" name="date" id="date"></div>
+                            <div><label for="priority">Priority:</label>
+                            <select id="priority" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select></div>
+                        </div>
+                        <div class="button-wrapper">
+                            <button type="submit">Add to list</button>
+                            <button type="submit">Add to project</button>
+                        </div>
+                    </form>
+                </div>
 
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <a href="#" class="brand">Do<span>-</span>it</a>
+            <div id="nav-menu"></div>
+        </nav>
+        <div class="content-wrapper">
+            <aside class="side-bar">
+                <ul>
+                    <li class="list-items active-list">
+                        <img src="../src/assets/inbox-icon.png"/>
+                        <a href="#">Inbox</a>
+                    </li>
+                    <li class="list-items">
+                        <img src="../src/assets/today-icon.png"/>
+                        <a href="#">Today</a>
+                    </li>
+                    <li class="list-items">
+                        <img src="../src/assets/week-icon.png">
+                        <a href="#">Week</a>
+                    </li>
+                </ul>
+                <div class="project-wrapper">
+                    <h3>Projects</h3>
+                </div>
+                <div class="button-wrapper">
+                    <button type="button" class="addlist"></button>
+                </div>
+            </aside>
+            <div class="note-wrapper">
+            </div>
+        </div>
+        </div>
 </body>
 </html>
