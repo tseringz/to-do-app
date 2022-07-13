@@ -1,10 +1,49 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>To Do App</title><script defer="defer" src="bundle34286120457f457bec60.js"></script>
-</head><body><div class="container"><h3>Don't Laugh Challenge</h3>
-    <div id="joke" class="joke"></div>
-    <button id="jokeBtn" class="btn">Get Another Joke</button>
-    </div>
-    </body>
-    </html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+<script defer src="bundle89097810805f5151d88e.js"></script></head>
+<body>
+    <div class="container">
+        <div class="task-container">
+            <div class="task-wrapper">
+                <input type="text" name="title" id="title" placeholder="Enter a task or project name">
+                <textarea name="description" id="description" cols="30" rows="10" placeholder="Your description"></textarea>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <a href="#" class="brand">Do<span>-</span>it</a>
+            <div id="nav-menu"></div>
+        </nav>
+        <div class="content-wrapper">
+            <aside class="side-bar">
+                <ul>
+                    <li class="list-items active-list">
+                        <img src="../src/assets/inbox-icon.png"/>
+                        <a href="#">Inbox</a>
+                    </li>
+                    <li class="list-items">
+                        <img src="../src/assets/today-icon.png"/>
+                        <a href="#">Today</a>
+                    </li>
+                    <li class="list-items">
+                        <img src="../src/assets/week-icon.png">
+                        <a href="#">Week</a>
+                    </li>
+                </ul>
+                <div class="project-wrapper">
+                    <h3>Projects</h3>
+                </div>
+                <div class="button-wrapper">
+                    <button type="button" class="addlist"></button>
+                </div>
+            </aside>
+            <div class="note-wrapper">
+            </div>
+        </div>
+        </div>
+</body>
+</html>
