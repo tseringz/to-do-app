@@ -8,48 +8,65 @@
 // very few selections 
 // no memory leaks
 // all event can be unbound
-import { addDays, addMonths, format, addYears, startOfDay,  subDays } from 'date-fns';
-const date = new Date();
-const tomorrow = addDays(date, 1);
-const dateFormatted = format(date, "MM/dd/yyyy");
+import List from './task';
+import {  addDays, format, isToday, isTomorrow,  startOfToday } from 'date-fns';
 
-console.log(date);
-console.log(tomorrow);
-console.log(dateFormatted);
+function addToArray(){
+    const today = [{
+        todoId: '1658394469179',
+        title: 'You are fucked up',
+        textArea: 'You deserve more',
+        priority: 'Low',
+        dueDate: '2022-07-17'
+    },
+    {   
+    todoId: '1658394644503',
+    title: 'I don\'t give a fuck',
+    textArea: 'You deserve more',
+    priority: 'Low',
+    dueDate: '2022-07-17'
+},
+{   
+    todoId: '1658394665510',
+    title: 'this is cool',
+    textArea: 'You deserve more',
+    priority: 'Low',
+    dueDate: '2022-07-17'
+}];
 
-const addList = ( function(){
-    const inbox = [];
-    const today = [];
-    const week = [];
+    const week = [{
+        todoId: '1658394693442',
+        title: 'this is cool',
+        textArea: 'You deserve more',
+        priority: 'Low',
+        dueDate: '2022-07-17'
+    },
+    { 
+    todoId: '1658394723438',
+    title: 'this is cool',
+    textArea: 'You deserve more',
+    priority: 'Low',
+    dueDate: '2022-07-17'
+},
+{   todoId: '1658394745255',
+    title: 'this is not cool',
+    textArea: 'You deserve more',
+    priority: 'Low',
+    dueDate: '2022-07-17'
+}];
 
-    function List(addlist) {
-        return {
-            textArea: "Your description",
-            priority: "Low",
-            dueDate: "2/07/2022",
-            addList: 'Add to project'
-        }
-    }
-    
-    const newList = List('Add to project');
-    console.log(newList.textArea);
-    console.log(newList);
-
-    const btnClick = document.querySelector('#jokeBtn');
-    
-    btnClick.addEventListener('click', function(e) {
-        e.preventDefault();
-        inbox.push(newList);
-        console.log(inbox);
-    });
-})();
+    let inbox = today.concat(week); // inbox contains both today and week's task
+    return [ inbox, today, week ];
+};
 
 
+export default addToArray;
 
+// function someFunc(arg) {
+//     alert(arg.foo);
+//     alert(arg.bar);
+// }
 
-
-
-
-
+// someFunc({foo: "This", bar: "works!"});
 
 
