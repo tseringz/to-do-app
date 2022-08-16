@@ -36,7 +36,14 @@ body {
  a {
   text-decoration: none;
   color: $black-color;
+  font-size: 1.25em;
+  font-weight: 500;
  }
+
+.newproject {
+  margin-top: 0.8em;
+}
+
 
  h3 {
   font-weight: 600;
@@ -74,18 +81,50 @@ body {
 
 .task-container {
   position: fixed;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: flex-start;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 999;
+  z-index: 9999;
 }
 
 
+.cross,.cross2{
+position: absolute;
+right: 10px;
+top: 20px;
+}
+
+.crossup {
+  background-color: $black-color;
+  width: 20px;
+  height: 2px;
+  transform: rotate(45deg) translateY(1.5px);
+}
+
+.crossdown {
+  background-color: $black-color;
+  width: 20px;
+  height: 2px;
+  transform: rotate(-45deg) translateY(-1.5px);
+}
+
+.task-container-edit {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
 .task-wrapper {
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-top: 150px;
   padding: 16px;
@@ -170,6 +209,7 @@ aside {
         font-weight: 500;
         font-size: 1.25em;
         margin-left: 16px;
+        cursor: pointer;
       }
 
       img {
@@ -218,8 +258,16 @@ aside {
   height: 100vh;
   background-color: $secondary-color-light-gray;
 }
+.note-wrapper > div {
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px 40px 20px;
+}
 
 .project-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   margin-top: 70px;
   padding: 8px;
@@ -239,16 +287,8 @@ form {
 }
 }
 
-#inbox,#today,#week {
-  width: 100%;
-  height: 100%;
-  padding: 40px 20px 40px 20px;
 
-}
 
-#inbox {
-  display: none;
-}
 
 .list-wrapper {
   display: flex;
@@ -278,4 +318,35 @@ form {
 
   }
 }
+
+.addproject {
+  margin-top: 32px;
+  position: relative;
+  text-align: center;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+  width: 60px;
+  border: none;
+  background: none;
+  font-size: 1.3em;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.plussign {
+  position: absolute;
+  font-size: 1.4em;
+  margin-top: -2px;
+ }
+
+ .project {
+  margin-left: 28px;
+
+ }
+
+ #projectadder {
+  display: none;
+  flex-direction: column;
+ }
 

@@ -5,10 +5,10 @@ function List() {
     const { todoId, date, priority, textArea, title } = domCaching();
     return {
         todoId: todoId,
-        title: title,
-        textArea: textArea,
-        priority: priority,
-        dueDate: date
+        title: title.value,
+        textArea: textArea.value,
+        priority: priority.value,
+        dueDate: date.value
     }
 }
 

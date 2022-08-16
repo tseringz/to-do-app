@@ -10,6 +10,10 @@
     <div class="container">
         <div class="task-container">
             <div class="task-wrapper">
+                <div class="cross">
+                    <div class="crossup"></div>
+                    <div class="crossdown"></div>
+                </div>
                 <input type="text" name="title" id="title" placeholder="Enter a task or project name">
                 <textarea name="description" id="description" cols="30" rows="10" placeholder="Your description"></textarea>
                 <div class="element-wrapper">
@@ -24,9 +28,36 @@
                                 <option value="High">High</option>
                             </select></div>
                         </div>
-                        <div class="button-wrapper">
+                        <div class="button-wrapper-edit">
                             <button id="addtolist" type="button">Add to list</button>
-                            <button type="submit">Add to project</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="task-container-edit">
+            <div class="task-wrapper">
+                <div class="cross2">
+                    <div class="crossup"></div>
+                    <div class="crossdown"></div>
+                    </div>
+                <input type="text" name="title" id="title-edit" placeholder="Enter a task or project name">
+                <textarea name="description" id="description-edit" cols="30" rows="10" placeholder="Your description"></textarea>
+                <div class="element-wrapper">
+                    <form>
+                        <div class="select-items">
+                           <div><label for="date">Due date:</label>
+                            <input type="date" name="date" id="date-edit"></div>
+                            <div><label for="priority">Priority:</label>
+                            <select id="priority-edit" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select></div>
+                        </div>
+                        <div class="button-wrapper">
+                            <button id="confirm-list" type="button">Confirm edit</button>
                         </div>
                     </form>
                 </div>
@@ -34,7 +65,7 @@
             </div>
         </div>
         <nav class="nav-bar">
-            <a href="#" class="brand">Do<span>-</span>it</a>
+            <div class="brand">Do<span>-</span>it</a></div>
             <div id="nav-menu"></div>
         </nav>
         <div class="content-wrapper">
@@ -54,7 +85,15 @@
                     </li>
                 </ul>
                 <div class="project-wrapper">
-                    <h3>Projects</h3>
+                    <h3 class="projectHeading">Projects</h3>
+                    <button type="button" class="addproject"><span class="plussign">+</span><span class="project">project</span></button>
+                    <form id="projectadder" action="" method="post">
+                        <input type="text" name="projectname" id="projectname">
+                        <div class="projectbutton-wrapper">
+                            <button type="button" id="addButton">Add</button>
+                            <button type="button">Cancel</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="button-wrapper">
                     <button type="button" class="addlist"></button>
