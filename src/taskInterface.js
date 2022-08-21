@@ -1,5 +1,6 @@
 import cachingDom from './domCaching'; // get the value of task  // create a new task  // send data to task
 import { newDatas, createTask, renderTask } from './render'; 
+import projects from './project';
 
 
 const taskContainers = document.querySelectorAll('.note-wrapper > div');

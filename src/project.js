@@ -16,7 +16,7 @@ let allLink = document.querySelectorAll('a');
 let allDiv = document.querySelectorAll('.note-wrapper > div');
 
 let counter = 0;
-const projects = [];
+export const projects = [];
 addButton.addEventListener('click', (e) => {
     e.preventDefault();
     if(projectName.value !== '') {
@@ -53,8 +53,7 @@ function linkSelection() {
                 } else {
                     allDiv[j].style.display = 'none';
                 }
-                console.log(allLink[i]);
-                
+                console.log(allLink[i]);  
         })
     }
     }

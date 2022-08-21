@@ -1,6 +1,7 @@
 import addToArray from './addlist';
 import List from './task';
 import {  addDays, format, isToday, isTomorrow,  startOfToday } from 'date-fns';
+import project from './project';
 
 
 export const newDatas = addToArray();
@@ -65,6 +66,8 @@ renderTask();
 
 function addTask() {
     const addButtons = document.querySelector('#addtolist');
+    const listOfProjects = document.querySelector('.project-wrapper > a');
+    const projectContainers = document.querySelector('.note-wrapper');
         addButtons.addEventListener('click', function(e) {
             e.preventDefault();
             let date = startOfToday();
@@ -81,6 +84,7 @@ function addTask() {
             } else if (newList.dueDate > date && newList.dueDate < weeksDate) {
                 newDatas[2].push(newList);
             }
+
             renderTask();
         });
     
