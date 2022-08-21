@@ -65,7 +65,6 @@ renderTask();
 
 function addTask() {
     const addButtons = document.querySelector('#addtolist');
-    console.log(addButtons.length);
         addButtons.addEventListener('click', function(e) {
             e.preventDefault();
             let date = startOfToday();

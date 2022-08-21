@@ -16,6 +16,7 @@ let allLink = document.querySelectorAll('a');
 let allDiv = document.querySelectorAll('.note-wrapper > div');
 
 let counter = 0;
+const projects = [];
 addButton.addEventListener('click', (e) => {
     e.preventDefault();
     if(projectName.value !== '') {
@@ -23,29 +24,31 @@ addButton.addEventListener('click', (e) => {
     const newDiv = document.createElement('div');
     newDiv.style.display = 'none';
     newLink.setAttribute('id', `projectLink${counter}`);
+    newLink.style.paddingTop = '16px';
     newDiv.setAttribute('id', `project${counter}`);
 
-    newLink.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Captilise the project name
+    newLink.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
     project.insertBefore(newLink, project.children[counter + 1]);
     noteWrapper.appendChild(newDiv);
     projectAdder.style.display = 'none';
     counter++;
     projectName.value =  '';
+    projects.push([]);
 
-    console.log(allLink.length);
-    console.log(allDiv.length);
 }
     allLink = document.querySelectorAll('a');
     allDiv = document.querySelectorAll('.note-wrapper > div');
+    console.log(projects);
+    linkSelection();
 });
 
+ 
+function linkSelection() {
     for(let i = 0; i < allLink.length; i++) {
         for(let j = 0; j < allDiv.length; j++) {
             allLink[i].addEventListener('click', function(e) {
                 e.preventDefault();
                 if( i === j) {
-                console.log(allDiv[j]);
-                console.log(allLink[i]);
                 allDiv[j].style.display = 'block'; 
                 } else {
                     allDiv[j].style.display = 'none';
@@ -55,6 +58,9 @@ addButton.addEventListener('click', (e) => {
         })
     }
     }
+
+}
+linkSelection();
 
 
 addProject.addEventListener('click', function(e) {
