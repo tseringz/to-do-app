@@ -1,10 +1,10 @@
 import addToArray from './addlist';
 import List from './task';
 import {  addDays, format, isToday, isTomorrow,  startOfToday } from 'date-fns';
-import project from './project';
+import { allDiv, projects } from './project.js';
 
 
-export const newDatas = addToArray();
+export let newDatas = addToArray();
 
 function createTask(outerIndex, innerIndex) {
     //selecting div container that will contain task list 
@@ -47,6 +47,12 @@ function createTask(outerIndex, innerIndex) {
     } else if(newDatas[outerIndex] === newDatas[2]) {
         week.appendChild(newDiv);
     }
+
+    for(let i = 3; i < allDiv.length; i++) {
+        if(allDiv[i].style.display !== 'none') {
+            allDiv[i].appendChild(newDiv);
+        }
+    }
 }
 
 function renderTask() {
@@ -54,12 +60,12 @@ function renderTask() {
     tasks.forEach(task => {
        task.remove(); 
     });
-
     for (let i = 0; i < newDatas.length; i++) {
     for(let j = 0; j < newDatas[i].length; j++) {
         createTask(i, j);
     };
 }
+
  return tasks;
 }
 renderTask();
@@ -85,6 +91,19 @@ function addTask() {
                 newDatas[2].push(newList);
             }
 
+            for(let i = 3; i < allDiv.length; i++) {
+              if(allDiv[i].style.display !== 'none') {
+                for(let j = 0; j < projects.length; j++) {
+                    if( i === j + 3) {
+                        projects[j].push(newList);
+                    }
+                }
+                
+                
+              }
+            }
+
+            console.log(projects);
             renderTask();
         });
     

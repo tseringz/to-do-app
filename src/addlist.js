@@ -98,7 +98,8 @@ function addToArray(){
     dueDate: '2022-07-17'
 }];
 
-    return [ inbox, today, week ];
+const projects = [];
+    return [ inbox, today, week, projects ];
 };
 
 export default addToArray;

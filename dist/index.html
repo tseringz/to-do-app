@@ -5,17 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do App</title>
-<script defer src="bundle89097810805f5151d88e.js"></script></head>
+<script defer src="bundle7902da58f5d423842b86.js"></script></head>
 <body>
     <div class="container">
         <div class="task-container">
             <div class="task-wrapper">
+                <div class="cross">
+                    <div class="crossup"></div>
+                    <div class="crossdown"></div>
+                </div>
                 <input type="text" name="title" id="title" placeholder="Enter a task or project name">
                 <textarea name="description" id="description" cols="30" rows="10" placeholder="Your description"></textarea>
+                <div class="element-wrapper">
+                    <form>
+                        <div class="select-items">
+                           <div><label for="date">Due date:</label>
+                            <input type="date" name="date" id="date"></div>
+                            <div><label for="priority">Priority:</label>
+                            <select id="priority" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select></div>
+                        </div>
+                        <div class="button-wrapper-edit">
+                            <button id="addtolist" type="button">Add to list</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="task-container-edit">
+            <div class="task-wrapper">
+                <div class="cross2">
+                    <div class="crossup"></div>
+                    <div class="crossdown"></div>
+                    </div>
+                <input type="text" name="title" id="title-edit" placeholder="Enter a task or project name">
+                <textarea name="description" id="description-edit" cols="30" rows="10" placeholder="Your description"></textarea>
+                <div class="element-wrapper">
+                    <form>
+                        <div class="select-items">
+                           <div><label for="date">Due date:</label>
+                            <input type="date" name="date" id="date-edit"></div>
+                            <div><label for="priority">Priority:</label>
+                            <select id="priority-edit" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select></div>
+                        </div>
+                        <div class="button-wrapper">
+                            <button id="confirm-list" type="button">Confirm edit</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
         <nav class="nav-bar">
-            <a href="#" class="brand">Do<span>-</span>it</a>
+            <div class="brand">Do<span>-</span>it</a></div>
             <div id="nav-menu"></div>
         </nav>
         <div class="content-wrapper">
@@ -35,15 +85,26 @@
                     </li>
                 </ul>
                 <div class="project-wrapper">
-                    <h3>Projects</h3>
+                    <h3 class="projectHeading">Projects</h3>
+                    <button type="button" class="addproject"><span class="plussign">+</span><span class="project">project</span></button>
+                    <form id="projectadder" action="" method="post">
+                        <input type="text" name="projectname" id="projectname">
+                        <div class="projectbutton-wrapper">
+                            <button type="button" id="addButton">Add</button>
+                            <button type="button">Cancel</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="button-wrapper">
                     <button type="button" class="addlist"></button>
                 </div>
             </aside>
             <div class="note-wrapper">
+                <div id="inbox"></div>
+                <div id="today"></div>
+                <div id="week"></div>
             </div>
         </div>
-        </div>
+    </div>
 </body>
 </html>

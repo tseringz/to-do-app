@@ -1,11 +1,4 @@
-import cachingDom from './domCaching'; // get the value of task 
-import task from './task'; // create a new task 
-import addlist from './addlist'; // send data to task
-import { newDatas, createTask, renderTask } from './render'; // factory function that will generate a task
-import List from './task';
 
-
-const projectButton = document.querySelector('#addtoproject');
 const noteWrapper = document.querySelector('.note-wrapper');
 const project = document.querySelector('.project-wrapper');
 const projectName = document.querySelector('#projectname');
@@ -16,7 +9,7 @@ let allLink = document.querySelectorAll('a');
 let allDiv = document.querySelectorAll('.note-wrapper > div');
 
 let counter = 0;
-export const projects = [];
+const projects = [];
 addButton.addEventListener('click', (e) => {
     e.preventDefault();
     if(projectName.value !== '') {
@@ -42,7 +35,6 @@ addButton.addEventListener('click', (e) => {
     linkSelection();
 });
 
- 
 function linkSelection() {
     for(let i = 0; i < allLink.length; i++) {
         for(let j = 0; j < allDiv.length; j++) {
@@ -64,7 +56,6 @@ linkSelection();
 
 addProject.addEventListener('click', function(e) {
     projectAdder.style.display = 'flex';
-
 });
 
-
+export { allDiv, projects };
