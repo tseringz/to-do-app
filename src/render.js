@@ -5,7 +5,6 @@ import { allDiv, addNewProject } from './project';
 
 let newDatas = addToArray();
 addNewProject();
-
 function createTask(outerIndex, innerIndex) {
     //selecting div container that will contain task list 
     const inbox = document.getElementById('inbox');
@@ -47,58 +46,66 @@ function createTask(outerIndex, innerIndex) {
     } else if(newDatas[outerIndex] === newDatas[2]) {
         week.appendChild(newDiv);
     } 
-        }
-
-
-function createProjectTask() {
-    //creating new Div element that will contain task details
-    const newDiv = document.createElement('div');
-    const newInnerDivOne = document.createElement('div');
-    const newInnerDivTwo = document.createElement('div');
-    const checkButton = document.createElement('input');
-    const newSpanTitle = document.createElement('span');
-    const newSpanPriority = document.createElement('span');
-    const newSpanDate = document.createElement('span');
-    const newSpanEdit = document.createElement('span');
-    const newSpanDelete = document.createElement('span');
-
-    //adding class to each element
-    newDiv.classList.add('list-wrapper');
-    newInnerDivOne.classList.add('list-element-one');
-    newInnerDivTwo.classList.add('list-element-two');
-    checkButton.setAttribute('type', 'checkbox');
-    checkButton.classList.add('taskComplete');
-    newSpanDelete.classList.add('delete');
-    newSpanEdit.classList.add('edit');
-
-    newSpanTitle.textContent = `${ newDatas[outerIndex][innerIndex].title }`;
-    newSpanPriority.textContent = `${ newDatas[outerIndex][innerIndex].priority }`;
-    newSpanDate.textContent = `${ newDatas[outerIndex][innerIndex].dueDate }`;
-    newSpanEdit.textContent = 'Edit';
-    newSpanDelete.textContent = 'Delete';
-    newDiv.append(newInnerDivOne, newInnerDivTwo);
-    newInnerDivOne.append(checkButton, newSpanTitle);
-    newInnerDivTwo.append(newSpanPriority, newSpanDate, newSpanEdit, newSpanDelete);
-    inbox.appendChild(newDiv);
     }
+
+function createProjectTask(outerIndex, innerIndex) {
+    if (newDatas[outerIndex] === newDatas[3]) {
+        console.log('Yeah!');
+      for(let i = 3; i < allDiv.length; i++) {
+            for(let k = 0; k < newDatas[3][innerIndex].length; k++) {
+                if (i === innerIndex + 3) {
+                console.log(newDatas[3][innerIndex].length);
+                const newDiv = document.createElement('div');
+                const newInnerDivOne = document.createElement('div');
+                const newInnerDivTwo = document.createElement('div');
+                const checkButton = document.createElement('input');
+                const newSpanTitle = document.createElement('span');
+                const newSpanPriority = document.createElement('span');
+                const newSpanDate = document.createElement('span');
+                const newSpanEdit = document.createElement('span');
+                const newSpanDelete = document.createElement('span');
+    
+        //adding class to each element
+                newDiv.classList.add('list-wrapper');
+                newInnerDivOne.classList.add('list-element-one');
+                newInnerDivTwo.classList.add('list-element-two');
+                checkButton.setAttribute('type', 'checkbox');
+                checkButton.classList.add('taskComplete');
+                newSpanDelete.classList.add('delete');
+                newSpanEdit.classList.add('edit');
+                newSpanTitle.textContent = `${ newDatas[3][innerIndex][k].title }`;
+                newSpanPriority.textContent = `${ newDatas[3][innerIndex][k].priority }`;
+                newSpanDate.textContent = `${ newDatas[3][innerIndex][k].dueDate }`;
+                newSpanEdit.textContent = 'Edit';
+                newSpanDelete.textContent = 'Delete';
+                newDiv.append(newInnerDivOne, newInnerDivTwo);
+                newInnerDivOne.append(checkButton, newSpanTitle);
+                newInnerDivTwo.append(newSpanPriority, newSpanDate, newSpanEdit, newSpanDelete);
+                allDiv[i].appendChild(newDiv);
+            }
+            }
+        }
+        }
+        }
 
 function renderTask() {
     const tasks = document.querySelectorAll('.list-wrapper');
     tasks.forEach(task => {
        task.remove(); 
     });
-    for (let i = 0; i < newDatas.length; i++) {
+        
+     for (let i = 0; i < newDatas.length; i++) {
     for(let j = 0; j < newDatas[i].length; j++) {
-        createTask(i, j);
-        if(newDatas[i] === newDatas[3]) {
-            for(let k = 0; k < newDatas[i][j].length; k++) {
-                createTask(i, j);
-            }
-        }
+            createTask(i, j);
     };
-}
+    };
 
- return tasks;
+    for (let i = 3; i < newDatas.length; i++) {
+        for(let j = 0; j < newDatas[i].length; j++) {
+                createProjectTask(i, j);
+        };
+        };
+    return tasks;
 }
 renderTask();
 
@@ -119,7 +126,7 @@ function addTask() {
             } else if (newList.dueDate > date && newList.dueDate < weeksDate) {
                 newDatas[2].push(newList);
             }
-            
+
             for(let i = 3; i < allDiv.length; i++) {
               if(allDiv[i].style.display !== 'none') {
                 for(let j = 0; j < newDatas[3].length; j++) {
@@ -133,8 +140,10 @@ function addTask() {
             }
 
             console.log(newDatas);
+            console.log(newDatas[3][0][1].title);
             console.log(allDiv.length);
             renderTask();
+            createProjectTask();
         });
     
 }
