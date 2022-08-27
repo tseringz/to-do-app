@@ -65,13 +65,14 @@ function createProjectTask(outerIndex, innerIndex) {
                 const newSpanEdit = document.createElement('span');
                 const newSpanDelete = document.createElement('span');
     
-        //adding class to each element
+                //adding class to each element
                 newDiv.classList.add('list-wrapper');
                 newInnerDivOne.classList.add('list-element-one');
                 newInnerDivTwo.classList.add('list-element-two');
                 checkButton.setAttribute('type', 'checkbox');
                 checkButton.classList.add('taskComplete');
                 newSpanDelete.classList.add('delete');
+                newSpanDelete.style.cursor = 'pointer';
                 newSpanEdit.classList.add('edit');
                 newSpanTitle.textContent = `${ newDatas[3][innerIndex][k].title }`;
                 newSpanPriority.textContent = `${ newDatas[3][innerIndex][k].priority }`;
@@ -94,7 +95,7 @@ function renderTask() {
        task.remove(); 
     });
         
-     for (let i = 0; i < newDatas.length; i++) {
+     for (let i = 0; i < newDatas.length - 1; i++) {
     for(let j = 0; j < newDatas[i].length; j++) {
             createTask(i, j);
     };
@@ -148,7 +149,7 @@ function addTask() {
     
 }
 addTask();
-export { createTask, renderTask, newDatas };
+export { createTask, renderTask, newDatas, createProjectTask };
 // delete task
 // add notification as number of task 
 // add to project section

@@ -1,19 +1,20 @@
 import cachingDom from './domCaching'; // get the value of task  // create a new task  // send data to task
-import { newDatas, createTask, renderTask } from './render'; 
-import projects from './project';
+import { newDatas, createTask, renderTask, createProjectTask } from './render'; 
+import { allDiv, addNewProject } from './project';
 
-
+addNewProject();
 const taskContainers = document.querySelectorAll('.note-wrapper > div');
+console.log(taskContainers);
 const taskAdder = document.querySelector('.task-container-edit');
-function removeTask() {
-    console.log(taskContainers.length);
- // iterate through each task container and remove when user clicks on delete button
-    taskContainers.forEach(taskContainer => {
-        taskContainer.addEventListener('click', function(e){
+
+function otherRemoveTask() {
+    for( let i = 0; i < allDiv.length; i++) {
+        allDiv[i].addEventListener('click', function(e){
             if(e.target.classList.contains('delete')) { 
+                console.log(allDiv.length);
                 const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-                //loop through each grid child
-                if(taskContainer.getAttribute('id') == 'inbox') {
+                console.log(currentChild);
+                  if(i === 0) {
                     for (let i = 0; i < newDatas[0].length; i++) {
                         if (e.target.parentNode.parentNode === currentChild[i]) {
                             for(let j = 0; j < newDatas[1].length; j++) {
@@ -28,48 +29,39 @@ function removeTask() {
                     }
                 }
                 renderTask();
-               
-             } else if (taskContainer.getAttribute('id') == 'today') {
-            for (let i = 0; i < newDatas[1].length; i++) {
-                if (e.target.parentNode.parentNode === currentChild[i]) {
+                  }  else if(i === 1) {
+                    for (let i = 0; i < newDatas[1].length; i++) {
+                    if (e.target.parentNode.parentNode === currentChild[i]) {
                     for(let j = 0; j < newDatas[0].length; j++) {
-                        if(newDatas[1][i].todoId === newDatas[0][j].todoId)
-                            newDatas[0].splice(j, 1);
-                    }
+                    if(newDatas[1][i].todoId === newDatas[0][j].todoId)
+                      newDatas[0].splice(j, 1);
+                     }
                     newDatas[1].splice(i, 1);
                     break;              
-           
-            }
-        }
-        renderTask();
-    
-            } else if(taskContainer.getAttribute('id') == 'week') {
-                for (let i = 0; i < newDatas[2].length; i++) {
-                    if (e.target.parentNode.parentNode === currentChild[i]) {
-                        for(let j = 0; j < newDatas[0].length; j++) {
-                            if(newDatas[2][i].todoId === newDatas[0][j].todoId)
-                            newDatas[0].splice(j, 1); 
-                    }
+                           
+                     }
+                 }
+                renderTask();
+                  } else if(i === 2) {
+                   for (let i = 0; i < newDatas[2].length; i++) {
+                   if (e.target.parentNode.parentNode === currentChild[i]) {
+                    for(let j = 0; j < newDatas[0].length; j++) {
+                     if(newDatas[2][i].todoId === newDatas[0][j].todoId)
+                      newDatas[0].splice(j, 1); 
+                         }
                     newDatas[2].splice(i, 1);
                     break;              
-           
-            }
-
-        }
-        renderTask();
-    }
-        e.target.parentNode.parentNode.remove();   
-        console.log(newDatas[0]);
-        console.log(newDatas[1]);
-        console.log(newDatas[2]);
-    }
-
-        });
-
-    });
-    
+                           
+                 }
+                
+                 }
+                 renderTask();
+                  } 
+                }
+})
 }
-removeTask();
+}
+otherRemoveTask();
 
 function editTask() {
     const editDate = document.querySelector('#date-edit');
@@ -201,6 +193,27 @@ function openTaskAdder() {
     
 }
 openTaskAdder();
-export default removeTask;
 
-
+function removeProject() {
+    for (let i = 3; i < allDiv.length; i++) {
+        allDiv[i].addEventListener('click', function(e){
+            const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+            console.log(currentChild);
+            if (e.target.classList.contains('delete')) { 
+            if (allDiv[i].style.display !== 'none') {
+                for (let j = 0; j < newDatas[3].length; j++) {
+                    if (e.target.parentNode.parentNode === currentChild[i]) {
+                    if (i === j + 3) {
+                        for(let k = 0; k < newDatas[3][j].length; k++) {
+                            newDatas[3][j].splice(k, 1);   
+                        }
+                    }
+                }
+                
+              }
+            }
+        }
+            });
+      }
+}
+removeProject();
