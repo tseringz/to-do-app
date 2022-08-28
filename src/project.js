@@ -4,6 +4,7 @@ const noteWrapper = document.querySelector('.note-wrapper');
 const project = document.querySelector('.project-wrapper');
 const projectName = document.querySelector('#projectname');
 const addButton = document.querySelector('#addButton');
+const cancelButton = document.querySelector('#cancelButton');
 const projectAdder = document.querySelector('#projectadder');
 const addProject = document.querySelector('.addproject');
 let allLink = document.querySelectorAll('a');
@@ -37,6 +38,11 @@ function addNewProject() {
         linkSelection();
         removeProject();
         editProject();
+    });
+    cancelButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        projectAdder.style.display = 'none';
+
     });
 }
 addNewProject();

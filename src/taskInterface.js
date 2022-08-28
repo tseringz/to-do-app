@@ -3,6 +3,7 @@ import { allDiv, addNewProject } from './project';
 
 addNewProject();
 const taskAdder = document.querySelector('.task-container-edit');
+const taskCheckBox = document.querySelector('.taskComplete');
 
 function otherRemoveTask() {
     for( let i = 0; i < allDiv.length; i++) {
