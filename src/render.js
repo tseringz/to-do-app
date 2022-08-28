@@ -147,7 +147,7 @@ function addTask() {
     
 }
 addTask();
-export { createTask, renderTask, newDatas, createProjectTask };
+export { renderTask, newDatas };
 // delete task
 // add notification as number of task 
 // add to project section
