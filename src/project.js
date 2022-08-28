@@ -41,6 +41,7 @@ function addNewProject() {
     });
     cancelButton.addEventListener('click', function(e) {
         e.preventDefault();
+        projectName.value =  '';
         projectAdder.style.display = 'none';
 
     });
