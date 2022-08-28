@@ -133,7 +133,7 @@ function addTask() {
                 for(let j = 0; j < newDatas[3].length; j++) {
                     if(i === j + 3) {
                         newDatas[3][j].push(newList);   
-                        console.log(i);
+                        console.log(j);
                     }
                 }
                 
@@ -141,10 +141,9 @@ function addTask() {
             }
 
             console.log(newDatas);
-            console.log(newDatas[3][0][1].title);
+            console.log(newDatas[3][0][0].title);
             console.log(allDiv.length);
             renderTask();
-            createProjectTask();
         });
     
 }

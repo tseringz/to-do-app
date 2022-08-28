@@ -35,9 +35,10 @@ function addNewProject() {
         allDiv = document.querySelectorAll('.note-wrapper > div');
         console.log(allDiv.length);
         linkSelection();
+        removeProject();
     });
 }
-
+addNewProject();
 function linkSelection() {
     for(let i = 0; i < allLink.length; i++) {
         for(let j = 0; j < allDiv.length; j++) {
@@ -56,6 +57,35 @@ function linkSelection() {
 }
 linkSelection();
 
+function removeProject() {
+    for (let i = 3; i < allDiv.length; i++) {
+            allDiv[i].addEventListener('click', function(e) {
+         if (allDiv[i].style.display !== 'none') {      
+            if(e.target.classList.contains('delete')) { 
+                const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+                console.log(currentChild);
+                    for (let m = 0; m < newDatas[3].length; m++) {
+                        for( let j = 0; j < newDatas[3][m].length; j++) {
+                            if (e.target.parentNode.parentNode === currentChild[j]) {
+                                for(let k = 0; k < newDatas[0].length; k++) {
+                                    if(newDatas[3][m][j].todoId === newDatas[0][k].todoId)
+                                        newDatas[0].splice(k, 1);
+                                }
+                                if(i === m + 3) {
+                                newDatas[3][m].splice(j, 1);
+                                }
+                        }
+                            console.log(newDatas[3]);
+                        
+                    }
+                }
+                renderTask();
+                  } 
+         }
+            });
+        }
+    }
+removeProject();
 
 addProject.addEventListener('click', function(e) {
     projectAdder.style.display = 'flex';
