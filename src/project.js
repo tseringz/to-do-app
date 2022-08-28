@@ -1,4 +1,4 @@
-import { createTask, renderTask, newDatas } from './render';
+import { renderTask, newDatas } from './render';
 
 const noteWrapper = document.querySelector('.note-wrapper');
 const project = document.querySelector('.project-wrapper');

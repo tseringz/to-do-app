@@ -1,18 +1,4 @@
-// self contain modules
-// everything to do with my module is in my module
-// no global variable
-// if a module manages more than one thing it should split into multiple
-// separation of concerns 
-// Dry code -  Don't repeat yourself 
-// efficient DOM usage 
-// very few selections 
-// no memory leaks
-// all event can be unbound
-import List from './task';
-import { addDays, format, isToday, isTomorrow,  startOfToday } from 'date-fns';
-
-function addToArray(){
-        
+function addToArray(){     
     const inbox = [
         {
             todoId: '1658394469179',
@@ -55,7 +41,6 @@ function addToArray(){
     priority: 'Low',
     dueDate: '2022-07-17'
 }];
-
     const today = [{
         todoId: '1658394469179',
         title: 'You are fucked up',
@@ -104,11 +89,5 @@ const projects = [];
 
 export default addToArray;
 
-// function someFunc(arg) {
-//     alert(arg.foo);
-//     alert(arg.bar);
-// }
-
-// someFunc({foo: "This", bar: "works!"});
 
 

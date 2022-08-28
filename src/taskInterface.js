@@ -1,10 +1,7 @@
-import cachingDom from './domCaching'; // get the value of task  // create a new task  // send data to task
-import { newDatas, createTask, renderTask, createProjectTask } from './render'; 
+import { newDatas, renderTask } from './render'; 
 import { allDiv, addNewProject } from './project';
 
 addNewProject();
-const taskContainers = document.querySelectorAll('.note-wrapper > div');
-console.log(taskContainers);
 const taskAdder = document.querySelector('.task-container-edit');
 
 function otherRemoveTask() {
