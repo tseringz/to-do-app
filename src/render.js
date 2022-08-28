@@ -141,7 +141,6 @@ function addTask() {
             }
 
             console.log(newDatas);
-            console.log(newDatas[3][0][0].title);
             console.log(allDiv.length);
             renderTask();
         });
