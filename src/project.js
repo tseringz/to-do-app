@@ -9,21 +9,36 @@ const projectAdder = document.querySelector('#projectadder');
 const addProject = document.querySelector('.addproject');
 let allLink = document.querySelectorAll('a');
 let allDiv = document.querySelectorAll('.note-wrapper > div');
+let selectCrossButton = document.querySelector('#crossIcon');;
 
 let counter = 0;
 
 function addNewProject() {
     addButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        if(projectName.value !== '') {
-        const newLink = document.createElement('a');
+      e.preventDefault();
+       if(projectName.value !== '') {
         const newDiv = document.createElement('div');
+        const flexChild = document.createElement('div');
+        const newLink = document.createElement('a');
+        const sideEditIcon = document.createElement('img');
+        const crossIcon  = document.createElement('img');
+        const projectLinkName = document.createElement('p');
+
+        projectLinkName.style.marginLeft = '10px';
         newDiv.style.display = 'none';
+        newDiv.setAttribute('id', `project${counter}`);
         newLink.setAttribute('id', `projectLink${counter}`);
         newLink.style.paddingTop = '16px';
-        newDiv.setAttribute('id', `project${counter}`);
-    
-        newLink.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
+        sideEditIcon.src = '../src/assets/bulleted-list.png';
+        crossIcon.src = '../src/assets/cross.png';
+        sideEditIcon.setAttribute('id', 'sideMenu');
+        crossIcon.setAttribute('id', 'crossIcon');
+        flexChild.style.display = 'flex';
+        flexChild.style.flexDirection = 'row';
+
+        projectLinkName.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
+        flexChild.append(sideEditIcon, projectLinkName);
+        newLink.append(flexChild, crossIcon);
         project.insertBefore(newLink, project.children[counter + 1]);
         noteWrapper.appendChild(newDiv);
         projectAdder.style.display = 'none';
@@ -34,6 +49,7 @@ function addNewProject() {
     }
         allLink = document.querySelectorAll('a');
         allDiv = document.querySelectorAll('.note-wrapper > div');
+        selectCrossButton = document.querySelector('#crossIcon');
         console.log(allDiv.length);
         linkSelection();
         removeProject();
@@ -43,8 +59,12 @@ function addNewProject() {
         e.preventDefault();
         projectName.value =  '';
         projectAdder.style.display = 'none';
-
     });
+    for( let i = 3; i < allLink.length; i++) {
+        allLink[i].addEventListener('mouseover', function (e) {
+            selectCrossButton.style.display = 'block';
+        });
+    }
 }
 addNewProject();
 function linkSelection() {
@@ -78,6 +98,14 @@ function removeProject() {
                                 for(let k = 0; k < newDatas[0].length; k++) {
                                     if(newDatas[3][m][j].todoId === newDatas[0][k].todoId)
                                         newDatas[0].splice(k, 1);
+                                }
+                                for(let l = 0; l < newDatas[1].length; l++) {
+                                    if(newDatas[3][m][j].todoId === newDatas[1][l].todoId)
+                                        newDatas[1].splice(l, 1);
+                                }
+                                for(let n = 0; n < newDatas[2].length; n++) {
+                                    if(newDatas[3][m][j].todoId === newDatas[2][n].todoId)
+                                        newDatas[2].splice(n, 1);
                                 }
                                 if(i === m + 3) {
                                 newDatas[3][m].splice(j, 1);
@@ -119,8 +147,7 @@ function editProject() {
                     editDate.value = newDatas[3][m][j].dueDate;
                     editPriority.value = newDatas[3][m][j].priority;
                     editTextArea.value = newDatas[3][m][j].textArea; 
-                    todoId = newDatas[3][m][j].todoId;  
-                
+                    todoId = newDatas[3][m][j].todoId;    
         }
     }
 

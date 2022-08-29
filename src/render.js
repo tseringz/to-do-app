@@ -50,7 +50,6 @@ function createTask(outerIndex, innerIndex) {
 
 function createProjectTask(outerIndex, innerIndex) {
     if (newDatas[outerIndex] === newDatas[3]) {
-        console.log('Yeah!');
       for(let i = 3; i < allDiv.length; i++) {
             for(let k = 0; k < newDatas[3][innerIndex].length; k++) {
                 if (i === innerIndex + 3) {
