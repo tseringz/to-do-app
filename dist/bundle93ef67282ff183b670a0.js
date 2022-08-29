@@ -148,7 +148,7 @@ var projectAdder = document.querySelector('#projectadder');
 var addProject = document.querySelector('.addproject');
 var allLink = document.querySelectorAll('a');
 var allDiv = document.querySelectorAll('.note-wrapper > div');
-var selectCrossButton = document.querySelector('#crossIcon');
+var selectCrossButton = document.querySelectorAll('#crossIcon');
 ;
 var counter = 0;
 
@@ -188,30 +188,79 @@ function addNewProject() {
 
     allLink = document.querySelectorAll('a');
     allDiv = document.querySelectorAll('.note-wrapper > div');
-    selectCrossButton = document.querySelector('#crossIcon');
+    selectCrossButton = document.querySelectorAll('#crossIcon');
     console.log(allDiv.length);
+    console.log(allLink.length);
+    console.log(_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3]);
     linkSelection();
-    removeProject();
-    editProject();
+    removeProjectTask();
+    editProjectTask();
+    hoverEffect();
+    deleteProjectTask();
   });
   cancelButton.addEventListener('click', function (e) {
     e.preventDefault();
     projectName.value = '';
     projectAdder.style.display = 'none';
   });
-
-  for (var i = 3; i < allLink.length; i++) {
-    allLink[i].addEventListener('mouseover', function (e) {
-      selectCrossButton.style.display = 'block';
-    });
-  }
 }
 
 addNewProject();
 
+function hoverEffect() {
+  for (var i = 3; i < allLink.length; i++) {
+    var _loop = function _loop(j) {
+      if (i === j + 3) {
+        allLink[i].addEventListener('mouseover', function (e) {
+          e.preventDefault();
+          selectCrossButton[j].style.display = "block";
+        });
+        allLink[i].addEventListener('mouseout', function (e) {
+          e.preventDefault();
+          selectCrossButton[j].style.display = 'none';
+        });
+      }
+    };
+
+    for (var j = 0; j < selectCrossButton.length; j++) {
+      _loop(j);
+    }
+  }
+}
+
+function deleteProjectTask() {
+  var _loop2 = function _loop2(i) {
+    for (var j = 0; j < selectCrossButton.length; j++) {
+      if (i === j + 3) {
+        selectCrossButton[j].addEventListener('click', function (e) {
+          e.preventDefault();
+          allLink[i].remove();
+
+          for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; k++) {
+            if (i === k + 3) {
+              _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].splice(k, 1);
+            }
+          }
+
+          console.log(counter);
+          console.log(_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3]);
+        });
+      }
+
+      ;
+    }
+  };
+
+  for (var i = 3; i < allLink.length; i++) {
+    _loop2(i);
+  }
+}
+
+deleteProjectTask();
+
 function linkSelection() {
-  var _loop = function _loop(i) {
-    var _loop2 = function _loop2(j) {
+  var _loop3 = function _loop3(i) {
+    var _loop4 = function _loop4(j) {
       allLink[i].addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -220,36 +269,41 @@ function linkSelection() {
         } else {
           allDiv[j].style.display = 'none';
         }
-
-        console.log(allLink[i]);
       });
     };
 
     for (var j = 0; j < allDiv.length; j++) {
-      _loop2(j);
+      _loop4(j);
     }
   };
 
   for (var i = 0; i < allLink.length; i++) {
-    _loop(i);
+    _loop3(i);
   }
 }
 
 linkSelection();
 
-function removeProject() {
-  var _loop3 = function _loop3(i) {
+function removeProjectTask() {
+  var _loop5 = function _loop5(i) {
     allDiv[i].addEventListener('click', function (e) {
       if (allDiv[i].style.display !== 'none') {
         if (e.target.classList.contains('delete')) {
           var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-          console.log(currentChild);
 
           for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; m++) {
             for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][m].length; j++) {
               if (e.target.parentNode.parentNode === currentChild[j]) {
                 for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; k++) {
                   if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][m][j].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][k].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(k, 1);
+                }
+
+                for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; l++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][m][j].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][l].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].splice(l, 1);
+                }
+
+                for (var n = 0; n < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; n++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][m][j].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][n].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].splice(n, 1);
                 }
 
                 if (i === m + 3) {
@@ -268,13 +322,13 @@ function removeProject() {
   };
 
   for (var i = 3; i < allDiv.length; i++) {
-    _loop3(i);
+    _loop5(i);
   }
 }
 
-removeProject();
+removeProjectTask();
 
-function editProject() {
+function editProjectTask() {
   var taskAdder = document.querySelector('.task-container-edit');
   var editDate = document.querySelector('#date-edit');
   var editTitle = document.getElementById('title-edit');
@@ -283,7 +337,7 @@ function editProject() {
   var confirmButton = document.getElementById('confirm-list');
   var todoId;
 
-  var _loop4 = function _loop4(i) {
+  var _loop6 = function _loop6(i) {
     allDiv[i].addEventListener('click', function (e) {
       if (allDiv[i].style.display !== 'none') {
         if (e.target.classList.contains('edit')) {
@@ -331,7 +385,7 @@ function editProject() {
   };
 
   for (var i = 3; i < allDiv.length; i++) {
-    _loop4(i);
+    _loop6(i);
   }
 }
 
@@ -409,8 +463,6 @@ function createTask(outerIndex, innerIndex) {
 
 function createProjectTask(outerIndex, innerIndex) {
   if (newDatas[outerIndex] === newDatas[3]) {
-    console.log('Yeah!');
-
     for (var i = 3; i < _project__WEBPACK_IMPORTED_MODULE_2__.allDiv.length; i++) {
       for (var k = 0; k < newDatas[3][innerIndex].length; k++) {
         if (i === innerIndex + 3) {
@@ -576,7 +628,7 @@ __webpack_require__.r(__webpack_exports__);
 var taskAdder = document.querySelector('.task-container-edit');
 var taskCheckBox = document.querySelector('.taskComplete');
 
-function otherRemoveTask() {
+function removeTask() {
   var _loop = function _loop(i) {
     _project__WEBPACK_IMPORTED_MODULE_1__.allDiv[i].addEventListener('click', function (e) {
       if (e.target.classList.contains('delete')) {
@@ -636,7 +688,7 @@ function otherRemoveTask() {
   }
 }
 
-otherRemoveTask();
+removeTask();
 
 function editTask() {
   var editDate = document.querySelector('#date-edit');
@@ -4649,4 +4701,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle68766f02072d93bcf27f.js.map
+//# sourceMappingURL=bundle93ef67282ff183b670a0.js.map
