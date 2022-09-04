@@ -4,7 +4,6 @@ import {  addDays, format, startOfToday } from 'date-fns';
 import { allDiv, addNewProject } from './project';
 
 let newDatas = addToArray();
-addNewProject();
 function createTask(outerIndex, innerIndex) {
     //selecting div container that will contain task list 
     const inbox = document.getElementById('inbox');
@@ -50,10 +49,9 @@ function createTask(outerIndex, innerIndex) {
 
 function createProjectTask(outerIndex, innerIndex) {
     if (newDatas[outerIndex] === newDatas[3]) {
-      for(let i = 3; i < allDiv.length; i++) {
-            for(let k = 0; k < newDatas[3][innerIndex].length; k++) {
+      for (let i = 3; i < allDiv.length; i++) {
+            for (let k = 0; k < newDatas[3][innerIndex].length; k++) {
                 if (i === innerIndex + 3) {
-                console.log(newDatas[3][innerIndex].length);
                 const newDiv = document.createElement('div');
                 const newInnerDivOne = document.createElement('div');
                 const newInnerDivTwo = document.createElement('div');

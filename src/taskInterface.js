@@ -1,17 +1,17 @@
-import { newDatas, renderTask } from './render'; 
 import { allDiv, addNewProject } from './project';
+import { newDatas, renderTask } from './render'; 
+import {  addDays, format, startOfToday } from 'date-fns';
 
-addNewProject();
+
 const taskAdder = document.querySelector('.task-container-edit');
-const taskCheckBox = document.querySelector('.taskComplete');
+addNewProject();
 
 function removeTask() {
-    for( let i = 0; i < allDiv.length; i++) {
+    for ( let i = 0; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function(e){
             if(e.target.classList.contains('delete')) { 
                 console.log(allDiv.length);
                 const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-                console.log(currentChild);
                   if(i === 0) {
                     for (let i = 0; i < newDatas[0].length; i++) {
                         if (e.target.parentNode.parentNode === currentChild[i]) {
@@ -59,7 +59,6 @@ function removeTask() {
 })
 }
 }
-removeTask();
 
 function editTask() {
     const editDate = document.querySelector('#date-edit');
@@ -69,7 +68,7 @@ function editTask() {
     const confirmButton = document.getElementById('confirm-list');
     let todoId;
 
-    for( let i = 0; i < allDiv.length; i++) {
+    for ( let i = 0; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function(e){
             if (e.target.classList.contains('edit')) {
                 taskAdder.style.display = 'flex';
@@ -112,6 +111,10 @@ function editTask() {
             }
             confirmButton.addEventListener('click', function(e) {   
               e.preventDefault(); 
+              let date = startOfToday();
+              let weeksDate = addDays(date, 8); // get next week's date to compare with user's selected date
+              date = format(date, 'yyyy-MM-dd');
+              weeksDate = format(weeksDate, 'yyyy-MM-dd');
               if(i === 0) {
               for(let j = 0; j < newDatas[0].length; j++) {  
                   if(todoId === newDatas[0][j].todoId) {
@@ -120,6 +123,7 @@ function editTask() {
                     newDatas[0][j].dueDate = editDate.value;
                     newDatas[0][j].priority = editPriority.value; 
                     newDatas[0][j].textArea = editTextArea.value;
+
                     for(let k = 0; k < newDatas[1].length; k++) {
                         if(todoId === newDatas[1][k].todoId) {
                             newDatas[1][k].title = editTitle.value;
@@ -145,8 +149,8 @@ function editTask() {
                             newDatas[3][k][l].textArea = editTextArea.value;
                         }
                        }
-                       renderTask();
                      }
+                     renderTask();
                     }
                    }
                   } else if ( i === 1) {
@@ -196,7 +200,6 @@ function editTask() {
         });
     }
 }
-editTask();
 
 function openTaskAdder() {
     const addButton = document.querySelector('.addlist');
@@ -216,4 +219,5 @@ function openTaskAdder() {
     
     
 }
-openTaskAdder();
+
+export { removeTask, editTask, openTaskAdder };
