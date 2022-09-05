@@ -41,12 +41,11 @@ function addNewProject() {
             newLink.append(flexChild, crossIcon);
             project.appendChild(newLink);
             noteWrapper.appendChild(newDiv);
-            projectAdder.style.display = 'none';
             projectName.value = '';
             newDatas[3].push([]);
-
         }
 
+       
         for (let k = 0; k < newDatas[3].length; k++) {
             if(typeof newDatas[3][k] === 'number') {
                 newDatas[3].splice(k, 1);
@@ -57,10 +56,6 @@ function addNewProject() {
         allLink = document.querySelectorAll('a');
         allDiv = document.querySelectorAll('.note-wrapper > div');
         selectCrossButton = document.querySelectorAll('#crossIcon');
-
-        console.log(allDiv.length);
-        console.log(allLink.length);
-        console.log(newDatas[3]);
         linkSelection();
         deleteProjectTask();
         editProjectTask();
@@ -68,12 +63,6 @@ function addNewProject() {
         deleteProject();
         clickList();
     });
-    cancelButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        projectName.value = '';
-        projectAdder.style.display = 'none';
-    });
-
 }
 
 function hoverEffect() {
@@ -260,8 +249,23 @@ function editProjectTask() {
     }
 }
 
+
 addProject.addEventListener('click', function (e) {
     projectContainer.style.display = 'flex';
 });
+
+addButton.addEventListener('click', function (e) {
+    if(projectName.value !== '') {
+        projectContainer.style.display = 'none';
+    }
+});
+
+cancelButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    projectName.value = '';
+    projectContainer.style.display = 'none';
+});
+
+
 
 export { allDiv, addNewProject };

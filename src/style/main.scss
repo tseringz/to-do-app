@@ -308,7 +308,7 @@ aside {
 
 .addproject-wrapper {
   background-color: $secondary-color-light-gray;
-  
+  padding: 40px;
 }
 
 .project-wrapper {
@@ -324,7 +324,7 @@ form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 
 .select-items {
   display: flex;
@@ -404,4 +404,105 @@ form {
   font-size: 0.7em;
   color: $secondary-color-light-gray;
   line-height: 0;
+}
+
+#projectadder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    appearance: none;
+    --webkit-appearance: none;
+    width: 250px;
+    height: 32px;
+    border: 1px solid $black-color-light;
+    padding: 8px;
+    background-color: transparent;
+  }
+
+  input:focus {
+    appearance: none;
+    outline: none;
+  }
+
+  div {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  button {
+    width: 100%;
+    padding: 6px;
+    margin-top: 8px;
+    border-radius: 0;
+    }
+
+    #addButton {
+      border: 2px solid $secondary-color;
+    }
+
+    #cancelButton {
+      border: 2px solid $primary-color;
+    }
+
+    #addButton:hover {
+      background-color: $secondary-color;
+      color: $white-color;
+    }
+
+    #cancelButton:hover {
+      background-color: $primary-color;
+      color: $white-color;
+    }
+}
+
+
+
+input[type="date"],select{
+  appearance: none;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  width: 100%;
+  padding: 6px;
+  border-radius: 0;
+  border: 1.2px solid $black-color-light;
+}
+
+#date-edit:focus, #priority-edit:focus {
+outline: none;
+
+}
+select:active {
+  border-radius: 0;
+
+}
+
+select::after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+button {
+  background-color: transparent;
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 0;
+  border: 1.5px solid $secondary-color;
+}
+
+button:hover {
+  background-color: $secondary-color;
+  color: $white-color;
 }
