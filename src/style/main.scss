@@ -143,6 +143,7 @@ top: 20px;
   height: 2px;
   transform: rotate(-45deg) translateY(-1.5px);
 }
+
 .projectHeading {
   width: 100%;
   display: flex;
@@ -208,6 +209,10 @@ top: 20px;
 
 .active-list {
   background-color: $secondary-color-darker-gray;
+}
+
+.task-complete {
+  text-decoration: line-through;
 }
 
 aside {
@@ -480,7 +485,6 @@ outline: none;
 }
 select:active {
   border-radius: 0;
-
 }
 
 select::after {

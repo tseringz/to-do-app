@@ -62,6 +62,7 @@ function addNewProject() {
         hoverEffect();
         deleteProject();
         clickList();
+        completeTask();
     });
 }
 
@@ -160,6 +161,25 @@ function clickList() {
 }
 clickList();
 
+function completeTask() {
+    const checkButtons = document.querySelectorAll('input[type="checkbox"]');
+    const titles = document.querySelectorAll('.task-title');
+ for (let i = 0; i < checkButtons.length; i++) {
+    console.log(checkButtons[i]);
+    checkButtons[i].onclick = function (e) {
+        for (let j = 0; j < titles.length; j++) {
+            if (i === j) {
+        if (checkButtons[i].checked === true) {
+                    titles[j].style.textDecoration = 'line-through';
+                  } else {
+                    titles[j].style.textDecoration = 'none';
+                  }
+                }
+            } 
+}
+ }
+}
+
 function deleteProjectTask() {
     for (let i = 3; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function (e) {
@@ -249,7 +269,6 @@ function editProjectTask() {
     }
 }
 
-
 addProject.addEventListener('click', function (e) {
     projectContainer.style.display = 'flex';
 });
@@ -268,4 +287,4 @@ cancelButton.addEventListener('click', function (e) {
 
 
 
-export { allDiv, addNewProject };
+export { allDiv, addNewProject, completeTask };

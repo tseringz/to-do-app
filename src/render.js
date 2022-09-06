@@ -1,7 +1,7 @@
 import addToArray from './addlist';
 import List from './task';
 import {  addDays, format, startOfToday } from 'date-fns';
-import { allDiv, addNewProject } from './project';
+import { allDiv, addNewProject, completeTask } from './project';
 
 let newDatas = addToArray();
 function createTask(outerIndex, innerIndex) {
@@ -28,6 +28,7 @@ function createTask(outerIndex, innerIndex) {
     checkButton.classList.add('taskComplete');
     newSpanDelete.classList.add('delete');
     newSpanEdit.classList.add('edit');
+    newSpanTitle.classList.add('task-title');
 
     // adding contents to each element 
     newSpanTitle.textContent = `${ newDatas[outerIndex][innerIndex].title }`;
@@ -104,6 +105,8 @@ function renderTask() {
         };
         };
     return tasks;
+
+    
 }
 renderTask();
 
