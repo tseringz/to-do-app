@@ -6,10 +6,10 @@ import {  addDays, format, startOfToday } from 'date-fns';
 const taskAdder = document.querySelector('.task-container-edit');
 addNewProject();
 
-function removeTask() {
+function deleteTask() {
     for ( let i = 0; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function(e){
-            if(e.target.classList.contains('delete')) { 
+            if (e.target.classList.contains('delete')) { 
                 console.log(allDiv.length);
                 const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
                   if(i === 0) {
@@ -22,6 +22,14 @@ function removeTask() {
                             for( let k = 0; k < newDatas[2].length; k++) {
                                 if(newDatas[0][i].todoId === newDatas[2][k].todoId)
                                 newDatas[2].splice(k, 1);
+                            }
+
+                            for (let l = 0; l < newDatas[3].length; l++) {
+                                for (let m = 0; m < newDatas[3][l].length; m++) {
+                                    if (newDatas[0][i].todoId === newDatas[3][l][m].todoId) {
+                                        newDatas[3][l].splice(m, 1);
+                                    }
+                                }
                             }
                             newDatas[0].splice(i, 1);             
                     }
@@ -140,13 +148,13 @@ function editTask() {
                             newDatas[2][k].textArea = editTextArea.value;
                         }
                        }
-                       for(let k = 0; k < newDatas[3].length; k++) {
-                        for(let l = 0; l < newDatas[3][k].length; l++) {
-                        if(todoId === newDatas[3][k][l].todoId) {
-                            newDatas[3][k][l].title = editTitle.value;
-                            newDatas[3][k][l].dueDate = editDate.value;
-                            newDatas[3][k][l].priority = editPriority.value; 
-                            newDatas[3][k][l].textArea = editTextArea.value;
+                       for(let l = 0; l < newDatas[3].length; l++) {
+                        for(let m = 0; m < newDatas[3][l].length; m++) {
+                        if(todoId === newDatas[3][l][m].todoId) {
+                            newDatas[3][l][m].title = editTitle.value;
+                            newDatas[3][l][m].dueDate = editDate.value;
+                            newDatas[3][l][m].priority = editPriority.value; 
+                            newDatas[3][l][m].textArea = editTextArea.value;
                         }
                        }
                      }
@@ -220,4 +228,4 @@ function openTaskAdder() {
     
 }
 
-export { removeTask, editTask, openTaskAdder };
+export { deleteTask, editTask, openTaskAdder };

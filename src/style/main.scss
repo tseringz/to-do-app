@@ -29,6 +29,15 @@ body {
   body {font-size: 21.333333333333332px;}
  }
 
+
+ .brand {
+    text-decoration: none;
+    color: $white-color;
+    font-size: 2.625em;
+    font-weight: 600;
+ }
+
+
  @media screen and (max-width:991px) {
   body {font-size: 11.011111111111111px;}
  }
@@ -80,18 +89,10 @@ body {
   width: 100%;
   height: 4.75em;
   background-color: $primary-color;
-
-  a {
-    text-decoration: none;
-    color: $white-color;
-    font-size: 2.625em;
-    font-weight: 500;
   
     span {
       color: $secondary-color;
     }
-
-  }
 }
 
 

@@ -203,22 +203,22 @@ function editProjectTask() {
     const editPriority = document.getElementById('priority-edit');
     const editTextArea = document.getElementById('description-edit');
     const confirmButton = document.getElementById('confirm-list');
-    let todoId;
+    let todoIdForProject;
     for (let i = 3; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function (e) {
             if (allDiv[i].style.display !== 'none') {
                 if (e.target.classList.contains('edit')) {
                     taskAdder.style.display = 'flex';
                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-                    for (let m = 0; m < newDatas[3].length; m++) {
-                        for (let j = 0; j < newDatas[3][m].length; j++) {
-                            if (e.target.parentNode.parentNode === currentChild[j]) {
-                                if (i === m + 3) {
-                                    editTitle.value = newDatas[3][m][j].title;
-                                    editDate.value = newDatas[3][m][j].dueDate;
-                                    editPriority.value = newDatas[3][m][j].priority;
-                                    editTextArea.value = newDatas[3][m][j].textArea;
-                                    todoId = newDatas[3][m][j].todoId;
+                    for (let j = 0; j < newDatas[3].length; j++) {
+                        for (let k = 0; k < newDatas[3][j].length; k++) {
+                            if (e.target.parentNode.parentNode === currentChild[k]) {
+                                if (i === j + 3) {
+                                    editTitle.value = newDatas[3][j][k].title;
+                                    editDate.value = newDatas[3][j][k].dueDate;
+                                    editPriority.value = newDatas[3][j][k].priority;
+                                    editTextArea.value = newDatas[3][j][k].textArea;
+                                    todoIdForProject = newDatas[3][j][k].todoId;
                                 }
                             }
 
@@ -228,16 +228,16 @@ function editProjectTask() {
                 }
                 confirmButton.addEventListener('click', function (e) {
                     e.preventDefault();
-                    for (let j = 0; j < newDatas[3].length; j++) {
-                        for (let k = 0; k < newDatas[3][j].length; k++) {
-                            if (todoId === newDatas[3][j][k].todoId) {
-                                console.log(todoId, newDatas[3][j][k].todoId);
-                                if (i === j + 3) {
-                                    newDatas[3][j][k].title = editTitle.value;
-                                    newDatas[3][j][k].dueDate = editDate.value;
-                                    newDatas[3][j][k].priority = editPriority.value;
-                                    newDatas[3][j][k].textArea = editTextArea.value;
-                                    console.log(newDatas[3][j][k]);
+                    for (let l = 0; l < newDatas[3].length; l++) {
+                        for (let m = 0; m < newDatas[3][l].length; m++) {
+                            if (todoIdForProject === newDatas[3][l][m].todoId) {
+                                console.log(todoIdForProject, newDatas[3][l][m].todoId);
+                                if (i === l + 3) {
+                                    newDatas[3][l][m].title = editTitle.value;
+                                    newDatas[3][l][m].dueDate = editDate.value;
+                                    newDatas[3][l][m].priority = editPriority.value;
+                                    newDatas[3][l][m].textArea = editTextArea.value;
+                                    console.log(newDatas[3][l][m]);
                                     renderTask();
                                 }
                             }
