@@ -18,7 +18,8 @@ function createTask(outerIndex, innerIndex) {
     const newSpanPriority = document.createElement('span');
     const newSpanDate = document.createElement('span');
     const newSpanEdit = document.createElement('span');
-    const newSpanDelete = document.createElement('span');
+    const newSpanDelete = document.createElement('img');
+    //const deleteIcon = document.createElement('img');
 
     //adding class to each element
     newDiv.classList.add('list-wrapper');
@@ -35,7 +36,10 @@ function createTask(outerIndex, innerIndex) {
     newSpanPriority.textContent = `${ newDatas[outerIndex][innerIndex].priority }`;
     newSpanDate.textContent = `${ newDatas[outerIndex][innerIndex].dueDate }`;
     newSpanEdit.textContent = 'Edit';
-    newSpanDelete.textContent = 'Delete';
+    newSpanEdit.style.cursor = 'pointer';
+    newSpanDelete.style.cursor = 'pointer';
+    newSpanDelete.src = "../src/assets/trash-96.png";
+    newSpanDelete.style.width = "20px";
     newDiv.append(newInnerDivOne, newInnerDivTwo);
     newInnerDivOne.append(checkButton, newSpanTitle);
     newInnerDivTwo.append(newSpanPriority, newSpanDate, newSpanEdit, newSpanDelete);
@@ -61,7 +65,7 @@ function createProjectTask(outerIndex, innerIndex) {
                 const newSpanPriority = document.createElement('span');
                 const newSpanDate = document.createElement('span');
                 const newSpanEdit = document.createElement('span');
-                const newSpanDelete = document.createElement('span');
+                const newSpanDelete = document.createElement('img');
     
                 //adding class to each element
                 newDiv.classList.add('list-wrapper');
@@ -73,12 +77,15 @@ function createProjectTask(outerIndex, innerIndex) {
                 newSpanDelete.style.cursor = 'pointer';
                 newSpanEdit.classList.add('edit');
                 newSpanTitle.classList.add('task-title');
-                
+                newSpanEdit.style.cursor = 'pointer';
+                newSpanDelete.style.cursor = 'pointer';
+                newSpanDelete.src = "../src/assets/trash-96.png";
+                newSpanDelete.style.width = "20px";
+
                 newSpanTitle.textContent = `${ newDatas[3][innerIndex][k].title }`;
                 newSpanPriority.textContent = `${ newDatas[3][innerIndex][k].priority }`;
                 newSpanDate.textContent = `${ newDatas[3][innerIndex][k].dueDate }`;
                 newSpanEdit.textContent = 'Edit';
-                newSpanDelete.textContent = 'Delete';
                 newDiv.append(newInnerDivOne, newInnerDivTwo);
                 newInnerDivOne.append(checkButton, newSpanTitle);
                 newInnerDivTwo.append(newSpanPriority, newSpanDate, newSpanEdit, newSpanDelete);

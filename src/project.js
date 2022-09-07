@@ -172,8 +172,10 @@ function completeTask() {
             if (i === j) {
         if (checkButtons[i].checked === true) {
                     titles[j].style.textDecoration = 'line-through';
+                    titles[j].style.color = "#595959";
                   } else {
                     titles[j].style.textDecoration = 'none';
+                    titles[j].style.color = "#212121";
                   }
                 }
             } 

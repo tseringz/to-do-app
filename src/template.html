@@ -110,23 +110,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function completeTask() {
-    const checkButtons = document.querySelectorAll('input[type="checkbox"]');
-    const titles = document.querySelectorAll('.task-title');
- for (let i = 0; i < checkButtons.length; i++) {
-    console.log(checkButtons[i]);
-    checkButtons[i].onclick = function (e) {
-        if (checkButtons[i].checked === true) {
-            for (let j = 0; j < titles.length; j++) {
-                  if (i === j) {
-                    titles[j].style.textDecoration = 'line-through';
-                  }
-                }
-            }
-    }
- }
-}
-    </script>
 </body>
 </html>

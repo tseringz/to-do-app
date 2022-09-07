@@ -2,7 +2,6 @@ import { allDiv, addNewProject } from './project';
 import { newDatas, renderTask } from './render'; 
 import {  addDays, format, startOfToday } from 'date-fns';
 
-
 const taskAdder = document.querySelector('.task-container-edit');
 addNewProject();
 
@@ -216,6 +215,13 @@ function openTaskAdder() {
     const crossButton2 = document.querySelector('.cross2');
     addButton.addEventListener('click', function(e) {   
         taskEditor.style.display = 'flex';
+        anime({
+            targets: '.addlist',
+            translateX: 250,
+            duration: 3000,
+            rotateZ: 360,
+            scale: 3
+          });
     });
     crossButton.addEventListener('click', function(e) {
         taskEditor.style.display = 'none';
