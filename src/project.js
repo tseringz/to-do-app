@@ -164,6 +164,7 @@ clickList();
 function completeTask() {
     const checkButtons = document.querySelectorAll('input[type="checkbox"]');
     const titles = document.querySelectorAll('.task-title');
+    console.log(checkButtons.length, titles.length);
  for (let i = 0; i < checkButtons.length; i++) {
     console.log(checkButtons[i]);
     checkButtons[i].onclick = function (e) {

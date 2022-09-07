@@ -72,6 +72,8 @@ function createProjectTask(outerIndex, innerIndex) {
                 newSpanDelete.classList.add('delete');
                 newSpanDelete.style.cursor = 'pointer';
                 newSpanEdit.classList.add('edit');
+                newSpanTitle.classList.add('task-title');
+                
                 newSpanTitle.textContent = `${ newDatas[3][innerIndex][k].title }`;
                 newSpanPriority.textContent = `${ newDatas[3][innerIndex][k].priority }`;
                 newSpanDate.textContent = `${ newDatas[3][innerIndex][k].dueDate }`;
@@ -104,6 +106,8 @@ function renderTask() {
                 createProjectTask(i, j);
         };
         };
+
+    completeTask();
     return tasks;
 
     
