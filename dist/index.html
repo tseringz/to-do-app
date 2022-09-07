@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do App</title>
-<script defer src="bundle2655d7d1858858a8d489.js"></script></head>
+    <link rel="icon" type="image/png" href="../src/assets/do-it.png">
+<script defer src="bundle89b8fbfda2840d8e0799.js"></script></head>
 <body>
     
     <div class="container">
@@ -65,8 +66,19 @@
 
             </div>
         </div>
+        <div class="task-container-addproject">
+            <div class="addproject-wrapper">
+            <form id="projectadder" action="" method="post">
+                <input type="text" name="projectname" id="projectname" placeholder="Add project name">
+                <div class="projectbutton-wrapper">
+                    <button type="button" id="addButton">Add</button>
+                    <button type="button" id="cancelButton">Cancel</button>
+                </div>
+            </div>
+            </form>
+            </div>
         <nav class="nav-bar">
-            <div class="brand">Do<span>-</span>it</a></div>
+            <div class="brand">Do<span>-</span>it</div>
             <div id="nav-menu"></div>
         </nav>
         <div class="content-wrapper">
@@ -83,17 +95,9 @@
                     </li>
                 </ul>
                 <div class="project-wrapper">
-                    <h3 class="projectHeading">Projects</h3>
+                    <h3 class="projectHeading">Projects<span id="addproject">+</span></h3>
                     <div id="projectName-wrapper">
                     </div>
-                    <button type="button" class="addproject"><span class="plussign">+</span><span class="project">project</span></button>
-                    <form id="projectadder" action="" method="post">
-                        <input type="text" name="projectname" id="projectname">
-                        <div class="projectbutton-wrapper">
-                            <button type="button" id="addButton">Add</button>
-                            <button type="button" id="cancelButton">Cancel</button>
-                        </div>
-                    </form>
                 </div>
                 <div class="button-wrapper">
                     <button type="button" class="addlist"></button>
@@ -106,5 +110,23 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function completeTask() {
+    const checkButtons = document.querySelectorAll('input[type="checkbox"]');
+    const titles = document.querySelectorAll('.task-title');
+ for (let i = 0; i < checkButtons.length; i++) {
+    console.log(checkButtons[i]);
+    checkButtons[i].onclick = function (e) {
+        if (checkButtons[i].checked === true) {
+            for (let j = 0; j < titles.length; j++) {
+                  if (i === j) {
+                    titles[j].style.textDecoration = 'line-through';
+                  }
+                }
+            }
+    }
+ }
+}
+    </script>
 </body>
 </html>
