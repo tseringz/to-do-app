@@ -1,7 +1,7 @@
 import addToArray from './addlist';
 import List from './task';
 import {  addDays, format, startOfToday } from 'date-fns';
-import { allDiv, addNewProject, completeTask } from './project';
+import { allDiv, completeTask } from './project';
 
 let newDatas = addToArray();
 function createTask(outerIndex, innerIndex) {

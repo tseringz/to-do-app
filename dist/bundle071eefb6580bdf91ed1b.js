@@ -613,7 +613,7 @@ function renderTask() {
 
 renderTask();
 
-function addTask() {
+(function addTask() {
   var addButtons = document.querySelector('#addtolist');
   addButtons.addEventListener('click', function (e) {
     e.preventDefault();
@@ -640,7 +640,6 @@ function addTask() {
         for (var j = 0; j < newDatas[3].length; j++) {
           if (i === j + 3) {
             newDatas[3][j].push(newList);
-            console.log(j);
           }
         }
       }
@@ -650,9 +649,8 @@ function addTask() {
     console.log(_project__WEBPACK_IMPORTED_MODULE_2__.allDiv.length);
     renderTask();
   });
-}
+})();
 
-addTask();
  // delete task
 // add notification as number of task 
 // add to project section
@@ -4810,4 +4808,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle62eedaba40d6afde08d8.js.map
+//# sourceMappingURL=bundle071eefb6580bdf91ed1b.js.map
