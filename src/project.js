@@ -13,6 +13,7 @@ let selectCrossButton = document.querySelectorAll('#crossIcon');
 allLink[0].classList.add('active-list');
 
 let counter = 0;
+
 function addNewProject() {
     addButton.addEventListener('click', (e) => {
         e.preventDefault();
@@ -114,15 +115,10 @@ function deleteProject() {
             // Delete div when click the link
             for (let k = 3; k < allDiv.length; k++) {
                 allDiv[3 + i].remove();
-                console.log(allDiv.length);
             }
 
 
             counter--;
-            console.log(counter);
-            console.log("Hi");
-            console.log(newDatas[3]);
-            console.log(i);
             renderTask();
         };
 }
@@ -164,9 +160,7 @@ clickList();
 function completeTask() {
     const checkButtons = document.querySelectorAll('input[type="checkbox"]');
     const titles = document.querySelectorAll('.task-title');
-    console.log(checkButtons.length, titles.length);
  for (let i = 0; i < checkButtons.length; i++) {
-    console.log(checkButtons[i]);
     checkButtons[i].onclick = function (e) {
         for (let j = 0; j < titles.length; j++) {
             if (i === j) {

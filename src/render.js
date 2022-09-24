@@ -129,9 +129,7 @@ renderTask();
             let weeksDate = addDays(date, 8); // get next week's date to compare with user's selected date
             const newList = List(); // create new to do list when user clicks on the button
             newDatas[0].push(newList); // pushing any data the user add
-            console.log(newDatas[0]);
             date = format(date, 'yyyy-MM-dd');
-            console.log(date);
             weeksDate = format(weeksDate, 'yyyy-MM-dd');
             if(date == newList.dueDate) {
                 newDatas[1].push(newList);
@@ -149,9 +147,6 @@ renderTask();
                 
               }
             }
-
-            console.log(newDatas);
-            console.log(allDiv.length);
             renderTask();
         });
     
