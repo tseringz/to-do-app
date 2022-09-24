@@ -121,7 +121,7 @@ function renderTask() {
 }
 renderTask();
 
-function addTask() {
+(function addTask() {
     const addButtons = document.querySelector('#addtolist');
         addButtons.addEventListener('click', function(e) {
             e.preventDefault();
@@ -143,8 +143,7 @@ function addTask() {
               if(allDiv[i].style.display !== 'none') {
                 for(let j = 0; j < newDatas[3].length; j++) {
                     if(i === j + 3) {
-                        newDatas[3][j].push(newList);   
-                        console.log(j);
+                        newDatas[3][j].push(newList); 
                     }
                 }
                 
@@ -156,8 +155,8 @@ function addTask() {
             renderTask();
         });
     
-}
-addTask();
+})();
+
 export { renderTask, newDatas };
 // delete task
 // add notification as number of task 
