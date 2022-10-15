@@ -88,8 +88,9 @@ function addToArray() {
     priority: 'Low',
     dueDate: '2022-07-17'
   }];
+  var projectName = [];
   var projects = [];
-  return [inbox, today, week, projects];
+  return [inbox, today, week, projects, projectName];
 }
 
 ;
@@ -134,9 +135,11 @@ function cachingDom() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addNewProject": () => (/* binding */ addNewProject),
-/* harmony export */   "allDiv": () => (/* binding */ allDiv),
-/* harmony export */   "completeTask": () => (/* binding */ completeTask)
+/* harmony export */   "clickList": () => (/* binding */ clickList),
+/* harmony export */   "completeTask": () => (/* binding */ completeTask),
+/* harmony export */   "deleteProjectTask": () => (/* binding */ deleteProjectTask),
+/* harmony export */   "editProjectTask": () => (/* binding */ editProjectTask),
+/* harmony export */   "linkSelection": () => (/* binding */ linkSelection)
 /* harmony export */ });
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./src/render.js");
 
@@ -146,158 +149,123 @@ var projectName = document.querySelector('#projectname');
 var addButton = document.querySelector('#addButton');
 var cancelButton = document.querySelector('#cancelButton');
 var projectContainer = document.querySelector('.task-container-addproject');
-var addProject = document.querySelector('#addproject');
-var allLink = document.querySelectorAll('a');
-var allDiv = document.querySelectorAll('.note-wrapper > div');
-var selectCrossButton = document.querySelectorAll('#crossIcon');
-allLink[0].classList.add('active-list');
-var counter = 0;
-
-function addNewProject() {
-  addButton.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    if (projectName.value !== '') {
-      var newDiv = document.createElement('div');
-      var flexChild = document.createElement('div');
-      var newLink = document.createElement('a');
-      var sideEditIcon = document.createElement('img');
-      var crossIcon = document.createElement('img');
-      var projectLinkName = document.createElement('p');
-      projectLinkName.style.marginLeft = '10px';
-      newDiv.style.display = 'none';
-      newDiv.setAttribute('id', "project".concat(counter));
-      newLink.setAttribute('id', "projectLink".concat(counter));
-      newLink.style.padding = '10px';
-      sideEditIcon.src = '../src/assets/bulleted-list.png';
-      crossIcon.src = '../src/assets/cross.png';
-      sideEditIcon.setAttribute('id', 'sideMenu');
-      crossIcon.setAttribute('id', 'crossIcon');
-      flexChild.style.display = 'flex';
-      flexChild.style.flexDirection = 'row';
-      counter++;
-      projectLinkName.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
-
-      flexChild.append(sideEditIcon, projectLinkName);
-      newLink.append(flexChild, crossIcon);
-      project.appendChild(newLink);
-      noteWrapper.appendChild(newDiv);
-      projectName.value = '';
-      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].push([]);
-    }
-
-    for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; k++) {
-      if (typeof _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][k] === 'number') {
-        _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].splice(k, 1);
-        k--;
-      }
-    }
-
-    allLink = document.querySelectorAll('a');
-    allDiv = document.querySelectorAll('.note-wrapper > div');
-    selectCrossButton = document.querySelectorAll('#crossIcon');
-    linkSelection();
-    deleteProjectTask();
-    editProjectTask();
-    hoverEffect();
-    deleteProject();
-    clickList();
-    completeTask();
-  });
-}
-
-function hoverEffect() {
-  for (var i = 3; i < allLink.length; i++) {
-    var _loop = function _loop(j) {
-      if (i === j + 3) {
-        allLink[i].addEventListener('mouseover', function (e) {
-          e.preventDefault();
-          selectCrossButton[j].style.display = "block";
-        });
-        allLink[i].addEventListener('mouseout', function (e) {
-          e.preventDefault();
-          selectCrossButton[j].style.display = 'none';
-        });
-      }
-    };
-
-    for (var j = 0; j < selectCrossButton.length; j++) {
-      _loop(j);
-    }
-  }
-}
-
-function deleteProject() {
-  var _loop2 = function _loop2(i) {
-    selectCrossButton[i].onclick = function () {
-      for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][i].length; m++) {
-        for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; l++) {
-          if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][l].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][i][m].todoId) {
-            _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(l, 1);
-          }
-        }
-
-        for (var _l = 0; _l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; _l++) {
-          if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_l].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][i][m].todoId) {
-            _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].splice(_l, 1);
-          }
-        }
-
-        for (var _l2 = 0; _l2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _l2++) {
-          if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_l2].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][i][m].todoId) {
-            _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].splice(_l2, 1);
-          }
-        }
-      }
-
-      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].splice(i, 1);
-      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].splice(i, 0, i); // Delete link when click the cross button
-
-      for (var j = 3; j < allLink.length; j++) {
-        allLink[3 + i].remove();
-      } // Delete div when click the link
-
-
-      for (var k = 3; k < allDiv.length; k++) {
-        allDiv[3 + i].remove();
-        console.log(allDiv.length);
-      }
-
-      counter--;
-      console.log(counter);
-      console.log("Hi");
-      console.log(_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3]);
-      console.log(i);
-      (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
-    };
-  };
-
-  for (var i = 0; i < selectCrossButton.length; i++) {
-    _loop2(i);
-  }
-}
+var addProject = document.querySelector('#addproject'); // function createProject() {
+//     const newDiv = document.createElement('div');
+//     const flexChild = document.createElement('div');
+//     const newLink = document.createElement('a');
+//     const sideEditIcon = document.createElement('img');
+//     const crossIcon = document.createElement('img');
+//     const projectLinkName = document.createElement('p');
+//     projectLinkName.style.marginLeft = '10px';
+//     newDiv.style.display = 'none';
+//     newDiv.setAttribute('id', `project${0}`);
+//     newLink.setAttribute('id', `projectLink${0}`);
+//     newLink.style.padding = '10px';
+//     sideEditIcon.src = '../src/assets/bulleted-list.png';
+//     crossIcon.src = '../src/assets/cross.png';
+//     sideEditIcon.setAttribute('id', 'sideMenu');
+//     crossIcon.setAttribute('id', 'crossIcon');
+//     flexChild.style.display = 'flex';
+//     flexChild.style.flexDirection = 'row';
+//     counter++;
+//     projectLinkName.textContent = newDatas[4][0];  // Capitlise the project name
+//     flexChild.append(sideEditIcon, projectLinkName);
+//     newLink.append(flexChild, crossIcon);
+//     project.appendChild(newLink);
+//     noteWrapper.appendChild(newDiv);
+// }
+// createProject(); 
+// let allLink = document.querySelectorAll('a');
+// let allDiv = document.querySelectorAll('.note-wrapper > div');
+//     addButton.addEventListener('click', (e) => {
+//         e.preventDefault();
+//         if (projectName.value !== '') {
+//             const newDiv = document.createElement('div');
+//             const flexChild = document.createElement('div');
+//             const newLink = document.createElement('a');
+//             const sideEditIcon = document.createElement('img');
+//             const crossIcon = document.createElement('img');
+//             const projectLinkName = document.createElement('p');
+//             projectLinkName.style.marginLeft = '10px';
+//             newDiv.style.display = 'none';
+//             newDiv.setAttribute('id', `project${counter}`);
+//             newLink.setAttribute('id', `projectLink${counter}`);
+//             newLink.style.padding = '10px';
+//             sideEditIcon.src = '../src/assets/bulleted-list.png';
+//             crossIcon.src = '../src/assets/cross.png';
+//             sideEditIcon.setAttribute('id', 'sideMenu');
+//             crossIcon.setAttribute('id', 'crossIcon');
+//             flexChild.style.display = 'flex';
+//             flexChild.style.flexDirection = 'row';
+//             counter++;
+//             newDatas[4].push(projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1));
+//             projectLinkName.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
+//             flexChild.append(sideEditIcon, projectLinkName);
+//             newLink.append(flexChild, crossIcon);
+//             project.appendChild(newLink);
+//             noteWrapper.appendChild(newDiv);
+//             projectName.value = '';
+//             newDatas[3].push([]);
+//         }
+//         for (let k = 0; k < newDatas[3].length; k++) {
+//             if (typeof newDatas[3][k] === 'number') {
+//                 newDatas[3].splice(k, 1);
+//                 k--;
+//             }
+//         }
+//         allLink = document.querySelectorAll('a');
+//         allDiv = document.querySelectorAll('.note-wrapper > div');
+//         selectCrossButton = document.querySelectorAll('#crossIcon');
+//         linkSelection();
+//         deleteProjectTask();
+//         editProjectTask();
+//         hoverEffect();
+//         deleteProject();
+//         clickList();
+//         completeTask();
+//         setDataFromLocalStorage();
+//     });
+// }
+// addNewProject();
+// function hoverEffect() {
+//     for (let i = 3; i < allLink.length; i++) {
+//         for (let j = 0; j < selectCrossButton.length; j++) {
+//             if (i === j + 3) {
+//                 allLink[i].addEventListener('mouseover', function (e) {
+//                     e.preventDefault();
+//                     selectCrossButton[j].style.display = "block";
+//                 });
+//                 allLink[i].addEventListener('mouseout', function (e) {
+//                     e.preventDefault();
+//                     selectCrossButton[j].style.display = 'none';
+//                 });
+//             }
+//         }
+//     }
+// }
+// hoverEffect();
 
 function linkSelection() {
-  var _loop3 = function _loop3(i) {
-    var _loop4 = function _loop4(j) {
-      allLink[i].addEventListener('click', function (e) {
+  var _loop = function _loop(i) {
+    var _loop2 = function _loop2(j) {
+      _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].addEventListener('click', function (e) {
         e.preventDefault();
 
         if (i === j) {
-          allDiv[j].style.display = 'block';
+          _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[j].style.display = 'block';
         } else {
-          allDiv[j].style.display = 'none';
+          _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[j].style.display = 'none';
         }
       });
     };
 
-    for (var j = 0; j < allDiv.length; j++) {
-      _loop4(j);
+    for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; j++) {
+      _loop2(j);
     }
   };
 
-  for (var i = 0; i < allLink.length; i++) {
-    _loop3(i);
+  for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allLink.length; i++) {
+    _loop(i);
   }
 }
 
@@ -305,20 +273,20 @@ linkSelection();
 
 function clickList() {
   function removeBackground() {
-    for (var i = 0; i < allLink.length; i++) {
-      allLink[i].classList.remove('active-list');
+    for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allLink.length; i++) {
+      _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].classList.remove('active-list');
     }
   }
 
-  var _loop5 = function _loop5(i) {
-    allLink[i].onclick = function (e) {
+  var _loop3 = function _loop3(i) {
+    _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].onclick = function (e) {
       removeBackground();
-      allLink[i].classList.add('active-list');
+      _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].classList.add('active-list');
     };
   };
 
-  for (var i = 0; i < allLink.length; i++) {
-    _loop5(i);
+  for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allLink.length; i++) {
+    _loop3(i);
   }
 }
 
@@ -327,11 +295,8 @@ clickList();
 function completeTask() {
   var checkButtons = document.querySelectorAll('input[type="checkbox"]');
   var titles = document.querySelectorAll('.task-title');
-  console.log(checkButtons.length, titles.length);
 
-  var _loop6 = function _loop6(i) {
-    console.log(checkButtons[i]);
-
+  var _loop4 = function _loop4(i) {
     checkButtons[i].onclick = function (e) {
       for (var j = 0; j < titles.length; j++) {
         if (i === j) {
@@ -348,14 +313,16 @@ function completeTask() {
   };
 
   for (var i = 0; i < checkButtons.length; i++) {
-    _loop6(i);
+    _loop4(i);
   }
 }
 
+completeTask();
+
 function deleteProjectTask() {
-  var _loop7 = function _loop7(i) {
-    allDiv[i].addEventListener('click', function (e) {
-      if (allDiv[i].style.display !== 'none') {
+  var _loop5 = function _loop5(i) {
+    _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
+      if (_render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].style.display !== 'none') {
         if (e.target.classList.contains('delete')) {
           var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
 
@@ -383,16 +350,19 @@ function deleteProjectTask() {
             }
           }
 
+          (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
           (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
         }
       }
     });
   };
 
-  for (var i = 3; i < allDiv.length; i++) {
-    _loop7(i);
+  for (var i = 3; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
+    _loop5(i);
   }
 }
+
+deleteProjectTask();
 
 function editProjectTask() {
   var taskAdder = document.querySelector('.task-container-edit');
@@ -403,9 +373,9 @@ function editProjectTask() {
   var confirmButton = document.getElementById('confirm-list');
   var todoIdForProject;
 
-  var _loop8 = function _loop8(i) {
-    allDiv[i].addEventListener('click', function (e) {
-      if (allDiv[i].style.display !== 'none') {
+  var _loop6 = function _loop6(i) {
+    _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
+      if (_render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].style.display !== 'none') {
         if (e.target.classList.contains('edit')) {
           taskAdder.style.display = 'flex';
           var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
@@ -439,6 +409,7 @@ function editProjectTask() {
                   _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].priority = editPriority.value;
                   _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].textArea = editTextArea.value;
                   console.log(_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m]);
+                  (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
                   (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
                 }
               }
@@ -449,11 +420,12 @@ function editProjectTask() {
     });
   };
 
-  for (var i = 3; i < allDiv.length; i++) {
-    _loop8(i);
+  for (var i = 3; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
+    _loop6(i);
   }
 }
 
+editProjectTask();
 addProject.addEventListener('click', function (e) {
   projectContainer.style.display = 'flex';
 });
@@ -467,6 +439,7 @@ cancelButton.addEventListener('click', function (e) {
   projectName.value = '';
   projectContainer.style.display = 'none';
 });
+console.log(_render__WEBPACK_IMPORTED_MODULE_0__.allLink);
 
 
 /***/ }),
@@ -479,8 +452,11 @@ cancelButton.addEventListener('click', function (e) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "allDiv": () => (/* binding */ allDiv),
+/* harmony export */   "allLink": () => (/* binding */ allLink),
 /* harmony export */   "newDatas": () => (/* binding */ newDatas),
-/* harmony export */   "renderTask": () => (/* binding */ renderTask)
+/* harmony export */   "renderTask": () => (/* binding */ renderTask),
+/* harmony export */   "setDataFromLocalStorage": () => (/* binding */ setDataFromLocalStorage)
 /* harmony export */ });
 /* harmony import */ var _addlist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addlist */ "./src/addlist.js");
 /* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./task */ "./src/task.js");
@@ -493,6 +469,210 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var newDatas = (0,_addlist__WEBPACK_IMPORTED_MODULE_0__["default"])();
+
+function getDataFromLocalStorage() {
+  if (localStorage.getItem('newList') === null) {
+    newDatas = (0,_addlist__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  } else {
+    newDatas = JSON.parse(localStorage.getItem('newList'));
+  }
+}
+
+getDataFromLocalStorage(); // Setup localStorage for rendering lists
+
+function setDataFromLocalStorage() {
+  var localData = localStorage.setItem('newList', JSON.stringify(newDatas));
+}
+
+setDataFromLocalStorage();
+var noteWrapper = document.querySelector('.note-wrapper');
+var project = document.querySelector('#projectName-wrapper');
+var projectName = document.querySelector('#projectname');
+var addButton = document.querySelector('#addButton');
+var cancelButton = document.querySelector('#cancelButton');
+var projectContainer = document.querySelector('.task-container-addproject');
+var addProject = document.querySelector('#addproject');
+
+function createProject(index) {
+  var newDiv = document.createElement('div');
+  var flexChild = document.createElement('div');
+  var newLink = document.createElement('a');
+  var sideEditIcon = document.createElement('img');
+  var crossIcon = document.createElement('img');
+  var projectLinkName = document.createElement('p');
+  projectLinkName.style.marginLeft = '10px';
+  newDiv.style.display = 'none';
+  newDiv.setAttribute('id', "project".concat(0));
+  newLink.setAttribute('id', "projectLink".concat(0));
+  newLink.style.padding = '10px';
+  sideEditIcon.src = '../src/assets/bulleted-list.png';
+  crossIcon.src = '../src/assets/cross.png';
+  sideEditIcon.setAttribute('id', 'sideMenu');
+  crossIcon.setAttribute('id', 'crossIcon');
+  flexChild.style.display = 'flex';
+  flexChild.style.flexDirection = 'row';
+  counter++;
+  projectLinkName.textContent = newDatas[4][index]; // Capitlise the project name
+
+  flexChild.append(sideEditIcon, projectLinkName);
+  newLink.append(flexChild, crossIcon);
+  project.appendChild(newLink);
+  noteWrapper.appendChild(newDiv);
+}
+
+function renderProject() {
+  for (var i = 0; i < newDatas[4].length; i++) {
+    createProject(i);
+  }
+}
+
+renderProject();
+var allLink = document.querySelectorAll('a');
+var allDiv = document.querySelectorAll('.note-wrapper > div');
+var selectCrossButton = document.querySelectorAll('#crossIcon');
+allLink[0].classList.add('active-list');
+var counter = 0;
+
+function addNewProject() {
+  addButton.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (projectName.value !== '') {
+      var newDiv = document.createElement('div');
+      var flexChild = document.createElement('div');
+      var newLink = document.createElement('a');
+      var sideEditIcon = document.createElement('img');
+      var crossIcon = document.createElement('img');
+      var projectLinkName = document.createElement('p');
+      projectLinkName.style.marginLeft = '10px';
+      newDiv.style.display = 'none';
+      newDiv.setAttribute('id', "project".concat(counter));
+      newLink.setAttribute('id', "projectLink".concat(counter));
+      newLink.style.padding = '10px';
+      sideEditIcon.src = '../src/assets/bulleted-list.png';
+      crossIcon.src = '../src/assets/cross.png';
+      sideEditIcon.setAttribute('id', 'sideMenu');
+      crossIcon.setAttribute('id', 'crossIcon');
+      flexChild.style.display = 'flex';
+      flexChild.style.flexDirection = 'row';
+      counter++;
+      newDatas[4].push(projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1));
+      projectLinkName.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
+
+      flexChild.append(sideEditIcon, projectLinkName);
+      newLink.append(flexChild, crossIcon);
+      project.appendChild(newLink);
+      noteWrapper.appendChild(newDiv);
+      projectName.value = '';
+      newDatas[3].push([]);
+    }
+
+    for (var k = 0; k < newDatas[3].length; k++) {
+      if (typeof newDatas[3][k] === 'number') {
+        newDatas[3].splice(k, 1);
+        k--;
+      }
+    }
+
+    allLink = document.querySelectorAll('a');
+    allDiv = document.querySelectorAll('.note-wrapper > div');
+    selectCrossButton = document.querySelectorAll('#crossIcon');
+    (0,_project__WEBPACK_IMPORTED_MODULE_2__.linkSelection)();
+    hoverEffect();
+    (0,_project__WEBPACK_IMPORTED_MODULE_2__.deleteProjectTask)();
+    (0,_project__WEBPACK_IMPORTED_MODULE_2__.editProjectTask)();
+    deleteProject();
+    (0,_project__WEBPACK_IMPORTED_MODULE_2__.clickList)();
+    (0,_project__WEBPACK_IMPORTED_MODULE_2__.completeTask)();
+    setDataFromLocalStorage();
+    console.log(selectCrossButton);
+  });
+}
+
+addNewProject();
+
+function hoverEffect() {
+  for (var i = 3; i < allLink.length; i++) {
+    var _loop = function _loop(j) {
+      if (i === j + 3) {
+        allLink[i].addEventListener('mouseover', function (e) {
+          e.preventDefault();
+          selectCrossButton[j].style.display = "block";
+        });
+        allLink[i].addEventListener('mouseout', function (e) {
+          e.preventDefault();
+          selectCrossButton[j].style.display = 'none';
+        });
+      }
+    };
+
+    for (var j = 0; j < selectCrossButton.length; j++) {
+      _loop(j);
+    }
+  }
+}
+
+hoverEffect();
+
+function deleteProject() {
+  var _loop2 = function _loop2(i) {
+    selectCrossButton[i].onclick = function () {
+      for (var m = 0; m < newDatas[3][i].length; m++) {
+        for (var l = 0; l < newDatas[0].length; l++) {
+          if (newDatas[0][l].todoId === newDatas[3][i][m].todoId) {
+            newDatas[0].splice(l, 1);
+          }
+        }
+
+        for (var _l = 0; _l < newDatas[1].length; _l++) {
+          if (newDatas[1][_l].todoId === newDatas[3][i][m].todoId) {
+            newDatas[1].splice(_l, 1);
+          }
+        }
+
+        for (var _l2 = 0; _l2 < newDatas[2].length; _l2++) {
+          if (newDatas[2][_l2].todoId === newDatas[3][i][m].todoId) {
+            newDatas[2].splice(_l2, 1);
+          }
+        }
+      }
+
+      newDatas[3].splice(i, 1);
+      newDatas[3].splice(i, 0, i);
+      newDatas[4].splice(i, 1);
+      console.log(newDatas[4]);
+      setDataFromLocalStorage(); // Delete link when click the cross button
+
+      for (var j = 3; j < allLink.length; j++) {
+        allLink[3 + i].remove();
+      } // Delete div when click the link
+
+
+      for (var k = 3; k < allDiv.length; k++) {
+        allDiv[3 + i].remove();
+      }
+
+      counter--;
+      selectCrossButton = document.querySelectorAll('#crossIcon');
+      allLink = document.querySelectorAll('a');
+      renderTask();
+      (0,_project__WEBPACK_IMPORTED_MODULE_2__.linkSelection)();
+      hoverEffect();
+      (0,_project__WEBPACK_IMPORTED_MODULE_2__.deleteProjectTask)();
+      (0,_project__WEBPACK_IMPORTED_MODULE_2__.editProjectTask)();
+      deleteProject();
+      (0,_project__WEBPACK_IMPORTED_MODULE_2__.clickList)();
+      (0,_project__WEBPACK_IMPORTED_MODULE_2__.completeTask)();
+      console.log(selectCrossButton);
+    };
+  };
+
+  for (var i = 0; i < selectCrossButton.length; i++) {
+    _loop2(i);
+  }
+}
+
+deleteProject();
 
 function createTask(outerIndex, innerIndex) {
   //selecting div container that will contain task list 
@@ -542,7 +722,7 @@ function createTask(outerIndex, innerIndex) {
 
 function createProjectTask(outerIndex, innerIndex) {
   if (newDatas[outerIndex] === newDatas[3]) {
-    for (var i = 3; i < _project__WEBPACK_IMPORTED_MODULE_2__.allDiv.length; i++) {
+    for (var i = 3; i < allDiv.length; i++) {
       for (var k = 0; k < newDatas[3][innerIndex].length; k++) {
         if (i === innerIndex + 3) {
           var newDiv = document.createElement('div');
@@ -575,7 +755,7 @@ function createProjectTask(outerIndex, innerIndex) {
           newDiv.append(newInnerDivOne, newInnerDivTwo);
           newInnerDivOne.append(checkButton, newSpanTitle);
           newInnerDivTwo.append(newSpanPriority, newSpanDate, newSpanEdit, newSpanDelete);
-          _project__WEBPACK_IMPORTED_MODULE_2__.allDiv[i].appendChild(newDiv);
+          allDiv[i].appendChild(newDiv);
         }
       }
     }
@@ -588,7 +768,7 @@ function renderTask() {
     task.remove();
   });
 
-  for (var i = 0; i < newDatas.length - 1; i++) {
+  for (var i = 0; i < newDatas.length - 2; i++) {
     for (var j = 0; j < newDatas[i].length; j++) {
       createTask(i, j);
     }
@@ -624,9 +804,7 @@ renderTask();
 
     newDatas[0].push(newList); // pushing any data the user add
 
-    console.log(newDatas[0]);
     date = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(date, 'yyyy-MM-dd');
-    console.log(date);
     weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(weeksDate, 'yyyy-MM-dd');
 
     if (date == newList.dueDate) {
@@ -635,8 +813,8 @@ renderTask();
       newDatas[2].push(newList);
     }
 
-    for (var i = 3; i < _project__WEBPACK_IMPORTED_MODULE_2__.allDiv.length; i++) {
-      if (_project__WEBPACK_IMPORTED_MODULE_2__.allDiv[i].style.display !== 'none') {
+    for (var i = 3; i < allDiv.length; i++) {
+      if (allDiv[i].style.display !== 'none') {
         for (var j = 0; j < newDatas[3].length; j++) {
           if (i === j + 3) {
             newDatas[3][j].push(newList);
@@ -645,8 +823,7 @@ renderTask();
       }
     }
 
-    console.log(newDatas);
-    console.log(_project__WEBPACK_IMPORTED_MODULE_2__.allDiv.length);
+    setDataFromLocalStorage();
     renderTask();
   });
 })();
@@ -702,262 +879,268 @@ function List() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "deleteTask": () => (/* binding */ deleteTask),
-/* harmony export */   "editTask": () => (/* binding */ editTask),
-/* harmony export */   "openTaskAdder": () => (/* binding */ openTaskAdder)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project */ "./src/project.js");
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./render */ "./src/render.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfToday/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addDays/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./src/render.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfToday/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addDays/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
+// import { allDiv } from './project';
 
 
+var taskAdder = document.querySelector('.task-container-edit'); //addNewProject();
 
-var taskAdder = document.querySelector('.task-container-edit');
-(0,_project__WEBPACK_IMPORTED_MODULE_0__.addNewProject)();
+var taskUI = function () {
+  function deleteTask() {
+    var _loop = function _loop(i) {
+      _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete')) {
+          console.log(_render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length);
+          var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
 
-function deleteTask() {
-  var _loop = function _loop(i) {
-    _project__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
-      if (e.target.classList.contains('delete')) {
-        console.log(_project__WEBPACK_IMPORTED_MODULE_0__.allDiv.length);
-        var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+          if (i === 0) {
+            for (var _i = 0; _i < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _i++) {
+              if (e.target.parentNode.parentNode === currentChild[_i]) {
+                for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; j++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][j].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].splice(j, 1);
+                }
 
-        if (i === 0) {
-          for (var _i = 0; _i < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _i++) {
-            if (e.target.parentNode.parentNode === currentChild[_i]) {
-              for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].length; j++) {
-                if (_render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][j].todoId) _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].splice(j, 1);
-              }
+                for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; k++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][k].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].splice(k, 1);
+                }
 
-              for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].length; k++) {
-                if (_render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][k].todoId) _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].splice(k, 1);
-              }
-
-              for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3].length; l++) {
-                for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l].length; m++) {
-                  if (_render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].todoId) {
-                    _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l].splice(m, 1);
+                for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; l++) {
+                  for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].length; m++) {
+                    if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId) {
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].splice(m, 1);
+                    }
                   }
                 }
+
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(_i, 1);
               }
-
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].splice(_i, 1);
             }
-          }
 
-          (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
-        } else if (i === 1) {
-          for (var _i2 = 0; _i2 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].length; _i2++) {
-            if (e.target.parentNode.parentNode === currentChild[_i2]) {
-              for (var _j = 0; _j < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _j++) {
-                if (_render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_i2].todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_j].todoId) _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].splice(_j, 1);
-              }
-
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].splice(_i2, 1);
-              break;
-            }
-          }
-
-          (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
-        } else if (i === 2) {
-          for (var _i3 = 0; _i3 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].length; _i3++) {
-            if (e.target.parentNode.parentNode === currentChild[_i3]) {
-              for (var _j2 = 0; _j2 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _j2++) {
-                if (_render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i3].todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_j2].todoId) _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].splice(_j2, 1);
-              }
-
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].splice(_i3, 1);
-              break;
-            }
-          }
-
-          (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
-        }
-      }
-    });
-  };
-
-  for (var i = 0; i < _project__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
-    _loop(i);
-  }
-}
-
-function editTask() {
-  var editDate = document.querySelector('#date-edit');
-  var editTitle = document.getElementById('title-edit');
-  var editPriority = document.getElementById('priority-edit');
-  var editTextArea = document.getElementById('description-edit');
-  var confirmButton = document.getElementById('confirm-list');
-  var todoId;
-
-  var _loop2 = function _loop2(i) {
-    _project__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
-      if (e.target.classList.contains('edit')) {
-        taskAdder.style.display = 'flex';
-        var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-
-        if (i === 0) {
-          for (var _i4 = 0; _i4 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _i4++) {
-            if (e.target.parentNode.parentNode === currentChild[_i4]) {
-              editTitle.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i4].title;
-              editDate.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i4].dueDate;
-              editPriority.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i4].priority;
-              editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i4].textArea;
-              todoId = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i4].todoId; // Adding edited data when user clicks on confirm button
-            }
-          }
-        } else if (i === 1) {
-          for (var _i5 = 0; _i5 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].length; _i5++) {
-            if (e.target.parentNode.parentNode === currentChild[_i5]) {
-              editTitle.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_i5].title;
-              editDate.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_i5].dueDate;
-              editPriority.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_i5].priority;
-              editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_i5].textArea;
-              todoId = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_i5].todoId;
-            }
-          }
-        } else if (i === 2) {
-          for (var _i6 = 0; _i6 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].length; _i6++) {
-            if (e.target.parentNode.parentNode === currentChild[_i6]) {
-              editTitle.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i6].title;
-              editDate.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i6].dueDate;
-              editPriority.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i6].priority;
-              editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i6].textArea;
-              todoId = _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_i6].todoId;
-            }
-          }
-        }
-      }
-
-      confirmButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        var date = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])();
-        var weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(date, 8); // get next week's date to compare with user's selected date
-
-        date = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(date, 'yyyy-MM-dd');
-        weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(weeksDate, 'yyyy-MM-dd');
-
-        if (i === 0) {
-          for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; j++) {
-            if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].todoId) {
-              console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].todoId);
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].title = editTitle.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].dueDate = editDate.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].priority = editPriority.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][j].textArea = editTextArea.value;
-
-              for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].length; k++) {
-                if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][k].todoId) {
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][k].title = editTitle.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][k].dueDate = editDate.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][k].priority = editPriority.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][k].textArea = editTextArea.value;
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+          } else if (i === 1) {
+            for (var _i2 = 0; _i2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; _i2++) {
+              if (e.target.parentNode.parentNode === currentChild[_i2]) {
+                for (var _j = 0; _j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _j++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i2].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_j].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(_j, 1);
                 }
-              }
 
-              for (var _k = 0; _k < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].length; _k++) {
-                if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_k].todoId) {
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_k].title = editTitle.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_k].dueDate = editDate.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_k].priority = editPriority.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_k].textArea = editTextArea.value;
-                }
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].splice(_i2, 1);
+                break;
               }
-
-              for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3].length; l++) {
-                for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l].length; m++) {
-                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].todoId) {
-                    _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].title = editTitle.value;
-                    _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].dueDate = editDate.value;
-                    _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].priority = editPriority.value;
-                    _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[3][l][m].textArea = editTextArea.value;
-                  }
-                }
-              }
-
-              (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
             }
-          }
-        } else if (i === 1) {
-          for (var _j3 = 0; _j3 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1].length; _j3++) {
-            if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].todoId) {
-              console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].todoId);
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].title = editTitle.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].dueDate = editDate.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].priority = editPriority.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[1][_j3].textArea = editTextArea.value;
 
-              for (var _k2 = 0; _k2 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _k2++) {
-                if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].todoId) {
-                  console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].todoId);
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].title = editTitle.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].dueDate = editDate.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].priority = editPriority.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k2].textArea = editTextArea.value;
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+          } else if (i === 2) {
+            for (var _i3 = 0; _i3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _i3++) {
+              if (e.target.parentNode.parentNode === currentChild[_i3]) {
+                for (var _j2 = 0; _j2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _j2++) {
+                  if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i3].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_j2].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(_j2, 1);
                 }
+
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].splice(_i3, 1);
+                break;
               }
-
-              (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
             }
-          }
-        } else if (i === 2) {
-          for (var _j4 = 0; _j4 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2].length; _j4++) {
-            if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].todoId) {
-              console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].todoId);
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].title = editTitle.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].dueDate = editDate.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].priority = editPriority.value;
-              _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[2][_j4].textArea = editTextArea.value;
 
-              for (var _k3 = 0; _k3 < _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0].length; _k3++) {
-                if (todoId === _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].todoId) {
-                  console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].todoId);
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].title = editTitle.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].dueDate = editDate.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].priority = editPriority.value;
-                  _render__WEBPACK_IMPORTED_MODULE_1__.newDatas[0][_k3].textArea = editTextArea.value;
-                }
-              }
-
-              (0,_render__WEBPACK_IMPORTED_MODULE_1__.renderTask)();
-            }
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
           }
         }
       });
-    });
-  };
+    };
 
-  for (var i = 0; i < _project__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
-    _loop2(i);
+    for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
+      _loop(i);
+    }
   }
-}
 
-function openTaskAdder() {
-  var addButton = document.querySelector('.addlist');
-  var taskEditor = document.querySelector('.task-container');
-  var crossButton = document.querySelector('.cross');
-  var crossButton2 = document.querySelector('.cross2');
-  addButton.addEventListener('click', function (e) {
-    taskEditor.style.display = 'flex';
-    anime({
-      targets: '.addlist',
-      translateX: 250,
-      duration: 3000,
-      rotateZ: 360,
-      scale: 3
+  function editTask() {
+    var editDate = document.querySelector('#date-edit');
+    var editTitle = document.getElementById('title-edit');
+    var editPriority = document.getElementById('priority-edit');
+    var editTextArea = document.getElementById('description-edit');
+    var confirmButton = document.getElementById('confirm-list');
+    var todoId;
+
+    var _loop2 = function _loop2(i) {
+      _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
+        if (e.target.classList.contains('edit')) {
+          taskAdder.style.display = 'flex';
+          var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+
+          if (i === 0) {
+            for (var _i4 = 0; _i4 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _i4++) {
+              if (e.target.parentNode.parentNode === currentChild[_i4]) {
+                editTitle.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].title;
+                editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].dueDate;
+                editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].priority;
+                editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].textArea;
+                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].todoId; // Adding edited data when user clicks on confirm button
+              }
+            }
+          } else if (i === 1) {
+            for (var _i5 = 0; _i5 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; _i5++) {
+              if (e.target.parentNode.parentNode === currentChild[_i5]) {
+                editTitle.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].title;
+                editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].dueDate;
+                editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].priority;
+                editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].textArea;
+                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i5].todoId;
+              }
+            }
+          } else if (i === 2) {
+            for (var _i6 = 0; _i6 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _i6++) {
+              if (e.target.parentNode.parentNode === currentChild[_i6]) {
+                editTitle.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i6].title;
+                editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i6].dueDate;
+                editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i6].priority;
+                editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i6].textArea;
+                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i6].todoId;
+              }
+            }
+          }
+        }
+
+        confirmButton.addEventListener('click', function (e) {
+          e.preventDefault();
+          var date = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__["default"])();
+          var weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(date, 8); // get next week's date to compare with user's selected date
+
+          date = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(date, 'yyyy-MM-dd');
+          weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(weeksDate, 'yyyy-MM-dd');
+
+          if (i === 0) {
+            for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; j++) {
+              if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].todoId) {
+                console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].todoId);
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].title = editTitle.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].dueDate = editDate.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].priority = editPriority.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].textArea = editTextArea.value;
+
+                for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; k++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].todoId) {
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].textArea = editTextArea.value;
+                  }
+                }
+
+                for (var _k = 0; _k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _k++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].todoId) {
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].textArea = editTextArea.value;
+                  }
+                }
+
+                for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; l++) {
+                  for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].length; m++) {
+                    if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId) {
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].title = editTitle.value;
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].dueDate = editDate.value;
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].priority = editPriority.value;
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].textArea = editTextArea.value;
+                    }
+                  }
+                }
+
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+              }
+            }
+          } else if (i === 1) {
+            for (var _j3 = 0; _j3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; _j3++) {
+              if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].todoId) {
+                console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].todoId);
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].title = editTitle.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].dueDate = editDate.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].priority = editPriority.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].textArea = editTextArea.value;
+
+                for (var _k2 = 0; _k2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k2++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId) {
+                    console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId);
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].textArea = editTextArea.value;
+                  }
+                }
+
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+              }
+            }
+          } else if (i === 2) {
+            for (var _j4 = 0; _j4 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _j4++) {
+              if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].todoId) {
+                console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].todoId);
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].title = editTitle.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].dueDate = editDate.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].priority = editPriority.value;
+                _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].textArea = editTextArea.value;
+
+                for (var _k3 = 0; _k3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k3++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId) {
+                    console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId);
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].textArea = editTextArea.value;
+                  }
+                }
+
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+              }
+            }
+          }
+        });
+      });
+    };
+
+    for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
+      _loop2(i);
+    }
+  }
+
+  function openTaskAdder() {
+    var addButton = document.querySelector('.addlist');
+    var taskEditor = document.querySelector('.task-container');
+    var crossButton = document.querySelector('.cross');
+    var crossButton2 = document.querySelector('.cross2');
+    addButton.addEventListener('click', function (e) {
+      taskEditor.style.display = 'flex';
     });
-  });
-  crossButton.addEventListener('click', function (e) {
-    taskEditor.style.display = 'none';
-  });
-  crossButton2.addEventListener('click', function (e) {
-    taskAdder.style.display = 'none';
-  });
-}
+    crossButton.addEventListener('click', function (e) {
+      taskEditor.style.display = 'none';
+    });
+    crossButton2.addEventListener('click', function (e) {
+      taskAdder.style.display = 'none';
+    });
+  }
 
+  return {
+    deleteTask: deleteTask,
+    editTask: editTask,
+    openTaskAdder: openTaskAdder
+  };
+}();
 
+taskUI.deleteTask();
+taskUI.editTask();
+taskUI.openTaskAdder();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (taskUI);
 
 /***/ }),
 
@@ -986,7 +1169,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap);"]);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n*, *::before, *::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"inter\", sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: #212121;\n  font-size: 1.1111111111vw;\n}\n\n@media screen and (min-width: 1920px) {\n  body {\n    font-size: 21.3333333333px;\n  }\n}\n.brand {\n  text-decoration: none;\n  color: #F5F5F5;\n  font-size: 2.625em;\n  font-weight: 600;\n}\n\n@media screen and (max-width: 991px) {\n  body {\n    font-size: 11.0111111111px;\n  }\n}\na {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: #212121;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n}\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n}\n#projectName-wrapper a {\n  margin-top: 6px;\n}\n\na:hover {\n  background-color: #C5C5C5;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\nh3 {\n  font-weight: 500;\n  font-size: 1.5em;\n}\n\np {\n  font-size: 0.8em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: #DF7861;\n}\n.nav-bar span {\n  color: #94B49F;\n}\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container, .task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross, .cross2 {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n}\n\n.crossup {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.projectHeading span {\n  font-size: 1.2em;\n  margin-left: 40px;\n  cursor: pointer;\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: #F5F5F5;\n}\n.task-wrapper input[type=text] {\n  font-size: 1.5em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]::placeholder {\n  color: #595959;\n  font-weight: 500;\n  border-radius: 3px solid #555;\n}\n.task-wrapper textarea {\n  font-size: 1em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]:focus, .task-wrapper textarea:focus {\n  border: none;\n}\n\n.active-list {\n  background-color: #C5C5C5;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: #D7D6D6;\n}\naside ul {\n  list-style-type: none;\n  text-decoration: none;\n}\naside ul li {\n  margin-bottom: 8px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  cursor: pointer;\n}\naside ul li a {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  padding: 8px;\n  font-weight: 500;\n  font-size: 1.25em;\n}\naside ul li img {\n  width: 20px;\n  height: 20px;\n  margin-right: 16px;\n}\naside .button-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\naside .button-wrapper .addlist {\n  position: absolute;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: 50px 50px;\n  background-position: center;\n  bottom: 100px;\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n  border: none;\n  background-color: #94B49F;\n  cursor: pointer;\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: #EAEAEA;\n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: #EAEAEA;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n}\nform .select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: #C5C5C5;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n}\n.list-wrapper .list-element-one {\n  display: flex;\n  flex-direction: row;\n}\n.list-wrapper .list-element-one span {\n  margin-left: 16px;\n}\n.list-wrapper .list-element-two {\n  display: flex;\n  justify-content: flex-start;\n}\n.list-wrapper .list-element-two span {\n  margin-right: 16px;\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n}\n\n.project {\n  margin-left: 28px;\n}\n\n.taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px #94B49F solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.taskComplete:checked {\n  background-color: #94B49F;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: #EAEAEA;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#projectadder input {\n  appearance: none;\n  --webkit-appearance: none;\n  width: 250px;\n  height: 32px;\n  border: 1px solid #595959;\n  padding: 8px;\n  background-color: transparent;\n}\n#projectadder input:focus {\n  appearance: none;\n  outline: none;\n}\n#projectadder div {\n  width: 100%;\n  margin-top: 16px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n#projectadder button {\n  width: 100%;\n  padding: 6px;\n  margin-top: 8px;\n  border-radius: 0;\n}\n#projectadder #addButton {\n  border: 2px solid #94B49F;\n}\n#projectadder #cancelButton {\n  border: 2px solid #DF7861;\n}\n#projectadder #addButton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}\n#projectadder #cancelButton:hover {\n  background-color: #DF7861;\n  color: #F5F5F5;\n}\n\ninput[type=date], select {\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid #595959;\n}\n\n#date-edit:focus, #priority-edit:focus {\n  outline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid #94B49F;\n}\n\nbutton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}", "",{"version":3,"sources":["webpack://./src/style/main.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAYhB;EACE,sBAAA;EACA,SAAA;EACA,UAAA;AATF;;AAYA;EACE,gCAAA;EACA,gBAAA;EACA,aAAA;EACA,gBAAA;EACA,cAhBY;EAiBZ,yBAAA;AATF;;AAYA;EACE;IAAM,0BAAA;EARN;AACF;AAWC;EACG,qBAAA;EACA,cAzBU;EA0BV,kBAAA;EACA,gBAAA;AATJ;;AAaC;EACC;IAAM,0BAAA;EATN;AACF;AAWC;EACC,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,8BAAA;EACA,mBAAA;EACA,cA3CY;EA4CZ,iBAAA;EACA,gBAAA;EACA,WAAA;EACA,eAAA;AATF;;AAYA;EACE,WAAA;EACA,aAAA;EACA,gBAAA;AATF;AAUE;EACE,eAAA;AARJ;;AAYC;EACC,yBA7D4B;AAoD9B;;AAYA;EACE,iBAAA;AATF;;AAYC;EACC,gBAAA;EACA,gBAAA;AATF;;AAYC;EACC,gBAAA;AATF;;AAYA;EACE,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,aAAA;EACA,WAAA;EACA,cAAA;EACA,yBAxFc;AA+EhB;AAWI;EACE,cA1FY;AAiFlB;;AAcA;EACE,kBAAA;EACA,iBAAA;EACA,mBAAA;AAXF;;AAcA;EACE,eAAA;EACA,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,YAAA;EACA,aAAA;EACA,oCAAA;EACA,aAAA;AAXF;;AAcA;EACE,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,YAAA;EACA,aAAA;EACA,oCAAA;EACA,aAAA;AAXF;;AAcA;EACA,kBAAA;EACA,WAAA;EACA,SAAA;AAXA;;AAcA;EACE,yBA9HY;EA+HZ,WAAA;EACA,WAAA;EACA,0CAAA;AAXF;;AAcA;EACE,yBArIY;EAsIZ,WAAA;EACA,WAAA;EACA,4CAAA;AAXF;;AAcA;EACE,WAAA;EACA,aAAA;EACA,mBAAA;EACA,2BAAA;EACA,mBAAA;AAXF;AAaE;EACE,gBAAA;EACA,iBAAA;EACA,eAAA;AAXJ;;AAeA;EACE,aAAA;EACA,kBAAA;EACA,sBAAA;EACA,iBAAA;EACA,aAAA;EACA,eAAA;EACA,eAAA;EACA,yBA/JY;AAmJd;AAcE;EACE,gBAAA;EACA,gBAAA;EACA,kDAAA;EACA,cAvKU;EAwKV,YAAA;EACA,aAAA;EACA,wBAAA;EACA,uBAAA;EACA,YAAA;AAZJ;AAeE;EACE,cA/KgB;EAgLhB,gBAAA;EACA,6BAAA;AAbJ;AAiBE;EACE,cAAA;EACA,gBAAA;EACA,kDAAA;EACA,cA1LU;EA2LV,YAAA;EACA,aAAA;EACA,wBAAA;EACA,uBAAA;EACA,YAAA;AAfJ;AAkBE;EACE,YAAA;AAhBJ;;AAuBA;EACE,yBA5M4B;AAwL9B;;AAuBA;EACE,6BAAA;AApBF;;AAuBA;EACE,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,iBAAA;EACA,oBAAA;EACA,eAAA;EACA,aAAA;EACA,yBA5N0B;AAwM5B;AAsBE;EACE,qBAAA;EACA,qBAAA;AApBJ;AAsBI;EACE,kBAAA;EACA,WAAA;EACA,aAAA;EACA,mBAAA;EACA,2BAAA;EACA,mBAAA;EACA,eAAA;AApBN;AAsBM;EACE,aAAA;EACA,mBAAA;EACA,2BAAA;EACA,YAAA;EACA,gBAAA;EACA,iBAAA;AApBR;AAuBM;EACE,WAAA;EACA,YAAA;EACA,kBAAA;AArBR;AA2BE;EACE,WAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AAzBJ;AA2BI;EACE,kBAAA;EACA,yDAAA;EACA,4BAAA;EACA,0BAAA;EACA,2BAAA;EACA,aAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EACA,yBAhRY;EAiRZ,eAAA;AAzBN;;AAgCA;EACE,WAAA;EACA,YAAA;AA7BF;;AAgCA;EACE,aAAA;EACA,WAAA;EACA,YAAA;AA7BF;;AAgCA;EACE,aAAA;EACA,8BAAA;EACA,WAAA;EACA,aAAA;AA7BF;;AAgCA;EACE,4BAAA;EACA,aAAA;EACA,yBA5S2B;AA+Q7B;;AAiCA;EACE,WAAA;EACA,YAAA;EACA,4BAAA;AA9BF;;AAiCA;EACE,yBAvT2B;EAwT3B,aAAA;AA9BF;;AAiCA;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,WAAA;EACA,gBAAA;EACA,YAAA;AA9BF;;AAiCA;EACE,aAAA;EACA,mBAAA;EACA,8BAAA;EACA,qBAAA;AA9BF;AAgCA;EACE,aAAA;EACA,sBAAA;EACA,2BAAA;AA9BF;;AAkCA;EACE,aAAA;EACA,8BAAA;EACA,yBAlV4B;EAmV5B,iBAAA;EACA,gBAAA;EACA,4BAAA;EACA,kBAAA;AA/BF;AAiCE;EACE,aAAA;EACA,mBAAA;AA/BJ;AAiCI;EACE,iBAAA;AA/BN;AAmCE;EACE,aAAA;EACA,2BAAA;AAjCJ;AAmCI;EACE,kBAAA;AAjCN;;AAuCA;EACE,kBAAA;EACA,gBAAA;EACA,gBAAA;AApCF;;AAuCC;EACC,iBAAA;AApCF;;AAyCC;EACC,yBAAA;EACA,gBAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,6BAAA;EACA,kBAAA;EACA,eAAA;AAtCF;;AAyCC;EACC,yBA7YgB;AAuWlB;;AAyCA;EACE,YAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,gBAAA;EACA,cAtZ2B;EAuZ3B,cAAA;AAtCF;;AAyCA;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;AAtCF;AAwCE;EACE,gBAAA;EACA,yBAAA;EACA,YAAA;EACA,YAAA;EACA,yBAAA;EACA,YAAA;EACA,6BAAA;AAtCJ;AAyCE;EACE,gBAAA;EACA,aAAA;AAvCJ;AA0CE;EACE,WAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,6BAAA;AAxCJ;AA2CE;EACE,WAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;AAzCJ;AA4CI;EACE,yBAAA;AA1CN;AA6CI;EACE,yBAAA;AA3CN;AA8CI;EACE,yBAxcY;EAycZ,cAncQ;AAuZd;AA+CI;EACE,yBA9cU;EA+cV,cAxcQ;AA2Zd;;AAmDA;EACE,gBAAA;EACA,eAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;EACA,2BAAA;AAhDF;;AAmDA;EACA,aAAA;AAhDA;;AAmDA;EACE,gBAAA;AAhDF;;AAmDA;EACE,kBAAA;EACA,WAAA;EACA,SAAA;EACA,WAAA;EACA,QAAA;EACA,SAAA;EACA,6BAAA;EACA,sDAAA;AAhDF;;AAmDA;EACE,6BAAA;EACA,WAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;EACA,2BAAA;AAhDF;;AAmDA;EACE,yBA3fgB;EA4fhB,cAtfY;AAscd","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap');\n\n$primary-color: #DF7861;\n$secondary-color: #94B49F;\n$secondary-color-light-gray: #EAEAEA;\n$secondary-color-dark-gray: #D7D6D6;\n$secondary-color-darker-gray: #C5C5C5;\n$black-color: #212121;\n$black-color-light: #595959;\n$white-color: #F5F5F5;\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\n\n*,*::before,*::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: 'inter', sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: $black-color;\n  font-size: 1.1111111111111112vw;\n}\n\n@media screen and (min-width:1920px) {\n  body {font-size: 21.333333333333332px;}\n }\n\n\n .brand {\n    text-decoration: none;\n    color: $white-color;\n    font-size: 2.625em;\n    font-weight: 600;\n }\n\n\n @media screen and (max-width:991px) {\n  body {font-size: 11.011111111111111px;}\n }\n\n a {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: $black-color;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n }\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n  a {\n    margin-top: 6px;\n  }\n}\n\n a:hover {\n  background-color: $secondary-color-darker-gray;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\n h3 {\n  font-weight: 500;\n  font-size: 1.5em;\n }\n\n p {\n  font-size: 0.8em;\n }\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: $primary-color;\n  \n    span {\n      color: $secondary-color;\n    }\n}\n\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container,.task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross,.cross2{\nposition: absolute;\nright: 10px;\ntop: 20px;\n}\n\n.crossup {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n\n  span {\n    font-size: 1.2em;\n    margin-left: 40px;\n    cursor: pointer;\n  }\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: $white-color;\n\n  input[type=text] {\n    font-size: 1.5em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]::placeholder {\n    color: $black-color-light;\n    font-weight: 500;\n    border-radius: 3px solid #555;\n    \n  }\n\n  textarea {\n    font-size: 1em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]:focus, textarea:focus {\n    border: none;\n}\n\n\n\n}\n\n.active-list {\n  background-color: $secondary-color-darker-gray;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: $secondary-color-dark-gray;\n\n  ul {\n    list-style-type: none;\n    text-decoration: none;\n\n    li {\n      margin-bottom: 8px;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n      justify-content: flex-start;\n      align-items: center;\n      cursor: pointer;\n\n      a {\n        display: flex;\n        flex-direction: row;\n        justify-content: flex-start;\n        padding: 8px;\n        font-weight: 500;\n        font-size: 1.25em;\n      }\n\n      img {\n        width: 20px;\n        height: 20px;\n        margin-right: 16px;\n      }\n    }\n\n  }\n\n  .button-wrapper {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    .addlist {\n      position: absolute;\n      background-image: url('../assets/plus-sign.png');\n      background-repeat: no-repeat;\n      background-size: 50px 50px;\n      background-position: center;\n      bottom: 100px;\n      width: 70px;\n      height: 70px;\n      border-radius: 50%;\n      border: none;\n      background-color: $secondary-color;\n      cursor: pointer;\n    }\n\n  }\n\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: $secondary-color-light-gray;\n  \n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: $secondary-color-light-gray;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n\n.select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: $secondary-color-darker-gray;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n\n  .list-element-one {\n    display: flex;\n    flex-direction: row;\n\n    span {\n      margin-left: 16px;\n    }\n  }\n\n  .list-element-two {\n    display: flex;\n    justify-content: flex-start;\n\n    span {\n      margin-right: 16px;\n    }\n\n  }\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n }\n\n .project {\n  margin-left: 28px;\n\n }\n\n\n .taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px $secondary-color solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n }\n\n .taskComplete:checked {\n  background-color: $secondary-color;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: $secondary-color-light-gray;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n\n  input {\n    appearance: none;\n    --webkit-appearance: none;\n    width: 250px;\n    height: 32px;\n    border: 1px solid $black-color-light;\n    padding: 8px;\n    background-color: transparent;\n  }\n\n  input:focus {\n    appearance: none;\n    outline: none;\n  }\n\n  div {\n    width: 100%;\n    margin-top: 16px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n  }\n\n  button {\n    width: 100%;\n    padding: 6px;\n    margin-top: 8px;\n    border-radius: 0;\n    }\n\n    #addButton {\n      border: 2px solid $secondary-color;\n    }\n\n    #cancelButton {\n      border: 2px solid $primary-color;\n    }\n\n    #addButton:hover {\n      background-color: $secondary-color;\n      color: $white-color;\n    }\n\n    #cancelButton:hover {\n      background-color: $primary-color;\n      color: $white-color;\n    }\n}\n\n\n\ninput[type=\"date\"],select{\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid $black-color-light;\n}\n\n#date-edit:focus, #priority-edit:focus {\noutline: none;\n\n}\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid $secondary-color;\n}\n\nbutton:hover {\n  background-color: $secondary-color;\n  color: $white-color;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n*, *::before, *::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"inter\", sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: #212121;\n  font-size: 1.1111111111vw;\n}\n\n@media screen and (min-width: 1920px) {\n  body {\n    font-size: 21.3333333333px;\n  }\n}\n.brand {\n  text-decoration: none;\n  color: #F5F5F5;\n  font-size: 2.625em;\n  font-weight: 600;\n}\n\n@media screen and (max-width: 991px) {\n  body {\n    font-size: 11.0111111111px;\n  }\n}\na {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: #212121;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n}\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n}\n#projectName-wrapper a {\n  margin-top: 6px;\n}\n\na:hover {\n  background-color: #C5C5C5;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\nh3 {\n  font-weight: 500;\n  font-size: 1.5em;\n}\n\np {\n  font-size: 0.8em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: #DF7861;\n}\n.nav-bar span {\n  color: #94B49F;\n}\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container, .task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross, .cross2 {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n}\n\n.crossup {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.projectHeading span {\n  font-size: 1.2em;\n  margin-left: 40px;\n  cursor: pointer;\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: #F5F5F5;\n}\n.task-wrapper input[type=text] {\n  font-size: 1.5em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]::placeholder {\n  color: #595959;\n  font-weight: 500;\n  border-radius: 3px solid #555;\n}\n.task-wrapper textarea {\n  font-size: 1em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]:focus, .task-wrapper textarea:focus {\n  border: none;\n}\n\n.active-list {\n  background-color: #C5C5C5;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: #D7D6D6;\n}\naside ul {\n  list-style-type: none;\n  text-decoration: none;\n}\naside ul li {\n  margin-bottom: 8px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  cursor: pointer;\n}\naside ul li a {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  padding: 8px;\n  font-weight: 500;\n  font-size: 1.25em;\n}\naside ul li img {\n  width: 20px;\n  height: 20px;\n  margin-right: 16px;\n}\naside .button-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\naside .button-wrapper .addlist {\n  position: absolute;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: 50px 50px;\n  background-position: center;\n  bottom: 100px;\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n  border: none;\n  background-color: #94B49F;\n  cursor: pointer;\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: #EAEAEA;\n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: #EAEAEA;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n}\nform .select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: #C5C5C5;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n}\n.list-wrapper .list-element-one {\n  display: flex;\n  flex-direction: row;\n}\n.list-wrapper .list-element-one span {\n  margin-left: 16px;\n}\n.list-wrapper .list-element-two {\n  display: flex;\n  justify-content: flex-start;\n}\n.list-wrapper .list-element-two span {\n  margin-right: 16px;\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n}\n\n.project {\n  margin-left: 28px;\n}\n\n.taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px #94B49F solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.taskComplete:checked {\n  background-color: #94B49F;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: #EAEAEA;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#projectadder input {\n  appearance: none;\n  --webkit-appearance: none;\n  width: 250px;\n  height: 32px;\n  border: 1px solid #595959;\n  padding: 8px;\n  background-color: transparent;\n}\n#projectadder input:focus {\n  appearance: none;\n  outline: none;\n}\n#projectadder div {\n  width: 100%;\n  margin-top: 16px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n#projectadder button {\n  width: 100%;\n  padding: 6px;\n  margin-top: 8px;\n  border-radius: 0;\n}\n#projectadder #addButton {\n  border: 2px solid #94B49F;\n}\n#projectadder #cancelButton {\n  border: 2px solid #DF7861;\n}\n#projectadder #addButton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}\n#projectadder #cancelButton:hover {\n  background-color: #DF7861;\n  color: #F5F5F5;\n}\n\ninput[type=date], select {\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid #595959;\n}\n\n#date-edit:focus, #priority-edit:focus {\n  outline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid #94B49F;\n}\n\nbutton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}", "",{"version":3,"sources":["webpack://./src/style/main.scss"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap');\n\n$primary-color: #DF7861;\n$secondary-color: #94B49F;\n$secondary-color-light-gray: #EAEAEA;\n$secondary-color-dark-gray: #D7D6D6;\n$secondary-color-darker-gray: #C5C5C5;\n$black-color: #212121;\n$black-color-light: #595959;\n$white-color: #F5F5F5;\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\n\n*,*::before,*::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: 'inter', sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: $black-color;\n  font-size: 1.1111111111111112vw;\n}\n\n@media screen and (min-width:1920px) {\n  body {font-size: 21.333333333333332px;}\n }\n\n\n .brand {\n    text-decoration: none;\n    color: $white-color;\n    font-size: 2.625em;\n    font-weight: 600;\n }\n\n\n @media screen and (max-width:991px) {\n  body {font-size: 11.011111111111111px;}\n }\n\n a {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: $black-color;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n }\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n  a {\n    margin-top: 6px;\n  }\n}\n\n a:hover {\n  background-color: $secondary-color-darker-gray;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\n h3 {\n  font-weight: 500;\n  font-size: 1.5em;\n }\n\n p {\n  font-size: 0.8em;\n }\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: $primary-color;\n  \n    span {\n      color: $secondary-color;\n    }\n}\n\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container,.task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross,.cross2{\nposition: absolute;\nright: 10px;\ntop: 20px;\n}\n\n.crossup {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n\n  span {\n    font-size: 1.2em;\n    margin-left: 40px;\n    cursor: pointer;\n  }\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: $white-color;\n\n  input[type=text] {\n    font-size: 1.5em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]::placeholder {\n    color: $black-color-light;\n    font-weight: 500;\n    border-radius: 3px solid #555;\n    \n  }\n\n  textarea {\n    font-size: 1em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]:focus, textarea:focus {\n    border: none;\n}\n\n\n\n}\n\n.active-list {\n  background-color: $secondary-color-darker-gray;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: $secondary-color-dark-gray;\n\n  ul {\n    list-style-type: none;\n    text-decoration: none;\n\n    li {\n      margin-bottom: 8px;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n      justify-content: flex-start;\n      align-items: center;\n      cursor: pointer;\n\n      a {\n        display: flex;\n        flex-direction: row;\n        justify-content: flex-start;\n        padding: 8px;\n        font-weight: 500;\n        font-size: 1.25em;\n      }\n\n      img {\n        width: 20px;\n        height: 20px;\n        margin-right: 16px;\n      }\n    }\n\n  }\n\n  .button-wrapper {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    .addlist {\n      position: absolute;\n      background-image: url('../assets/plus-sign.png');\n      background-repeat: no-repeat;\n      background-size: 50px 50px;\n      background-position: center;\n      bottom: 100px;\n      width: 70px;\n      height: 70px;\n      border-radius: 50%;\n      border: none;\n      background-color: $secondary-color;\n      cursor: pointer;\n    }\n\n  }\n\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: $secondary-color-light-gray;\n  \n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: $secondary-color-light-gray;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n\n.select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: $secondary-color-darker-gray;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n\n  .list-element-one {\n    display: flex;\n    flex-direction: row;\n\n    span {\n      margin-left: 16px;\n    }\n  }\n\n  .list-element-two {\n    display: flex;\n    justify-content: flex-start;\n\n    span {\n      margin-right: 16px;\n    }\n\n  }\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n }\n\n .project {\n  margin-left: 28px;\n }\n\n\n .taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px $secondary-color solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n }\n\n .taskComplete:checked {\n  background-color: $secondary-color;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: $secondary-color-light-gray;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n\n  input {\n    appearance: none;\n    --webkit-appearance: none;\n    width: 250px;\n    height: 32px;\n    border: 1px solid $black-color-light;\n    padding: 8px;\n    background-color: transparent;\n  }\n\n  input:focus {\n    appearance: none;\n    outline: none;\n  }\n\n  div {\n    width: 100%;\n    margin-top: 16px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n  }\n\n  button {\n    width: 100%;\n    padding: 6px;\n    margin-top: 8px;\n    border-radius: 0;\n    }\n\n    #addButton {\n      border: 2px solid $secondary-color;\n    }\n\n    #cancelButton {\n      border: 2px solid $primary-color;\n    }\n\n    #addButton:hover {\n      background-color: $secondary-color;\n      color: $white-color;\n    }\n\n    #cancelButton:hover {\n      background-color: $primary-color;\n      color: $white-color;\n    }\n}\n\ninput[type=\"date\"],select{\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid $black-color-light;\n}\n\n#date-edit:focus, #priority-edit:focus {\noutline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid $secondary-color;\n}\n\nbutton:hover {\n  background-color: $secondary-color;\n  color: $white-color;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4788,24 +4971,22 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./task */ "./src/task.js");
-/* harmony import */ var _addlist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addlist */ "./src/addlist.js");
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render */ "./src/render.js");
-/* harmony import */ var _style_main_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style/main.scss */ "./src/style/main.scss");
-/* harmony import */ var _taskInterface__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./taskInterface */ "./src/taskInterface.js");
-/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./project */ "./src/project.js");
+/* harmony import */ var _style_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/main.scss */ "./src/style/main.scss");
+/* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./task */ "./src/task.js");
+/* harmony import */ var _addlist__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./addlist */ "./src/addlist.js");
+/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project */ "./src/project.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./render */ "./src/render.js");
+/* harmony import */ var _taskInterface__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./taskInterface */ "./src/taskInterface.js");
 
 
 
 
 
 
-(0,_project__WEBPACK_IMPORTED_MODULE_5__.completeTask)();
-(0,_taskInterface__WEBPACK_IMPORTED_MODULE_4__.deleteTask)();
-(0,_taskInterface__WEBPACK_IMPORTED_MODULE_4__.editTask)();
-(0,_taskInterface__WEBPACK_IMPORTED_MODULE_4__.openTaskAdder)();
+
+(0,_project__WEBPACK_IMPORTED_MODULE_3__.completeTask)();
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle071eefb6580bdf91ed1b.js.map
+//# sourceMappingURL=bundle219f91d28c7546368f67.js.map

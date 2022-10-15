@@ -82,9 +82,9 @@ function addToArray(){
     priority: 'Low',
     dueDate: '2022-07-17'
 }];
-
+const projectName = [];
 const projects = [];
-    return [ inbox, today, week, projects ];
+    return [ inbox, today, week, projects, projectName ];
 };
 
 export default addToArray;

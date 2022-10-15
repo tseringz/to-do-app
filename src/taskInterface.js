@@ -1,9 +1,9 @@
-import { allDiv, addNewProject } from './project';
-import { newDatas, renderTask } from './render'; 
+// import { allDiv } from './project';
+import { allDiv, newDatas, renderTask, setDataFromLocalStorage } from './render'; 
 import {  addDays, format, startOfToday } from 'date-fns';
 
 const taskAdder = document.querySelector('.task-container-edit');
-addNewProject();
+//addNewProject();
 
 
 const taskUI = (function () {
@@ -35,6 +35,7 @@ const taskUI = (function () {
                                 newDatas[0].splice(i, 1);             
                         }
                     }
+                    setDataFromLocalStorage();
                     renderTask();
                       }  else if(i === 1) {
                         for (let i = 0; i < newDatas[1].length; i++) {
@@ -48,6 +49,7 @@ const taskUI = (function () {
                                
                          }
                      }
+                     setDataFromLocalStorage();
                     renderTask();
                       } else if(i === 2) {
                        for (let i = 0; i < newDatas[2].length; i++) {
@@ -62,6 +64,7 @@ const taskUI = (function () {
                      }
                     
                      }
+                     setDataFromLocalStorage();
                      renderTask();
                       } 
                     }
@@ -78,7 +81,7 @@ const taskUI = (function () {
         let todoId;
     
         for ( let i = 0; i < allDiv.length; i++) {
-            allDiv[i].addEventListener('click', function(e){
+            allDiv[i].onclick = function(e) {
                 if (e.target.classList.contains('edit')) {
                     taskAdder.style.display = 'flex';
                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
@@ -90,6 +93,7 @@ const taskUI = (function () {
                                     editPriority.value = newDatas[0][i].priority;
                                     editTextArea.value = newDatas[0][i].textArea; 
                                     todoId = newDatas[0][i].todoId;
+                                    console.log("Hi!");
                                     // Adding edited data when user clicks on confirm button
                       }
                     } 
@@ -124,16 +128,17 @@ const taskUI = (function () {
                   let weeksDate = addDays(date, 8); // get next week's date to compare with user's selected date
                   date = format(date, 'yyyy-MM-dd');
                   weeksDate = format(weeksDate, 'yyyy-MM-dd');
-                  if(i === 0) {
-                  for(let j = 0; j < newDatas[0].length; j++) {  
-                      if(todoId === newDatas[0][j].todoId) {
+                  if (i === 0) {
+                  for (let j = 0; j < newDatas[0].length; j++) {  
+                      if (todoId === newDatas[0][j].todoId) {
                        console.log(todoId, newDatas[0][j].todoId);
                         newDatas[0][j].title = editTitle.value;
                         newDatas[0][j].dueDate = editDate.value;
                         newDatas[0][j].priority = editPriority.value; 
                         newDatas[0][j].textArea = editTextArea.value;
-    
-                        for(let k = 0; k < newDatas[1].length; k++) {
+                      }
+                        
+                        for (let k = 0; k < newDatas[1].length; k++) {
                             if(todoId === newDatas[1][k].todoId) {
                                 newDatas[1][k].title = editTitle.value;
                                 newDatas[1][k].dueDate = editDate.value;
@@ -141,7 +146,7 @@ const taskUI = (function () {
                                 newDatas[1][k].textArea = editTextArea.value;
                             }
                            }
-                           for(let k = 0; k < newDatas[2].length; k++) {
+                           for (let k = 0; k < newDatas[2].length; k++) {
                             if(todoId === newDatas[2][k].todoId) {
                                 newDatas[2][k].title = editTitle.value;
                                 newDatas[2][k].dueDate = editDate.value;
@@ -149,28 +154,33 @@ const taskUI = (function () {
                                 newDatas[2][k].textArea = editTextArea.value;
                             }
                            }
-                           for(let l = 0; l < newDatas[3].length; l++) {
-                            for(let m = 0; m < newDatas[3][l].length; m++) {
-                            if(todoId === newDatas[3][l][m].todoId) {
+
+                           for (let l = 0; l < newDatas[3].length; l++) {
+                            for (let m = 0; m < newDatas[3][l].length; m++) {
+                            if (todoId === newDatas[3][l][m].todoId) {
                                 newDatas[3][l][m].title = editTitle.value;
                                 newDatas[3][l][m].dueDate = editDate.value;
                                 newDatas[3][l][m].priority = editPriority.value; 
                                 newDatas[3][l][m].textArea = editTextArea.value;
+                                console.table(todoId, newDatas[3][l][m].todoId, newDatas[3][l], newDatas[3][l][m]);
                             }
+                            
                            }
                          }
+                         setDataFromLocalStorage();
                          renderTask();
                         }
-                       }
+                       
                       } else if ( i === 1) {
-                          for(let j = 0; j < newDatas[1].length; j++) {  
-                          if(todoId === newDatas[1][j].todoId) {
+                          for (let j = 0; j < newDatas[1].length; j++) {  
+                          if (todoId === newDatas[1][j].todoId) {
                           console.log(todoId, newDatas[1][j].todoId);
                           newDatas[1][j].title = editTitle.value;
                           newDatas[1][j].dueDate = editDate.value;
                           newDatas[1][j].priority = editPriority.value; 
                           newDatas[1][j].textArea = editTextArea.value;
-    
+                          }
+
                           for ( let k = 0; k < newDatas[0].length; k++) {
                             if (todoId === newDatas[0][k].todoId) {
                                 console.log(todoId, newDatas[0][k].todoId);
@@ -180,18 +190,18 @@ const taskUI = (function () {
                                  newDatas[0][k].textArea = editTextArea.value;
                           }
                          }
+                         setDataFromLocalStorage();
                          renderTask();
                           }
-                        }
                      } else if (i === 2) {
-                        for(let j = 0; j < newDatas[2].length; j++) {  
-                         if(todoId === newDatas[2][j].todoId) {
+                        for (let j = 0; j < newDatas[2].length; j++) {  
+                         if (todoId === newDatas[2][j].todoId) {
                            console.log(todoId, newDatas[2][j].todoId);
                            newDatas[2][j].title = editTitle.value;
                            newDatas[2][j].dueDate = editDate.value;
                            newDatas[2][j].priority = editPriority.value; 
                            newDatas[2][j].textArea = editTextArea.value;
-    
+                         }
                            for ( let k = 0; k < newDatas[0].length; k++) {
                             if (todoId === newDatas[0][k].todoId) {
                                 console.log(todoId, newDatas[0][k].todoId);
@@ -201,12 +211,13 @@ const taskUI = (function () {
                                  newDatas[0][k].textArea = editTextArea.value;
                           }
                            }
+                           setDataFromLocalStorage();
                            renderTask();
                                }
                          }
-                        }
+                        
                       });
-            });
+            };
         }
     }
     
@@ -223,10 +234,7 @@ const taskUI = (function () {
         });
         crossButton2.addEventListener('click', function(e) {
             taskAdder.style.display = 'none';
-        });
-    
-        
-        
+        });  
     }
 
     return { deleteTask, editTask, openTaskAdder };
@@ -235,4 +243,5 @@ const taskUI = (function () {
 taskUI.deleteTask();
 taskUI.editTask();
 taskUI.openTaskAdder();
+
 export default taskUI;

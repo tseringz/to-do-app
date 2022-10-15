@@ -376,7 +376,6 @@ form {
 
  .project {
   margin-left: 28px;
-
  }
 
 
@@ -467,8 +466,6 @@ form {
     }
 }
 
-
-
 input[type="date"],select{
   appearance: none;
   margin-top: 6px;
@@ -481,8 +478,8 @@ input[type="date"],select{
 
 #date-edit:focus, #priority-edit:focus {
 outline: none;
-
 }
+
 select:active {
   border-radius: 0;
 }
