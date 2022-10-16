@@ -1,8 +1,10 @@
-import { allDiv, allLink, renderTask, newDatas, setDataFromLocalStorage  } from './render';
+import { allDiv, allLink, renderTask, newDatas, setDataFromLocalStorage, editProjectTask  } from './render';
+import taskUI from './taskInterface';
 
 const noteWrapper = document.querySelector('.note-wrapper');
 const project = document.querySelector('#projectName-wrapper');
 const projectName = document.querySelector('#projectname');
+const addTask = document.querySelector('.addlist');
 const addButton = document.querySelector('#addButton');
 const cancelButton = document.querySelector('#cancelButton');
 const projectContainer = document.querySelector('.task-container-addproject');
@@ -36,6 +38,7 @@ function clickList() {
      allLink[i].onclick = function (e) {
         removeBackground();
         allLink[i].classList.add('active-list');
+        editProjectTask();
      }
  }
 }
@@ -66,7 +69,7 @@ function deleteProjectTask() {
     for (let i = 3; i < allDiv.length; i++) {
         allDiv[i].addEventListener('click', function (e) {
             if ( allDiv[i].style.display !== 'none') {
-                if (e.target.classList.contains('delete')) {
+                if ( e.target.classList.contains('delete') ) {
                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
                     for ( let m = 0; m < newDatas[3].length; m++) {
                         for ( let j = 0; j < newDatas[3][m].length; j++) {

@@ -77,6 +77,7 @@ allLink[0].classList.add('active-list');
 let counter = 0;
 let isAdded = false;
 
+console.log(allDiv.length);
 
 function addNewProject() {
     addButton.addEventListener('click', (e) => {
@@ -125,8 +126,8 @@ function addNewProject() {
         isAdded = true;
         linkSelection();
         hoverEffect();
-        callEditProject();
         deleteProjectTask();
+        editProjectTask();
         deleteProject();
         clickList();
         completeTask();
@@ -140,7 +141,6 @@ addNewProject();
 function editProjectTask() {
 
     for (let i = 3; i < allDiv.length; i++) {
-        console.log("Hello!");
         allDiv[i].onclick = function(e) {
             console.log('my bad as always');
                 console.log(i);
@@ -165,7 +165,7 @@ function editProjectTask() {
                     }
 
                 }
-                confirmButton.addEventListener('click', function (e) {
+                confirmButton.onclick = function (e) {
                     e.preventDefault();
                     for (let l = 0; l < newDatas[3].length; l++) {
                         for (let m = 0; m < newDatas[3][l].length; m++) {
@@ -189,21 +189,91 @@ function editProjectTask() {
                                   newDatas[0][j].textArea = editTextArea.value;
                                 }
                             }
+
+                            for (let j = 0; j < newDatas[1].length; j++) {  
+                                if (todoIdForProject === newDatas[1][j].todoId) {
+                                 console.log(todoIdForProject, newDatas[1][j].todoId);
+                                  newDatas[1][j].title = editTitle.value;
+                                  newDatas[1][j].dueDate = editDate.value;
+                                  newDatas[1][j].priority = editPriority.value; 
+                                  newDatas[1][j].textArea = editTextArea.value;
+                                }
+                            }
                         }
 
                             setDataFromLocalStorage();
+                            
                             renderTask();
+                            taskAdder.style.display = 'none';
                         }
                     
-                });
-        }
+                };
+        };
     }
 }
 editProjectTask();
+// function editProjectTask2() {
+//     for (let i = 3; i < allDiv.length; i++) {
+//         allDiv[i].addEventListener('click', function(e) {
+//             console.log('my bad as always');
+//                 console.log(i);
+//                 if ( e.target.classList.contains('edit')) {
+//                     taskAdder.style.display = 'flex';
+//                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+//                     for (let j = 0; j < newDatas[3].length; j++) {
+//                         for (let k = 0; k < newDatas[3][j].length; k++) {
+//                             if (e.target.parentNode.parentNode === currentChild[k]) {
+//                                 if (i === j + 3) {
+//                                     editTitle.value = newDatas[3][j][k].title;
+//                                     editDate.value = newDatas[3][j][k].dueDate;
+//                                     editPriority.value = newDatas[3][j][k].priority;
+//                                     editTextArea.value = newDatas[3][j][k].textArea;
+//                                     todoIdForProject = newDatas[3][j][k].todoId;
+//                                     console.log('my bad');
+//                                     console.log(e.target.parentNode.parentNode, currentChild[k]);
+//                                 }
+//                             }
 
-function callEditProject() {
-    editProjectTask();
-}
+//                         }
+//                     }
+
+//                 }
+//                 confirmButton.addEventListener('click', function (e) {
+//                     e.preventDefault();
+//                     for (let l = 0; l < newDatas[3].length; l++) {
+//                         for (let m = 0; m < newDatas[3][l].length; m++) {
+//                             if (i === l + 3) {
+//                             if (todoIdForProject === newDatas[3][l][m].todoId) {
+//                                 console.log(todoIdForProject, newDatas[3][l][m].todoId);
+//                                     newDatas[3][l][m].title = editTitle.value;
+//                                     newDatas[3][l][m].dueDate = editDate.value;
+//                                     newDatas[3][l][m].priority = editPriority.value;
+//                                     newDatas[3][l][m].textArea = editTextArea.value;
+//                                     console.log(newDatas[3][l][m]);        
+//                             }
+//                         }
+                
+//                             for (let j = 0; j < newDatas[0].length; j++) {  
+//                                 if (todoIdForProject === newDatas[0][j].todoId) {
+//                                  console.log(todoIdForProject, newDatas[0][j].todoId);
+//                                   newDatas[0][j].title = editTitle.value;
+//                                   newDatas[0][j].dueDate = editDate.value;
+//                                   newDatas[0][j].priority = editPriority.value; 
+//                                   newDatas[0][j].textArea = editTextArea.value;
+//                                 }
+//                             }
+//                         }
+
+//                             setDataFromLocalStorage();
+//                             renderTask();
+//                         }
+                    
+//                 });
+//         });
+//     }
+// }
+// editProjectTask2();
+
 
 function hoverEffect() {
     for (let i = 3; i < allLink.length; i++) {
@@ -433,7 +503,7 @@ renderTask();
 })();
 
 
-export { allDiv, allLink, renderTask, newDatas, setDataFromLocalStorage };
+export { allDiv, allLink, renderTask, newDatas, setDataFromLocalStorage, editProjectTask};
 // delete task
 // add notification as number of task 
 // add to project section

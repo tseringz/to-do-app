@@ -3,6 +3,14 @@ import { allDiv, newDatas, renderTask, setDataFromLocalStorage } from './render'
 import {  addDays, format, startOfToday } from 'date-fns';
 
 const taskAdder = document.querySelector('.task-container-edit');
+const addButton = document.querySelector('.addlist');
+const taskEditor = document.querySelector('.task-container');
+const crossButton = document.querySelector('.cross');
+const crossButton2 = document.querySelector('.cross2');
+const addTask = document.querySelector('#addtolist');
+const title = document.querySelector('#title');
+const description = document.querySelector('#description');
+const date = document.querySelector('#date');
 //addNewProject();
 
 
@@ -122,7 +130,7 @@ const taskUI = (function () {
                     } 
                     } 
                 }
-                confirmButton.addEventListener('click', function(e) {   
+                confirmButton.onclick = function(e) {   
                   e.preventDefault(); 
                   let date = startOfToday();
                   let weeksDate = addDays(date, 8); // get next week's date to compare with user's selected date
@@ -167,32 +175,32 @@ const taskUI = (function () {
                             
                            }
                          }
-                         setDataFromLocalStorage();
-                         renderTask();
                         }
+                        setDataFromLocalStorage();
+                        renderTask();
                        
                       } else if ( i === 1) {
-                          for (let j = 0; j < newDatas[1].length; j++) {  
-                          if (todoId === newDatas[1][j].todoId) {
-                          console.log(todoId, newDatas[1][j].todoId);
-                          newDatas[1][j].title = editTitle.value;
-                          newDatas[1][j].dueDate = editDate.value;
-                          newDatas[1][j].priority = editPriority.value; 
-                          newDatas[1][j].textArea = editTextArea.value;
-                          }
-
-                          for ( let k = 0; k < newDatas[0].length; k++) {
-                            if (todoId === newDatas[0][k].todoId) {
-                                console.log(todoId, newDatas[0][k].todoId);
-                                 newDatas[0][k].title = editTitle.value;
-                                 newDatas[0][k].dueDate = editDate.value;
-                                 newDatas[0][k].priority = editPriority.value; 
-                                 newDatas[0][k].textArea = editTextArea.value;
-                          }
-                         }
-                         setDataFromLocalStorage();
+                        for (let j = 0; j < newDatas[1].length; j++) {  
+                            if (todoId === newDatas[1][j].todoId) {
+                              console.log(todoId, newDatas[2][j].todoId);
+                              newDatas[1][j].title = editTitle.value;
+                              newDatas[1][j].dueDate = editDate.value;
+                              newDatas[1][j].priority = editPriority.value; 
+                              newDatas[1][j].textArea = editTextArea.value;
+                            }
+                              for ( let k = 0; k < newDatas[0].length; k++) {
+                               if (todoId === newDatas[0][k].todoId) {
+                                   console.log(todoId, newDatas[0][k].todoId);
+                                    newDatas[0][k].title = editTitle.value;
+                                    newDatas[0][k].dueDate = editDate.value;
+                                    newDatas[0][k].priority = editPriority.value; 
+                                    newDatas[0][k].textArea = editTextArea.value;
+                             }
+                              }
+                                  }
+                          setDataFromLocalStorage();
                          renderTask();
-                          }
+                          
                      } else if (i === 2) {
                         for (let j = 0; j < newDatas[2].length; j++) {  
                          if (todoId === newDatas[2][j].todoId) {
@@ -211,21 +219,18 @@ const taskUI = (function () {
                                  newDatas[0][k].textArea = editTextArea.value;
                           }
                            }
-                           setDataFromLocalStorage();
-                           renderTask();
                                }
+                               setDataFromLocalStorage();
+                              renderTask();
                          }
-                        
-                      });
+                         taskAdder.style.display = 'none';
+                      };
             };
         }
     }
     
-    function openTaskAdder() {
-        const addButton = document.querySelector('.addlist');
-        const taskEditor = document.querySelector('.task-container');
-        const crossButton = document.querySelector('.cross');
-        const crossButton2 = document.querySelector('.cross2');
+    function openCloseTask() {
+        
         addButton.addEventListener('click', function(e) {   
             taskEditor.style.display = 'flex';
         });
@@ -234,14 +239,24 @@ const taskUI = (function () {
         });
         crossButton2.addEventListener('click', function(e) {
             taskAdder.style.display = 'none';
-        });  
+        });
+        
+        addTask.addEventListener('click', function(e) {
+            const titleValue = title.value;
+            const descriptionValue = description.value;
+            const dateValue = date.value;
+            if ( titleValue !== '' && descriptionValue !== '' && dateValue !== '') {
+                taskEditor.style.display = 'none';
+            }
+        });
+
     }
 
-    return { deleteTask, editTask, openTaskAdder };
+    return { deleteTask, editTask, openCloseTask };
 })();
 
 taskUI.deleteTask();
 taskUI.editTask();
-taskUI.openTaskAdder();
+taskUI.openCloseTask();
 
 export default taskUI;
