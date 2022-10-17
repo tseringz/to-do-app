@@ -19,16 +19,16 @@ const taskUI = (function () {
         for ( let i = 0; i < allDiv.length; i++) {
             allDiv[i].addEventListener('click', function(e){
                 if (e.target.classList.contains('delete')) { 
-                    console.log(allDiv.length);
                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-                      if(i === 0) {
+                      if (i === 0) {
                         for (let i = 0; i < newDatas[0].length; i++) {
                             if (e.target.parentNode.parentNode === currentChild[i]) {
-                                for(let j = 0; j < newDatas[1].length; j++) {
-                                    if(newDatas[0][i].todoId === newDatas[1][j].todoId)
+                                for (let j = 0; j < newDatas[1].length; j++) {
+                                    if (newDatas[0][i].todoId === newDatas[1][j].todoId)
                                         newDatas[1].splice(j, 1);
                                 }
-                                for( let k = 0; k < newDatas[2].length; k++) {
+
+                                for ( let k = 0; k < newDatas[2].length; k++) {
                                     if(newDatas[0][i].todoId === newDatas[2][k].todoId)
                                     newDatas[2].splice(k, 1);
                                 }
@@ -48,10 +48,17 @@ const taskUI = (function () {
                       }  else if(i === 1) {
                         for (let i = 0; i < newDatas[1].length; i++) {
                         if (e.target.parentNode.parentNode === currentChild[i]) {
-                        for(let j = 0; j < newDatas[0].length; j++) {
+                        for (let j = 0; j < newDatas[0].length; j++) {
                         if(newDatas[1][i].todoId === newDatas[0][j].todoId)
                           newDatas[0].splice(j, 1);
                          }
+                         for (let l = 0; l < newDatas[3].length; l++) {
+                            for (let m = 0; m < newDatas[3][l].length; m++) {
+                                if (newDatas[1][i].todoId === newDatas[3][l][m].todoId) {
+                                    newDatas[3][l].splice(m, 1);
+                                }
+                            }
+                        }
                         newDatas[1].splice(i, 1);
                         break;              
                                
@@ -62,13 +69,22 @@ const taskUI = (function () {
                       } else if(i === 2) {
                        for (let i = 0; i < newDatas[2].length; i++) {
                        if (e.target.parentNode.parentNode === currentChild[i]) {
-                        for(let j = 0; j < newDatas[0].length; j++) {
-                         if(newDatas[2][i].todoId === newDatas[0][j].todoId)
-                          newDatas[0].splice(j, 1); 
+
+                        for (let j = 0; j < newDatas[0].length; j++) {
+                            if(newDatas[2][i].todoId === newDatas[0][j].todoId)
+                            newDatas[0].splice(j, 1); 
                              }
+
+                        for (let l = 0; l < newDatas[3].length; l++) {
+                                for (let m = 0; m < newDatas[3][l].length; m++) {
+                                    if (newDatas[2][i].todoId === newDatas[3][l][m].todoId) {
+                                        newDatas[3][l].splice(m, 1);
+                                    }
+                                }
+                            }
+
                         newDatas[2].splice(i, 1);
-                        break;              
-                               
+                        break;                     
                      }
                     
                      }
@@ -112,7 +128,7 @@ const taskUI = (function () {
                                     editDate.value = newDatas[1][i].dueDate;
                                     editPriority.value = newDatas[1][i].priority;
                                     editTextArea.value = newDatas[1][i].textArea;   
-                                    todoId = newDatas[0][i].todoId;
+                                    todoId = newDatas[1][i].todoId;
                      }
         
                     }
@@ -132,10 +148,6 @@ const taskUI = (function () {
                 }
                 confirmButton.onclick = function(e) {   
                   e.preventDefault(); 
-                  let date = startOfToday();
-                  let weeksDate = addDays(date, 8); // get next week's date to compare with user's selected date
-                  date = format(date, 'yyyy-MM-dd');
-                  weeksDate = format(weeksDate, 'yyyy-MM-dd');
                   if (i === 0) {
                   for (let j = 0; j < newDatas[0].length; j++) {  
                       if (todoId === newDatas[0][j].todoId) {
@@ -179,10 +191,10 @@ const taskUI = (function () {
                         setDataFromLocalStorage();
                         renderTask();
                        
-                      } else if ( i === 1) {
+                      } else if (i === 1) {
                         for (let j = 0; j < newDatas[1].length; j++) {  
                             if (todoId === newDatas[1][j].todoId) {
-                              console.log(todoId, newDatas[2][j].todoId);
+                              console.log(todoId, newDatas[1][j].todoId);
                               newDatas[1][j].title = editTitle.value;
                               newDatas[1][j].dueDate = editDate.value;
                               newDatas[1][j].priority = editPriority.value; 
@@ -197,7 +209,20 @@ const taskUI = (function () {
                                     newDatas[0][k].textArea = editTextArea.value;
                              }
                               }
+                              for (let l = 0; l < newDatas[3].length; l++) {
+                               for (let m = 0; m < newDatas[3][l].length; m++) {
+                               if (todoId === newDatas[3][l][m].todoId) {
+                                   newDatas[3][l][m].title = editTitle.value;
+                                   newDatas[3][l][m].dueDate = editDate.value;
+                                   newDatas[3][l][m].priority = editPriority.value; 
+                                   newDatas[3][l][m].textArea = editTextArea.value;
+                                   console.table(todoId, newDatas[3][l][m].todoId, newDatas[3][l], newDatas[3][l][m]);
+                               }
+                               
+                              }
+                            }
                                   }
+                                  console.log('Hello!');
                           setDataFromLocalStorage();
                          renderTask();
                           
@@ -219,6 +244,19 @@ const taskUI = (function () {
                                  newDatas[0][k].textArea = editTextArea.value;
                           }
                            }
+                           for (let l = 0; l < newDatas[3].length; l++) {
+                            for (let m = 0; m < newDatas[3][l].length; m++) {
+                            if (todoId === newDatas[3][l][m].todoId) {
+                                newDatas[3][l][m].title = editTitle.value;
+                                newDatas[3][l][m].dueDate = editDate.value;
+                                newDatas[3][l][m].priority = editPriority.value; 
+                                newDatas[3][l][m].textArea = editTextArea.value;
+                                console.table(todoId, newDatas[3][l][m].todoId, newDatas[3][l], newDatas[3][l][m]);
+                            }
+                            
+                           }
+                         }
+                           
                                }
                                setDataFromLocalStorage();
                               renderTask();

@@ -170,7 +170,7 @@ function editProjectTask() {
                     for (let l = 0; l < newDatas[3].length; l++) {
                         for (let m = 0; m < newDatas[3][l].length; m++) {
                             if (i === l + 3) {
-                            if (todoIdForProject === newDatas[3][l][m].todoId) {
+                            if ( todoIdForProject === newDatas[3][l][m].todoId ) {
                                 console.log(todoIdForProject, newDatas[3][l][m].todoId);
                                     newDatas[3][l][m].title = editTitle.value;
                                     newDatas[3][l][m].dueDate = editDate.value;
@@ -190,13 +190,23 @@ function editProjectTask() {
                                 }
                             }
 
-                            for (let j = 0; j < newDatas[1].length; j++) {  
-                                if (todoIdForProject === newDatas[1][j].todoId) {
-                                 console.log(todoIdForProject, newDatas[1][j].todoId);
-                                  newDatas[1][j].title = editTitle.value;
-                                  newDatas[1][j].dueDate = editDate.value;
-                                  newDatas[1][j].priority = editPriority.value; 
-                                  newDatas[1][j].textArea = editTextArea.value;
+                            for (let k = 0; k < newDatas[1].length; k++) {  
+                                if (todoIdForProject === newDatas[1][k].todoId) {
+                                 console.log(todoIdForProject, newDatas[1][k].todoId);
+                                  newDatas[1][k].title = editTitle.value;
+                                  newDatas[1][k].dueDate = editDate.value;
+                                  newDatas[1][k].priority = editPriority.value; 
+                                  newDatas[1][k].textArea = editTextArea.value;
+                                }
+                            }
+
+                            for (let k = 0; k < newDatas[2].length; k++) {  
+                                if ( todoIdForProject === newDatas[2][k].todoId ) {
+                                  console.log(todoIdForProject, newDatas[2][k].todoId);
+                                  newDatas[2][k].title = editTitle.value;
+                                  newDatas[2][k].dueDate = editDate.value;
+                                  newDatas[2][k].priority = editPriority.value; 
+                                  newDatas[2][k].textArea = editTextArea.value;
                                 }
                             }
                         }

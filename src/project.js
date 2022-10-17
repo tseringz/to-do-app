@@ -34,11 +34,13 @@ function clickList() {
             allLink[i].classList.remove('active-list');
         }
     }
+
  for (let i = 0; i < allLink.length; i++) {
      allLink[i].onclick = function (e) {
         removeBackground();
         allLink[i].classList.add('active-list');
         editProjectTask();
+        //taskUI.editTask();
      }
  }
 }
