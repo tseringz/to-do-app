@@ -1,11 +1,6 @@
 import { allDiv, allLink, renderTask, newDatas, setDataFromLocalStorage, editProjectTask  } from './render';
-import taskUI from './taskInterface';
 
-const noteWrapper = document.querySelector('.note-wrapper');
-const project = document.querySelector('#projectName-wrapper');
-const projectName = document.querySelector('#projectname');
-const addTask = document.querySelector('.addlist');
-const addButton = document.querySelector('#addButton');
+const projectName = document.getElementById('projectname');
 const cancelButton = document.querySelector('#cancelButton');
 const projectContainer = document.querySelector('.task-container-addproject');
 const addProject = document.querySelector('#addproject');
@@ -107,12 +102,6 @@ deleteProjectTask();
 
 addProject.addEventListener('click', function (e) {
     projectContainer.style.display = 'flex';
-});
-
-addButton.addEventListener('click', function (e) {
-    if (projectName.value !== '') {
-        projectContainer.style.display = 'none';
-    }
 });
 
 cancelButton.addEventListener('click', function (e) {

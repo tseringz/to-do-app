@@ -25,15 +25,14 @@ const noteWrapper = document.querySelector('.note-wrapper');
 const project = document.querySelector('#projectName-wrapper');
 const projectName = document.querySelector('#projectname');
 const addButton = document.querySelector('#addButton');
-const cancelButton = document.querySelector('#cancelButton');
 const projectContainer = document.querySelector('.task-container-addproject');
-const addProject = document.querySelector('#addproject');
 const taskAdder = document.querySelector('.task-container-edit');
 const editDate = document.querySelector('#date-edit');
 const editTitle = document.getElementById('title-edit');
 const editPriority = document.getElementById('priority-edit');
 const editTextArea = document.getElementById('description-edit');
 const confirmButton = document.getElementById('confirm-list');
+
 let todoIdForProject;
 
 function createProject(index) {
@@ -75,7 +74,6 @@ let allDiv = document.querySelectorAll('.note-wrapper > div');
 let selectCrossButton = document.querySelectorAll('#crossIcon');
 allLink[0].classList.add('active-list');
 let counter = 0;
-let isAdded = false;
 
 console.log(allDiv.length);
 
@@ -110,7 +108,7 @@ function addNewProject() {
             noteWrapper.appendChild(newDiv);
             projectName.value = '';
             newDatas[3].push([]);
-
+            projectContainer.style.display = 'none';
         }
   
         for (let k = 0; k < newDatas[3].length; k++) {

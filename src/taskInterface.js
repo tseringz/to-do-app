@@ -1,6 +1,4 @@
-// import { allDiv } from './project';
 import { allDiv, newDatas, renderTask, setDataFromLocalStorage } from './render'; 
-import {  addDays, format, startOfToday } from 'date-fns';
 
 const taskAdder = document.querySelector('.task-container-edit');
 const addButton = document.querySelector('.addlist');
@@ -11,7 +9,7 @@ const addTask = document.querySelector('#addtolist');
 const title = document.querySelector('#title');
 const description = document.querySelector('#description');
 const date = document.querySelector('#date');
-//addNewProject();
+
 
 
 const taskUI = (function () {
