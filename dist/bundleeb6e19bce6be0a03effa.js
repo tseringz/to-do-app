@@ -138,112 +138,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "clickList": () => (/* binding */ clickList),
 /* harmony export */   "completeTask": () => (/* binding */ completeTask),
 /* harmony export */   "deleteProjectTask": () => (/* binding */ deleteProjectTask),
-/* harmony export */   "editProjectTask": () => (/* binding */ editProjectTask),
 /* harmony export */   "linkSelection": () => (/* binding */ linkSelection)
 /* harmony export */ });
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./src/render.js");
+/* harmony import */ var _taskInterface__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./taskInterface */ "./src/taskInterface.js");
+
 
 var noteWrapper = document.querySelector('.note-wrapper');
 var project = document.querySelector('#projectName-wrapper');
-var projectName = document.querySelector('#projectname');
-var addButton = document.querySelector('#addButton');
+var projectName = document.getElementById('projectname');
+var addTask = document.querySelector('.addlist');
+var addButton = document.getElementById('addButton');
 var cancelButton = document.querySelector('#cancelButton');
 var projectContainer = document.querySelector('.task-container-addproject');
-var addProject = document.querySelector('#addproject'); // function createProject() {
-//     const newDiv = document.createElement('div');
-//     const flexChild = document.createElement('div');
-//     const newLink = document.createElement('a');
-//     const sideEditIcon = document.createElement('img');
-//     const crossIcon = document.createElement('img');
-//     const projectLinkName = document.createElement('p');
-//     projectLinkName.style.marginLeft = '10px';
-//     newDiv.style.display = 'none';
-//     newDiv.setAttribute('id', `project${0}`);
-//     newLink.setAttribute('id', `projectLink${0}`);
-//     newLink.style.padding = '10px';
-//     sideEditIcon.src = '../src/assets/bulleted-list.png';
-//     crossIcon.src = '../src/assets/cross.png';
-//     sideEditIcon.setAttribute('id', 'sideMenu');
-//     crossIcon.setAttribute('id', 'crossIcon');
-//     flexChild.style.display = 'flex';
-//     flexChild.style.flexDirection = 'row';
-//     counter++;
-//     projectLinkName.textContent = newDatas[4][0];  // Capitlise the project name
-//     flexChild.append(sideEditIcon, projectLinkName);
-//     newLink.append(flexChild, crossIcon);
-//     project.appendChild(newLink);
-//     noteWrapper.appendChild(newDiv);
-// }
-// createProject(); 
-// let allLink = document.querySelectorAll('a');
-// let allDiv = document.querySelectorAll('.note-wrapper > div');
-//     addButton.addEventListener('click', (e) => {
-//         e.preventDefault();
-//         if (projectName.value !== '') {
-//             const newDiv = document.createElement('div');
-//             const flexChild = document.createElement('div');
-//             const newLink = document.createElement('a');
-//             const sideEditIcon = document.createElement('img');
-//             const crossIcon = document.createElement('img');
-//             const projectLinkName = document.createElement('p');
-//             projectLinkName.style.marginLeft = '10px';
-//             newDiv.style.display = 'none';
-//             newDiv.setAttribute('id', `project${counter}`);
-//             newLink.setAttribute('id', `projectLink${counter}`);
-//             newLink.style.padding = '10px';
-//             sideEditIcon.src = '../src/assets/bulleted-list.png';
-//             crossIcon.src = '../src/assets/cross.png';
-//             sideEditIcon.setAttribute('id', 'sideMenu');
-//             crossIcon.setAttribute('id', 'crossIcon');
-//             flexChild.style.display = 'flex';
-//             flexChild.style.flexDirection = 'row';
-//             counter++;
-//             newDatas[4].push(projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1));
-//             projectLinkName.textContent = projectName.value.charAt(0).toUpperCase() + projectName.value.slice(1); // Capitilise the project name
-//             flexChild.append(sideEditIcon, projectLinkName);
-//             newLink.append(flexChild, crossIcon);
-//             project.appendChild(newLink);
-//             noteWrapper.appendChild(newDiv);
-//             projectName.value = '';
-//             newDatas[3].push([]);
-//         }
-//         for (let k = 0; k < newDatas[3].length; k++) {
-//             if (typeof newDatas[3][k] === 'number') {
-//                 newDatas[3].splice(k, 1);
-//                 k--;
-//             }
-//         }
-//         allLink = document.querySelectorAll('a');
-//         allDiv = document.querySelectorAll('.note-wrapper > div');
-//         selectCrossButton = document.querySelectorAll('#crossIcon');
-//         linkSelection();
-//         deleteProjectTask();
-//         editProjectTask();
-//         hoverEffect();
-//         deleteProject();
-//         clickList();
-//         completeTask();
-//         setDataFromLocalStorage();
-//     });
-// }
-// addNewProject();
-// function hoverEffect() {
-//     for (let i = 3; i < allLink.length; i++) {
-//         for (let j = 0; j < selectCrossButton.length; j++) {
-//             if (i === j + 3) {
-//                 allLink[i].addEventListener('mouseover', function (e) {
-//                     e.preventDefault();
-//                     selectCrossButton[j].style.display = "block";
-//                 });
-//                 allLink[i].addEventListener('mouseout', function (e) {
-//                     e.preventDefault();
-//                     selectCrossButton[j].style.display = 'none';
-//                 });
-//             }
-//         }
-//     }
-// }
-// hoverEffect();
+var addProject = document.querySelector('#addproject');
 
 function linkSelection() {
   var _loop = function _loop(i) {
@@ -282,6 +190,7 @@ function clickList() {
     _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].onclick = function (e) {
       removeBackground();
       _render__WEBPACK_IMPORTED_MODULE_0__.allLink[i].classList.add('active-list');
+      (0,_render__WEBPACK_IMPORTED_MODULE_0__.editProjectTask)(); //taskUI.editTask();
     };
   };
 
@@ -363,80 +272,12 @@ function deleteProjectTask() {
 }
 
 deleteProjectTask();
-
-function editProjectTask() {
-  var taskAdder = document.querySelector('.task-container-edit');
-  var editDate = document.querySelector('#date-edit');
-  var editTitle = document.getElementById('title-edit');
-  var editPriority = document.getElementById('priority-edit');
-  var editTextArea = document.getElementById('description-edit');
-  var confirmButton = document.getElementById('confirm-list');
-  var todoIdForProject;
-
-  var _loop6 = function _loop6(i) {
-    _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
-      if (_render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].style.display !== 'none') {
-        if (e.target.classList.contains('edit')) {
-          taskAdder.style.display = 'flex';
-          var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
-
-          for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; j++) {
-            for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j].length; k++) {
-              if (e.target.parentNode.parentNode === currentChild[k]) {
-                if (i === j + 3) {
-                  editTitle.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j][k].title;
-                  editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j][k].dueDate;
-                  editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j][k].priority;
-                  editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j][k].textArea;
-                  todoIdForProject = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][j][k].todoId;
-                }
-              }
-            }
-          }
-        }
-
-        confirmButton.addEventListener('click', function (e) {
-          e.preventDefault();
-
-          for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; l++) {
-            for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].length; m++) {
-              if (todoIdForProject === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId) {
-                console.log(todoIdForProject, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId);
-
-                if (i === l + 3) {
-                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].title = editTitle.value;
-                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].dueDate = editDate.value;
-                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].priority = editPriority.value;
-                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].textArea = editTextArea.value;
-                  console.log(_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m]);
-                  (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
-                  (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
-                }
-              }
-            }
-          }
-        });
-      }
-    });
-  };
-
-  for (var i = 3; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
-    _loop6(i);
-  }
-}
-
-editProjectTask();
 addProject.addEventListener('click', function (e) {
   projectContainer.style.display = 'flex';
 });
-addButton.addEventListener('click', function (e) {
-  if (projectName.value !== '') {
-    projectContainer.style.display = 'none';
-  }
-});
 cancelButton.addEventListener('click', function (e) {
   e.preventDefault();
-  projectName.value = '';
+  projectName.value = 'this is cool as fuck';
   projectContainer.style.display = 'none';
 });
 console.log(_render__WEBPACK_IMPORTED_MODULE_0__.allLink);
@@ -454,6 +295,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "allDiv": () => (/* binding */ allDiv),
 /* harmony export */   "allLink": () => (/* binding */ allLink),
+/* harmony export */   "editProjectTask": () => (/* binding */ editProjectTask),
 /* harmony export */   "newDatas": () => (/* binding */ newDatas),
 /* harmony export */   "renderTask": () => (/* binding */ renderTask),
 /* harmony export */   "setDataFromLocalStorage": () => (/* binding */ setDataFromLocalStorage)
@@ -492,6 +334,13 @@ var addButton = document.querySelector('#addButton');
 var cancelButton = document.querySelector('#cancelButton');
 var projectContainer = document.querySelector('.task-container-addproject');
 var addProject = document.querySelector('#addproject');
+var taskAdder = document.querySelector('.task-container-edit');
+var editDate = document.querySelector('#date-edit');
+var editTitle = document.getElementById('title-edit');
+var editPriority = document.getElementById('priority-edit');
+var editTextArea = document.getElementById('description-edit');
+var confirmButton = document.getElementById('confirm-list');
+var todoIdForProject;
 
 function createProject(index) {
   var newDiv = document.createElement('div');
@@ -532,6 +381,8 @@ var allDiv = document.querySelectorAll('.note-wrapper > div');
 var selectCrossButton = document.querySelectorAll('#crossIcon');
 allLink[0].classList.add('active-list');
 var counter = 0;
+var isAdded = false;
+console.log(allDiv.length);
 
 function addNewProject() {
   addButton.addEventListener('click', function (e) {
@@ -565,6 +416,7 @@ function addNewProject() {
       noteWrapper.appendChild(newDiv);
       projectName.value = '';
       newDatas[3].push([]);
+      projectContainer.style.display = 'none';
     }
 
     for (var k = 0; k < newDatas[3].length; k++) {
@@ -577,10 +429,11 @@ function addNewProject() {
     allLink = document.querySelectorAll('a');
     allDiv = document.querySelectorAll('.note-wrapper > div');
     selectCrossButton = document.querySelectorAll('#crossIcon');
+    isAdded = true;
     (0,_project__WEBPACK_IMPORTED_MODULE_2__.linkSelection)();
     hoverEffect();
     (0,_project__WEBPACK_IMPORTED_MODULE_2__.deleteProjectTask)();
-    (0,_project__WEBPACK_IMPORTED_MODULE_2__.editProjectTask)();
+    editProjectTask();
     deleteProject();
     (0,_project__WEBPACK_IMPORTED_MODULE_2__.clickList)();
     (0,_project__WEBPACK_IMPORTED_MODULE_2__.completeTask)();
@@ -591,9 +444,153 @@ function addNewProject() {
 
 addNewProject();
 
+function editProjectTask() {
+  var _loop = function _loop(i) {
+    allDiv[i].onclick = function (e) {
+      console.log('my bad as always');
+      console.log(i);
+
+      if (e.target.classList.contains('edit')) {
+        taskAdder.style.display = 'flex';
+        var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+
+        for (var j = 0; j < newDatas[3].length; j++) {
+          for (var k = 0; k < newDatas[3][j].length; k++) {
+            if (e.target.parentNode.parentNode === currentChild[k]) {
+              if (i === j + 3) {
+                editTitle.value = newDatas[3][j][k].title;
+                editDate.value = newDatas[3][j][k].dueDate;
+                editPriority.value = newDatas[3][j][k].priority;
+                editTextArea.value = newDatas[3][j][k].textArea;
+                todoIdForProject = newDatas[3][j][k].todoId;
+                console.log('my bad');
+                console.log(e.target.parentNode.parentNode, currentChild[k]);
+              }
+            }
+          }
+        }
+      }
+
+      confirmButton.onclick = function (e) {
+        e.preventDefault();
+
+        for (var l = 0; l < newDatas[3].length; l++) {
+          for (var m = 0; m < newDatas[3][l].length; m++) {
+            if (i === l + 3) {
+              if (todoIdForProject === newDatas[3][l][m].todoId) {
+                console.log(todoIdForProject, newDatas[3][l][m].todoId);
+                newDatas[3][l][m].title = editTitle.value;
+                newDatas[3][l][m].dueDate = editDate.value;
+                newDatas[3][l][m].priority = editPriority.value;
+                newDatas[3][l][m].textArea = editTextArea.value;
+                console.log(newDatas[3][l][m]);
+              }
+            }
+
+            for (var _j = 0; _j < newDatas[0].length; _j++) {
+              if (todoIdForProject === newDatas[0][_j].todoId) {
+                console.log(todoIdForProject, newDatas[0][_j].todoId);
+                newDatas[0][_j].title = editTitle.value;
+                newDatas[0][_j].dueDate = editDate.value;
+                newDatas[0][_j].priority = editPriority.value;
+                newDatas[0][_j].textArea = editTextArea.value;
+              }
+            }
+
+            for (var _k = 0; _k < newDatas[1].length; _k++) {
+              if (todoIdForProject === newDatas[1][_k].todoId) {
+                console.log(todoIdForProject, newDatas[1][_k].todoId);
+                newDatas[1][_k].title = editTitle.value;
+                newDatas[1][_k].dueDate = editDate.value;
+                newDatas[1][_k].priority = editPriority.value;
+                newDatas[1][_k].textArea = editTextArea.value;
+              }
+            }
+
+            for (var _k2 = 0; _k2 < newDatas[2].length; _k2++) {
+              if (todoIdForProject === newDatas[2][_k2].todoId) {
+                console.log(todoIdForProject, newDatas[2][_k2].todoId);
+                newDatas[2][_k2].title = editTitle.value;
+                newDatas[2][_k2].dueDate = editDate.value;
+                newDatas[2][_k2].priority = editPriority.value;
+                newDatas[2][_k2].textArea = editTextArea.value;
+              }
+            }
+          }
+
+          setDataFromLocalStorage();
+          renderTask();
+          taskAdder.style.display = 'none';
+        }
+      };
+    };
+  };
+
+  for (var i = 3; i < allDiv.length; i++) {
+    _loop(i);
+  }
+}
+
+editProjectTask(); // function editProjectTask2() {
+//     for (let i = 3; i < allDiv.length; i++) {
+//         allDiv[i].addEventListener('click', function(e) {
+//             console.log('my bad as always');
+//                 console.log(i);
+//                 if ( e.target.classList.contains('edit')) {
+//                     taskAdder.style.display = 'flex';
+//                     const currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
+//                     for (let j = 0; j < newDatas[3].length; j++) {
+//                         for (let k = 0; k < newDatas[3][j].length; k++) {
+//                             if (e.target.parentNode.parentNode === currentChild[k]) {
+//                                 if (i === j + 3) {
+//                                     editTitle.value = newDatas[3][j][k].title;
+//                                     editDate.value = newDatas[3][j][k].dueDate;
+//                                     editPriority.value = newDatas[3][j][k].priority;
+//                                     editTextArea.value = newDatas[3][j][k].textArea;
+//                                     todoIdForProject = newDatas[3][j][k].todoId;
+//                                     console.log('my bad');
+//                                     console.log(e.target.parentNode.parentNode, currentChild[k]);
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//                 confirmButton.addEventListener('click', function (e) {
+//                     e.preventDefault();
+//                     for (let l = 0; l < newDatas[3].length; l++) {
+//                         for (let m = 0; m < newDatas[3][l].length; m++) {
+//                             if (i === l + 3) {
+//                             if (todoIdForProject === newDatas[3][l][m].todoId) {
+//                                 console.log(todoIdForProject, newDatas[3][l][m].todoId);
+//                                     newDatas[3][l][m].title = editTitle.value;
+//                                     newDatas[3][l][m].dueDate = editDate.value;
+//                                     newDatas[3][l][m].priority = editPriority.value;
+//                                     newDatas[3][l][m].textArea = editTextArea.value;
+//                                     console.log(newDatas[3][l][m]);        
+//                             }
+//                         }
+//                             for (let j = 0; j < newDatas[0].length; j++) {  
+//                                 if (todoIdForProject === newDatas[0][j].todoId) {
+//                                  console.log(todoIdForProject, newDatas[0][j].todoId);
+//                                   newDatas[0][j].title = editTitle.value;
+//                                   newDatas[0][j].dueDate = editDate.value;
+//                                   newDatas[0][j].priority = editPriority.value; 
+//                                   newDatas[0][j].textArea = editTextArea.value;
+//                                 }
+//                             }
+//                         }
+//                             setDataFromLocalStorage();
+//                             renderTask();
+//                         }
+//                 });
+//         });
+//     }
+// }
+// editProjectTask2();
+
 function hoverEffect() {
   for (var i = 3; i < allLink.length; i++) {
-    var _loop = function _loop(j) {
+    var _loop2 = function _loop2(j) {
       if (i === j + 3) {
         allLink[i].addEventListener('mouseover', function (e) {
           e.preventDefault();
@@ -607,7 +604,7 @@ function hoverEffect() {
     };
 
     for (var j = 0; j < selectCrossButton.length; j++) {
-      _loop(j);
+      _loop2(j);
     }
   }
 }
@@ -615,7 +612,7 @@ function hoverEffect() {
 hoverEffect();
 
 function deleteProject() {
-  var _loop2 = function _loop2(i) {
+  var _loop3 = function _loop3(i) {
     selectCrossButton[i].onclick = function () {
       for (var m = 0; m < newDatas[3][i].length; m++) {
         for (var l = 0; l < newDatas[0].length; l++) {
@@ -637,8 +634,8 @@ function deleteProject() {
         }
       }
 
-      newDatas[3].splice(i, 1);
-      newDatas[3].splice(i, 0, i);
+      newDatas[3].splice(i, 1); // newDatas[3].splice(i, 0, i);
+
       newDatas[4].splice(i, 1);
       console.log(newDatas[4]);
       setDataFromLocalStorage(); // Delete link when click the cross button
@@ -653,13 +650,14 @@ function deleteProject() {
       }
 
       counter--;
+      allDiv = document.querySelectorAll('.note-wrapper > div');
       selectCrossButton = document.querySelectorAll('#crossIcon');
       allLink = document.querySelectorAll('a');
       renderTask();
       (0,_project__WEBPACK_IMPORTED_MODULE_2__.linkSelection)();
       hoverEffect();
       (0,_project__WEBPACK_IMPORTED_MODULE_2__.deleteProjectTask)();
-      (0,_project__WEBPACK_IMPORTED_MODULE_2__.editProjectTask)();
+      editProjectTask();
       deleteProject();
       (0,_project__WEBPACK_IMPORTED_MODULE_2__.clickList)();
       (0,_project__WEBPACK_IMPORTED_MODULE_2__.completeTask)();
@@ -668,7 +666,7 @@ function deleteProject() {
   };
 
   for (var i = 0; i < selectCrossButton.length; i++) {
-    _loop2(i);
+    _loop3(i);
   }
 }
 
@@ -779,8 +777,8 @@ function renderTask() {
   ;
 
   for (var _i = 3; _i < newDatas.length; _i++) {
-    for (var _j = 0; _j < newDatas[_i].length; _j++) {
-      createProjectTask(_i, _j);
+    for (var _j2 = 0; _j2 < newDatas[_i].length; _j2++) {
+      createProjectTask(_i, _j2);
     }
 
     ;
@@ -882,20 +880,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./src/render.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfToday/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addDays/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
 // import { allDiv } from './project';
 
 
-var taskAdder = document.querySelector('.task-container-edit'); //addNewProject();
+var taskAdder = document.querySelector('.task-container-edit');
+var addButton = document.querySelector('.addlist');
+var taskEditor = document.querySelector('.task-container');
+var crossButton = document.querySelector('.cross');
+var crossButton2 = document.querySelector('.cross2');
+var addTask = document.querySelector('#addtolist');
+var title = document.querySelector('#title');
+var description = document.querySelector('#description');
+var date = document.querySelector('#date'); //addNewProject();
 
 var taskUI = function () {
   function deleteTask() {
     var _loop = function _loop(i) {
       _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
         if (e.target.classList.contains('delete')) {
-          console.log(_render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length);
           var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
 
           if (i === 0) {
@@ -930,6 +932,14 @@ var taskUI = function () {
                   if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i2].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_j].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(_j, 1);
                 }
 
+                for (var _l = 0; _l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; _l++) {
+                  for (var _m = 0; _m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l].length; _m++) {
+                    if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i2].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l][_m].todoId) {
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l].splice(_m, 1);
+                    }
+                  }
+                }
+
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].splice(_i2, 1);
                 break;
               }
@@ -942,6 +952,14 @@ var taskUI = function () {
               if (e.target.parentNode.parentNode === currentChild[_i3]) {
                 for (var _j2 = 0; _j2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _j2++) {
                   if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i3].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_j2].todoId) _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].splice(_j2, 1);
+                }
+
+                for (var _l2 = 0; _l2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; _l2++) {
+                  for (var _m2 = 0; _m2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l2].length; _m2++) {
+                    if (_render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_i3].todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l2][_m2].todoId) {
+                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l2].splice(_m2, 1);
+                    }
+                  }
                 }
 
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].splice(_i3, 1);
@@ -970,7 +988,7 @@ var taskUI = function () {
     var todoId;
 
     var _loop2 = function _loop2(i) {
-      _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].addEventListener('click', function (e) {
+      _render__WEBPACK_IMPORTED_MODULE_0__.allDiv[i].onclick = function (e) {
         if (e.target.classList.contains('edit')) {
           taskAdder.style.display = 'flex';
           var currentChild = e.target.parentNode.parentNode.parentNode.childNodes;
@@ -982,7 +1000,8 @@ var taskUI = function () {
                 editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].dueDate;
                 editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].priority;
                 editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].textArea;
-                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].todoId; // Adding edited data when user clicks on confirm button
+                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i4].todoId;
+                console.log("Hi!"); // Adding edited data when user clicks on confirm button
               }
             }
           } else if (i === 1) {
@@ -992,7 +1011,7 @@ var taskUI = function () {
                 editDate.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].dueDate;
                 editPriority.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].priority;
                 editTextArea.value = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].textArea;
-                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_i5].todoId;
+                todoId = _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_i5].todoId;
               }
             }
           } else if (i === 2) {
@@ -1008,13 +1027,8 @@ var taskUI = function () {
           }
         }
 
-        confirmButton.addEventListener('click', function (e) {
+        confirmButton.onclick = function (e) {
           e.preventDefault();
-          var date = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__["default"])();
-          var weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(date, 8); // get next week's date to compare with user's selected date
-
-          date = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(date, 'yyyy-MM-dd');
-          weeksDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__["default"])(weeksDate, 'yyyy-MM-dd');
 
           if (i === 0) {
             for (var j = 0; j < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; j++) {
@@ -1024,40 +1038,41 @@ var taskUI = function () {
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].dueDate = editDate.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].priority = editPriority.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][j].textArea = editTextArea.value;
+              }
 
-                for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; k++) {
-                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].todoId) {
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].title = editTitle.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].dueDate = editDate.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].priority = editPriority.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].textArea = editTextArea.value;
+              for (var k = 0; k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; k++) {
+                if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].todoId) {
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].title = editTitle.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].dueDate = editDate.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].priority = editPriority.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][k].textArea = editTextArea.value;
+                }
+              }
+
+              for (var _k = 0; _k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _k++) {
+                if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].todoId) {
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].title = editTitle.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].dueDate = editDate.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].priority = editPriority.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].textArea = editTextArea.value;
+                }
+              }
+
+              for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; l++) {
+                for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].length; m++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId) {
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].textArea = editTextArea.value;
+                    console.table(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l], _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m]);
                   }
                 }
-
-                for (var _k = 0; _k < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _k++) {
-                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].todoId) {
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].title = editTitle.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].dueDate = editDate.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].priority = editPriority.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_k].textArea = editTextArea.value;
-                  }
-                }
-
-                for (var l = 0; l < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; l++) {
-                  for (var m = 0; m < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l].length; m++) {
-                    if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].todoId) {
-                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].title = editTitle.value;
-                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].dueDate = editDate.value;
-                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].priority = editPriority.value;
-                      _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][l][m].textArea = editTextArea.value;
-                    }
-                  }
-                }
-
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
               }
             }
+
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
           } else if (i === 1) {
             for (var _j3 = 0; _j3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1].length; _j3++) {
               if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].todoId) {
@@ -1066,21 +1081,34 @@ var taskUI = function () {
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].dueDate = editDate.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].priority = editPriority.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[1][_j3].textArea = editTextArea.value;
+              }
 
-                for (var _k2 = 0; _k2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k2++) {
-                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId) {
-                    console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId);
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].title = editTitle.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].dueDate = editDate.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].priority = editPriority.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].textArea = editTextArea.value;
+              for (var _k2 = 0; _k2 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k2++) {
+                if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId) {
+                  console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].todoId);
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].title = editTitle.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].dueDate = editDate.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].priority = editPriority.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k2].textArea = editTextArea.value;
+                }
+              }
+
+              for (var _l3 = 0; _l3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; _l3++) {
+                for (var _m3 = 0; _m3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3].length; _m3++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].todoId) {
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].textArea = editTextArea.value;
+                    console.table(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3].todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3], _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l3][_m3]);
                   }
                 }
-
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
               }
             }
+
+            console.log('Hello!');
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
           } else if (i === 2) {
             for (var _j4 = 0; _j4 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2].length; _j4++) {
               if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].todoId) {
@@ -1089,24 +1117,38 @@ var taskUI = function () {
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].dueDate = editDate.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].priority = editPriority.value;
                 _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[2][_j4].textArea = editTextArea.value;
+              }
 
-                for (var _k3 = 0; _k3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k3++) {
-                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId) {
-                    console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId);
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].title = editTitle.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].dueDate = editDate.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].priority = editPriority.value;
-                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].textArea = editTextArea.value;
+              for (var _k3 = 0; _k3 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0].length; _k3++) {
+                if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId) {
+                  console.log(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].todoId);
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].title = editTitle.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].dueDate = editDate.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].priority = editPriority.value;
+                  _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[0][_k3].textArea = editTextArea.value;
+                }
+              }
+
+              for (var _l4 = 0; _l4 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3].length; _l4++) {
+                for (var _m4 = 0; _m4 < _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4].length; _m4++) {
+                  if (todoId === _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].todoId) {
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].title = editTitle.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].dueDate = editDate.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].priority = editPriority.value;
+                    _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].textArea = editTextArea.value;
+                    console.table(todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4].todoId, _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4], _render__WEBPACK_IMPORTED_MODULE_0__.newDatas[3][_l4][_m4]);
                   }
                 }
-
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
-                (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
               }
             }
+
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.setDataFromLocalStorage)();
+            (0,_render__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
           }
-        });
-      });
+
+          taskAdder.style.display = 'none';
+        };
+      };
     };
 
     for (var i = 0; i < _render__WEBPACK_IMPORTED_MODULE_0__.allDiv.length; i++) {
@@ -1114,11 +1156,7 @@ var taskUI = function () {
     }
   }
 
-  function openTaskAdder() {
-    var addButton = document.querySelector('.addlist');
-    var taskEditor = document.querySelector('.task-container');
-    var crossButton = document.querySelector('.cross');
-    var crossButton2 = document.querySelector('.cross2');
+  function openCloseTask() {
     addButton.addEventListener('click', function (e) {
       taskEditor.style.display = 'flex';
     });
@@ -1128,18 +1166,27 @@ var taskUI = function () {
     crossButton2.addEventListener('click', function (e) {
       taskAdder.style.display = 'none';
     });
+    addTask.addEventListener('click', function (e) {
+      var titleValue = title.value;
+      var descriptionValue = description.value;
+      var dateValue = date.value;
+
+      if (titleValue !== '' && descriptionValue !== '' && dateValue !== '') {
+        taskEditor.style.display = 'none';
+      }
+    });
   }
 
   return {
     deleteTask: deleteTask,
     editTask: editTask,
-    openTaskAdder: openTaskAdder
+    openCloseTask: openCloseTask
   };
 }();
 
 taskUI.deleteTask();
 taskUI.editTask();
-taskUI.openTaskAdder();
+taskUI.openCloseTask();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (taskUI);
 
 /***/ }),
@@ -1169,7 +1216,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap);"]);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n*, *::before, *::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"inter\", sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: #212121;\n  font-size: 1.1111111111vw;\n}\n\n@media screen and (min-width: 1920px) {\n  body {\n    font-size: 21.3333333333px;\n  }\n}\n.brand {\n  text-decoration: none;\n  color: #F5F5F5;\n  font-size: 2.625em;\n  font-weight: 600;\n}\n\n@media screen and (max-width: 991px) {\n  body {\n    font-size: 11.0111111111px;\n  }\n}\na {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: #212121;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n}\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n}\n#projectName-wrapper a {\n  margin-top: 6px;\n}\n\na:hover {\n  background-color: #C5C5C5;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\nh3 {\n  font-weight: 500;\n  font-size: 1.5em;\n}\n\np {\n  font-size: 0.8em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: #DF7861;\n}\n.nav-bar span {\n  color: #94B49F;\n}\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container, .task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross, .cross2 {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n}\n\n.crossup {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.projectHeading span {\n  font-size: 1.2em;\n  margin-left: 40px;\n  cursor: pointer;\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: #F5F5F5;\n}\n.task-wrapper input[type=text] {\n  font-size: 1.5em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]::placeholder {\n  color: #595959;\n  font-weight: 500;\n  border-radius: 3px solid #555;\n}\n.task-wrapper textarea {\n  font-size: 1em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]:focus, .task-wrapper textarea:focus {\n  border: none;\n}\n\n.active-list {\n  background-color: #C5C5C5;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: #D7D6D6;\n}\naside ul {\n  list-style-type: none;\n  text-decoration: none;\n}\naside ul li {\n  margin-bottom: 8px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  cursor: pointer;\n}\naside ul li a {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  padding: 8px;\n  font-weight: 500;\n  font-size: 1.25em;\n}\naside ul li img {\n  width: 20px;\n  height: 20px;\n  margin-right: 16px;\n}\naside .button-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\naside .button-wrapper .addlist {\n  position: absolute;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: 50px 50px;\n  background-position: center;\n  bottom: 100px;\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n  border: none;\n  background-color: #94B49F;\n  cursor: pointer;\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: #EAEAEA;\n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: #EAEAEA;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n}\nform .select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: #C5C5C5;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n}\n.list-wrapper .list-element-one {\n  display: flex;\n  flex-direction: row;\n}\n.list-wrapper .list-element-one span {\n  margin-left: 16px;\n}\n.list-wrapper .list-element-two {\n  display: flex;\n  justify-content: flex-start;\n}\n.list-wrapper .list-element-two span {\n  margin-right: 16px;\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n}\n\n.project {\n  margin-left: 28px;\n}\n\n.taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px #94B49F solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.taskComplete:checked {\n  background-color: #94B49F;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: #EAEAEA;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#projectadder input {\n  appearance: none;\n  --webkit-appearance: none;\n  width: 250px;\n  height: 32px;\n  border: 1px solid #595959;\n  padding: 8px;\n  background-color: transparent;\n}\n#projectadder input:focus {\n  appearance: none;\n  outline: none;\n}\n#projectadder div {\n  width: 100%;\n  margin-top: 16px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n#projectadder button {\n  width: 100%;\n  padding: 6px;\n  margin-top: 8px;\n  border-radius: 0;\n}\n#projectadder #addButton {\n  border: 2px solid #94B49F;\n}\n#projectadder #cancelButton {\n  border: 2px solid #DF7861;\n}\n#projectadder #addButton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}\n#projectadder #cancelButton:hover {\n  background-color: #DF7861;\n  color: #F5F5F5;\n}\n\ninput[type=date], select {\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid #595959;\n}\n\n#date-edit:focus, #priority-edit:focus {\n  outline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid #94B49F;\n}\n\nbutton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}", "",{"version":3,"sources":["webpack://./src/style/main.scss"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap');\n\n$primary-color: #DF7861;\n$secondary-color: #94B49F;\n$secondary-color-light-gray: #EAEAEA;\n$secondary-color-dark-gray: #D7D6D6;\n$secondary-color-darker-gray: #C5C5C5;\n$black-color: #212121;\n$black-color-light: #595959;\n$white-color: #F5F5F5;\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\n\n*,*::before,*::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: 'inter', sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: $black-color;\n  font-size: 1.1111111111111112vw;\n}\n\n@media screen and (min-width:1920px) {\n  body {font-size: 21.333333333333332px;}\n }\n\n\n .brand {\n    text-decoration: none;\n    color: $white-color;\n    font-size: 2.625em;\n    font-weight: 600;\n }\n\n\n @media screen and (max-width:991px) {\n  body {font-size: 11.011111111111111px;}\n }\n\n a {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: $black-color;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n }\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n  a {\n    margin-top: 6px;\n  }\n}\n\n a:hover {\n  background-color: $secondary-color-darker-gray;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\n h3 {\n  font-weight: 500;\n  font-size: 1.5em;\n }\n\n p {\n  font-size: 0.8em;\n }\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: $primary-color;\n  \n    span {\n      color: $secondary-color;\n    }\n}\n\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container,.task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross,.cross2{\nposition: absolute;\nright: 10px;\ntop: 20px;\n}\n\n.crossup {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n\n  span {\n    font-size: 1.2em;\n    margin-left: 40px;\n    cursor: pointer;\n  }\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: $white-color;\n\n  input[type=text] {\n    font-size: 1.5em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]::placeholder {\n    color: $black-color-light;\n    font-weight: 500;\n    border-radius: 3px solid #555;\n    \n  }\n\n  textarea {\n    font-size: 1em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]:focus, textarea:focus {\n    border: none;\n}\n\n\n\n}\n\n.active-list {\n  background-color: $secondary-color-darker-gray;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: $secondary-color-dark-gray;\n\n  ul {\n    list-style-type: none;\n    text-decoration: none;\n\n    li {\n      margin-bottom: 8px;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n      justify-content: flex-start;\n      align-items: center;\n      cursor: pointer;\n\n      a {\n        display: flex;\n        flex-direction: row;\n        justify-content: flex-start;\n        padding: 8px;\n        font-weight: 500;\n        font-size: 1.25em;\n      }\n\n      img {\n        width: 20px;\n        height: 20px;\n        margin-right: 16px;\n      }\n    }\n\n  }\n\n  .button-wrapper {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    .addlist {\n      position: absolute;\n      background-image: url('../assets/plus-sign.png');\n      background-repeat: no-repeat;\n      background-size: 50px 50px;\n      background-position: center;\n      bottom: 100px;\n      width: 70px;\n      height: 70px;\n      border-radius: 50%;\n      border: none;\n      background-color: $secondary-color;\n      cursor: pointer;\n    }\n\n  }\n\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: $secondary-color-light-gray;\n  \n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 40px 20px;\n}\n\n.addproject-wrapper {\n  background-color: $secondary-color-light-gray;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n\n.select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: $secondary-color-darker-gray;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n\n  .list-element-one {\n    display: flex;\n    flex-direction: row;\n\n    span {\n      margin-left: 16px;\n    }\n  }\n\n  .list-element-two {\n    display: flex;\n    justify-content: flex-start;\n\n    span {\n      margin-right: 16px;\n    }\n\n  }\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n }\n\n .project {\n  margin-left: 28px;\n }\n\n\n .taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px $secondary-color solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n }\n\n .taskComplete:checked {\n  background-color: $secondary-color;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: $secondary-color-light-gray;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n\n  input {\n    appearance: none;\n    --webkit-appearance: none;\n    width: 250px;\n    height: 32px;\n    border: 1px solid $black-color-light;\n    padding: 8px;\n    background-color: transparent;\n  }\n\n  input:focus {\n    appearance: none;\n    outline: none;\n  }\n\n  div {\n    width: 100%;\n    margin-top: 16px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n  }\n\n  button {\n    width: 100%;\n    padding: 6px;\n    margin-top: 8px;\n    border-radius: 0;\n    }\n\n    #addButton {\n      border: 2px solid $secondary-color;\n    }\n\n    #cancelButton {\n      border: 2px solid $primary-color;\n    }\n\n    #addButton:hover {\n      background-color: $secondary-color;\n      color: $white-color;\n    }\n\n    #cancelButton:hover {\n      background-color: $primary-color;\n      color: $white-color;\n    }\n}\n\ninput[type=\"date\"],select{\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid $black-color-light;\n}\n\n#date-edit:focus, #priority-edit:focus {\noutline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid $secondary-color;\n}\n\nbutton:hover {\n  background-color: $secondary-color;\n  color: $white-color;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n*, *::before, *::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"inter\", sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: #212121;\n  font-size: 1.1111111111vw;\n}\n\n@media screen and (min-width: 1920px) {\n  body {\n    font-size: 21.3333333333px;\n  }\n}\n.brand {\n  text-decoration: none;\n  color: #F5F5F5;\n  font-size: 2.625em;\n  font-weight: 600;\n}\n\n@media screen and (max-width: 991px) {\n  body {\n    font-size: 11.0111111111px;\n  }\n}\na {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: #212121;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n}\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n}\n#projectName-wrapper a {\n  margin-top: 6px;\n}\n\na:hover {\n  background-color: #C5C5C5;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\nh3 {\n  font-weight: 500;\n  font-size: 1.5em;\n}\n\np {\n  font-size: 0.8em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: #DF7861;\n}\n.nav-bar span {\n  color: #94B49F;\n}\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container, .task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross, .cross2 {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n}\n\n.crossup {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: #212121;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.projectHeading span {\n  font-size: 1.2em;\n  margin-left: 40px;\n  cursor: pointer;\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: #F5F5F5;\n}\n.task-wrapper input[type=text] {\n  font-size: 1.5em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]::placeholder {\n  color: #595959;\n  font-weight: 500;\n  border-radius: 3px solid #555;\n}\n.task-wrapper textarea {\n  font-size: 1em;\n  background: none;\n  font-family: \"inter\", Arial, Helvetica, sans-serif;\n  color: #212121;\n  padding: 8px;\n  outline: none;\n  padding: 3px 0px 3px 3px;\n  margin: 5px 1px 3px 0px;\n  border: none;\n}\n.task-wrapper input[type=text]:focus, .task-wrapper textarea:focus {\n  border: none;\n}\n\n.active-list {\n  background-color: #C5C5C5;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: #D7D6D6;\n}\naside ul {\n  list-style-type: none;\n  text-decoration: none;\n}\naside ul li {\n  margin-bottom: 8px;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  cursor: pointer;\n}\naside ul li a {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  padding: 8px;\n  font-weight: 500;\n  font-size: 1.25em;\n}\naside ul li img {\n  width: 20px;\n  height: 20px;\n  margin-right: 16px;\n}\naside .button-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\naside .button-wrapper .addlist {\n  position: absolute;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: 50px 50px;\n  background-position: center;\n  bottom: 100px;\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n  border: none;\n  background-color: #94B49F;\n  cursor: pointer;\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: #EAEAEA;\n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 80px 20px;\n  overflow: scroll !important;\n}\n\n.addproject-wrapper {\n  background-color: #EAEAEA;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n}\nform .select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: #C5C5C5;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n}\n.list-wrapper .list-element-one {\n  display: flex;\n  flex-direction: row;\n}\n.list-wrapper .list-element-one span {\n  margin-left: 16px;\n}\n.list-wrapper .list-element-two {\n  display: flex;\n  justify-content: flex-start;\n}\n.list-wrapper .list-element-two span {\n  margin-right: 16px;\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n}\n\n.project {\n  margin-left: 28px;\n}\n\n.taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px #94B49F solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.taskComplete:checked {\n  background-color: #94B49F;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: #EAEAEA;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#projectadder input {\n  appearance: none;\n  --webkit-appearance: none;\n  width: 250px;\n  height: 32px;\n  border: 1px solid #595959;\n  padding: 8px;\n  background-color: transparent;\n}\n#projectadder input:focus {\n  appearance: none;\n  outline: none;\n}\n#projectadder div {\n  width: 100%;\n  margin-top: 16px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n#projectadder button {\n  width: 100%;\n  padding: 6px;\n  margin-top: 8px;\n  border-radius: 0;\n}\n#projectadder #addButton {\n  border: 2px solid #94B49F;\n}\n#projectadder #cancelButton {\n  border: 2px solid #DF7861;\n}\n#projectadder #addButton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}\n#projectadder #cancelButton:hover {\n  background-color: #DF7861;\n  color: #F5F5F5;\n}\n\ninput[type=date], select {\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid #595959;\n}\n\n#date-edit:focus, #priority-edit:focus {\n  outline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid #94B49F;\n}\n\nbutton:hover {\n  background-color: #94B49F;\n  color: #F5F5F5;\n}", "",{"version":3,"sources":["webpack://./src/style/main.scss"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;1,700&family=Lora:wght@400;500;600;700&display=swap');\n\n$primary-color: #DF7861;\n$secondary-color: #94B49F;\n$secondary-color-light-gray: #EAEAEA;\n$secondary-color-dark-gray: #D7D6D6;\n$secondary-color-darker-gray: #C5C5C5;\n$black-color: #212121;\n$black-color-light: #595959;\n$white-color: #F5F5F5;\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\n\n*,*::before,*::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: 'inter', sans-serif;\n  font-weight: 400;\n  height: 100vh;\n  overflow: hidden;\n  color: $black-color;\n  font-size: 1.1111111111111112vw;\n}\n\n@media screen and (min-width:1920px) {\n  body {font-size: 21.333333333333332px;}\n }\n\n\n .brand {\n    text-decoration: none;\n    color: $white-color;\n    font-size: 2.625em;\n    font-weight: 600;\n }\n\n\n @media screen and (max-width:991px) {\n  body {font-size: 11.011111111111111px;}\n }\n\n a {\n  text-decoration: none;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  color: $black-color;\n  font-size: 1.25em;\n  font-weight: 400;\n  width: 100%;\n  cursor: pointer;\n }\n\n#projectName-wrapper {\n  width: 100%;\n  height: 250px;\n  overflow: scroll;\n  a {\n    margin-top: 6px;\n  }\n}\n\n a:hover {\n  background-color: $secondary-color-darker-gray;\n}\n\n.newproject {\n  margin-top: 0.8em;\n}\n\n h3 {\n  font-weight: 500;\n  font-size: 1.5em;\n }\n\n p {\n  font-size: 0.8em;\n }\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 32px;\n  width: 100%;\n  height: 4.75em;\n  background-color: $primary-color;\n  \n    span {\n      color: $secondary-color;\n    }\n}\n\n\n.container {\n  position: relative;\n  max-width: 1920px;\n  border-radius: 10px;\n}\n\n.task-container,.task-container-edit {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: flex-start;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.task-container-addproject {\n  position: fixed;\n  display: none;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.3);\n  z-index: 9999;\n}\n\n.cross,.cross2{\nposition: absolute;\nright: 10px;\ntop: 20px;\n}\n\n.crossup {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(45deg) translateY(1.5px);\n}\n\n.crossdown {\n  background-color: $black-color;\n  width: 20px;\n  height: 2px;\n  transform: rotate(-45deg) translateY(-1.5px);\n}\n\n.projectHeading {\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n\n  span {\n    font-size: 1.2em;\n    margin-left: 40px;\n    cursor: pointer;\n  }\n}\n\n.task-wrapper {\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  margin-top: 150px;\n  padding: 16px;\n  width: 46.875em;\n  height: 21.25em;\n  background-color: $white-color;\n\n  input[type=text] {\n    font-size: 1.5em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]::placeholder {\n    color: $black-color-light;\n    font-weight: 500;\n    border-radius: 3px solid #555;\n    \n  }\n\n  textarea {\n    font-size: 1em;\n    background: none;\n    font-family: 'inter', Arial, Helvetica, sans-serif;\n    color: $black-color;\n    padding: 8px;\n    outline: none;\n    padding: 3px 0px 3px 3px;\n    margin: 5px 1px 3px 0px;\n    border: none;\n  }\n\n  input[type=text]:focus, textarea:focus {\n    border: none;\n}\n\n\n\n}\n\n.active-list {\n  background-color: $secondary-color-darker-gray;\n}\n\n.task-complete {\n  text-decoration: line-through;\n}\n\naside {\n  position: relative;\n  padding-left: 24px;\n  padding-right: 16px;\n  padding-top: 30px;\n  padding-bottom: 30px;\n  width: 16.875em;\n  height: 100vh;\n  background-color: $secondary-color-dark-gray;\n\n  ul {\n    list-style-type: none;\n    text-decoration: none;\n\n    li {\n      margin-bottom: 8px;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n      justify-content: flex-start;\n      align-items: center;\n      cursor: pointer;\n\n      a {\n        display: flex;\n        flex-direction: row;\n        justify-content: flex-start;\n        padding: 8px;\n        font-weight: 500;\n        font-size: 1.25em;\n      }\n\n      img {\n        width: 20px;\n        height: 20px;\n        margin-right: 16px;\n      }\n    }\n\n  }\n\n  .button-wrapper {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    .addlist {\n      position: absolute;\n      background-image: url('../assets/plus-sign.png');\n      background-repeat: no-repeat;\n      background-size: 50px 50px;\n      background-position: center;\n      bottom: 100px;\n      width: 70px;\n      height: 70px;\n      border-radius: 50%;\n      border: none;\n      background-color: $secondary-color;\n      cursor: pointer;\n    }\n\n  }\n\n}\n\n#sideMenu {\n  width: 20px;\n  height: auto;\n}\n\n#crossIcon {\n  display: none;\n  width: 20px;\n  height: auto;\n}\n\n.content-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  height: 100vh;\n}\n\n.note-wrapper {\n  width: calc(100% - 16.875em);\n  height: 100vh;\n  background-color: $secondary-color-light-gray;\n  \n}\n\n.note-wrapper > div {\n  width: 100%;\n  height: 100%;\n  padding: 40px 20px 80px 20px;\n  overflow: scroll !important;\n}\n\n.addproject-wrapper {\n  background-color: $secondary-color-light-gray;\n  padding: 40px;\n}\n\n.project-wrapper {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n  margin-top: 70px;\n  padding: 8px;\n}\n\nform {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: flex-end;\n\n.select-items {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n}\n\n.list-wrapper {\n  display: flex;\n  justify-content: space-between;\n  background-color: $secondary-color-darker-gray;\n  max-width: 67.5em;\n  font-weight: 500;\n  padding: 16px 16px 16px 16px;\n  margin-bottom: 1em;\n\n  .list-element-one {\n    display: flex;\n    flex-direction: row;\n\n    span {\n      margin-left: 16px;\n    }\n  }\n\n  .list-element-two {\n    display: flex;\n    justify-content: flex-start;\n\n    span {\n      margin-right: 16px;\n    }\n\n  }\n}\n\n.plussign {\n  position: absolute;\n  font-size: 1.4em;\n  margin-top: -2px;\n }\n\n .project {\n  margin-left: 28px;\n }\n\n\n .taskComplete {\n  --webkit-appearance: none;\n  appearance: none;\n  position: relative;\n  width: 16px;\n  height: 16px;\n  margin-top: 2px;\n  margin-left: 2px;\n  margin-right: 24px;\n  margin-bottom: 0;\n  text-align: center;\n  border: 2px $secondary-color solid;\n  background-color: transparent;\n  border-radius: 50%;\n  cursor: pointer;\n }\n\n .taskComplete:checked {\n  background-color: $secondary-color;\n}\n\n.taskComplete:checked::after {\n  content: \"✔\";\n  position: absolute;\n  top: 7px;\n  left: 2.3px;\n  margin-left: 0;\n  font-size: 0.7em;\n  color: $secondary-color-light-gray;\n  line-height: 0;\n}\n\n#projectadder {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n\n  input {\n    appearance: none;\n    --webkit-appearance: none;\n    width: 250px;\n    height: 32px;\n    border: 1px solid $black-color-light;\n    padding: 8px;\n    background-color: transparent;\n  }\n\n  input:focus {\n    appearance: none;\n    outline: none;\n  }\n\n  div {\n    width: 100%;\n    margin-top: 16px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n  }\n\n  button {\n    width: 100%;\n    padding: 6px;\n    margin-top: 8px;\n    border-radius: 0;\n    }\n\n    #addButton {\n      border: 2px solid $secondary-color;\n    }\n\n    #cancelButton {\n      border: 2px solid $primary-color;\n    }\n\n    #addButton:hover {\n      background-color: $secondary-color;\n      color: $white-color;\n    }\n\n    #cancelButton:hover {\n      background-color: $primary-color;\n      color: $white-color;\n    }\n}\n\ninput[type=\"date\"],select{\n  appearance: none;\n  margin-top: 6px;\n  margin-bottom: 6px;\n  width: 100%;\n  padding: 6px;\n  border-radius: 0;\n  border: 1.2px solid $black-color-light;\n}\n\n#date-edit:focus, #priority-edit:focus {\noutline: none;\n}\n\nselect:active {\n  border-radius: 0;\n}\n\nselect::after {\n  position: absolute;\n  content: \"\";\n  top: 14px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: #fff transparent transparent transparent;\n}\n\nbutton {\n  background-color: transparent;\n  width: 100%;\n  padding: 8px;\n  margin-top: 8px;\n  border-radius: 0;\n  border: 1.5px solid $secondary-color;\n}\n\nbutton:hover {\n  background-color: $secondary-color;\n  color: $white-color;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4989,4 +5036,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle219f91d28c7546368f67.js.map
+//# sourceMappingURL=bundleeb6e19bce6be0a03effa.js.map
