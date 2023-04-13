@@ -12,19 +12,19 @@ The To Do List from The Odin Project [curriculum](https://www.theodinproject.com
 * Used ES6 modules 
 
 ## Instruction
-* Main Panel
-Main panel is where individual task will show up. 
-Individual task can be deleted by clicking on the trash can.
-Date can be changed so that task will show up in their own categories
-Edit icon allow edit the tasks
-Mark task as completed by clicking on the radio button. 
+### Main Panel
+* Main panel is where individual task will show up. 
+* Individual task can be deleted by clicking on the trash can.
+* Date can be changed so that task will show up in their own categories
+* Edit icon allow edit the tasks
+* Mark task as completed by clicking on the radio button. 
 
-* Side Panel
-Allow quick access to various task categories
-All Inbox: Show all the tasks
-Today: Filters for tasks due today
-Week: Filters for task due this week
-Project: 
+### Side Panel
+* Allow quick access to various task categories
+* All Inbox: Show all the tasks
+* Today: Filters for tasks due today
+* Week: Filters for task due this week
+#### Project: 
 * Filter for project related task
 Add project by clicking on the plus button beside project
 Add task by clicking on the green plus button at the bottom.
@@ -38,7 +38,7 @@ Add task by clicking on the green plus button at the bottom.
 
 ## Link
 
-[Live Demo of the Restaurant Page](https://tseringz.github.io/wow-cafe/)
-<img width="1263" alt="Screenshot 2023-04-12 at 11 29 50 AM" src="https://user-images.githubusercontent.com/15078245/231364928-009e304f-9520-419c-9cfd-67a37137b4dd.png">
+[Live Demo of the To Do List](https://tseringz.github.io/wow-cafe/)
+<img width="1260" alt="Screenshot 2023-04-13 at 7 29 16 AM" src="https://user-images.githubusercontent.com/15078245/231629033-33e9a056-cd74-4c4a-bec0-357282a26d47.png">
 
 
