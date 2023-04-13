@@ -33,12 +33,12 @@ Add task by clicking on the green plus button at the bottom.
 * Learned to break down project into smaller components
 * Learned how to plan the project before start coding.
 * Learned breaking down Javascript file into smaller modules
-* Improved my knowledge of OOP(Object Oreinted Program) and organizing the code
+* Improved my knowledge of OOP(Object Oreinted Program) and organizing the code using Factory function, IIFE, SOLID principle
 
 
 ## Link
 
-[Live Demo of the To Do List](https://tseringz.github.io/wow-cafe/)
+[Live Demo of the To Do List](https://tseringz.github.io/to-do-app/)
 <img width="1260" alt="Screenshot 2023-04-13 at 7 29 16 AM" src="https://user-images.githubusercontent.com/15078245/231629033-33e9a056-cd74-4c4a-bec0-357282a26d47.png">
 
 
